@@ -1,25 +1,21 @@
-import { ReactNode } from 'react';
+import { ReactNode, memo } from 'react';
 import headerStyles from './header.module.css';
 import searchIcon from '../../assets/icons/search-icon.svg';
-import SelectOption from '../common/SelectOption';
+import { SelectOption } from '../common/SelectOption';
 interface Props {
   children: ReactNode;
 }
 
-const Header = ({ children }: Props) => {
+const Header = memo(({ children }: Props) => {
   return (
     <header className={headerStyles['header-container']}>
-      <div
-        className={`d-flex ${headerStyles['header-main-wrapper']}`}
-      >
+      <div className={`d-flex ${headerStyles['header-main-wrapper']}`}>
         <a href="#">
           <h1 id="header" className={headerStyles['header-brand']}>
             {children}
           </h1>
         </a>
-        <form
-          className={`d-flex ${headerStyles['search-form']}`}
-        >
+        <form className={`d-flex ${headerStyles['search-form']}`}>
           <img
             src={searchIcon}
             alt="Search Icon"
@@ -33,9 +29,7 @@ const Header = ({ children }: Props) => {
           />
         </form>
       </div>
-      <div
-        className={`d-flex-center ${headerStyles['header-sub-wrapper']}`}
-      >
+      <div className={`d-flex-center ${headerStyles['header-sub-wrapper']}`}>
         <select id="sort" className={headerStyles['sort-select']}>
           <SelectOption disable={true}>Sort by price</SelectOption>
           <SelectOption value="orderby=createdAt&order=desc">
@@ -49,6 +43,6 @@ const Header = ({ children }: Props) => {
       </div>
     </header>
   );
-};
+});
 
 export default Header;

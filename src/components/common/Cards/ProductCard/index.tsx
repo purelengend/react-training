@@ -1,56 +1,67 @@
 import productCardStyles from './product-card.module.css';
 import deleteIcon from '../../../../assets/icons/cross-icon.svg';
 import editIcon from '../../../../assets/icons/edit-icon.svg';
-// interface ProductCardProps {
-//   children: ReactNode;
-// }
-export const ProductCard = () => {
+import { Button } from '../../Button';
+import { memo } from 'react';
+
+export interface Food {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  imageUrl: string;
+  createdAt: Date;
+}
+interface ProductCardProps {
+  product: Food;
+}
+export const ProductCard = memo(({ product }: ProductCardProps) => {
   return (
     <div
       className={`d-flex-center d-flex-col ${productCardStyles['product-card']}`}
     >
-      <button
+      <Button
         className={`d-flex-center ${productCardStyles['secondary-icon']} ${productCardStyles['delete-btn']}`}
       >
-        <img src={deleteIcon} alt="Cross Icon" data-id="${food.id}" />
-      </button>
+        <img src={deleteIcon} alt="Cross Icon" data-id={product.id} />
+      </Button>
 
       <div className={`d-flex-col ${productCardStyles['product-wrapper']}`}>
         <img
-          src="https://images.unsplash.com/photo-1614777986387-015c2a89b696?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3774&q=80"
-          alt="${food.name}"
+          src={product.imageUrl}
+          alt={product.name}
           className={productCardStyles['primary-product']}
         />
         <div
           className={`d-flex-col ${productCardStyles['product-content-wrapper']}`}
         >
-          <p className={productCardStyles['product-name']}>Food name</p>
+          <p className={productCardStyles['product-name']}>{product.name}</p>
           <div
             className={`d-flex-center ${productCardStyles['product-detail']}`}
           >
-            $ 123
-            <div className={productCardStyles.separate}></div>123 Bowls
+            $ {product.price}
+            <div className={productCardStyles.separate}></div>
+            {product.quantity} Bowls
           </div>
         </div>
       </div>
 
-      <button
+      <Button
         className={`d-flex-center ${productCardStyles['product-mutation']} ${productCardStyles.mutation}`}
-        data-id="${food.id}"
       >
         <img
           src={editIcon}
           alt="Edit Icon"
           className={`primary-icon ${productCardStyles.mutation}`}
-          data-id="${food.id}"
+          data-id={product.id}
         />
         <p
           className={`${productCardStyles['mutation-content']} ${productCardStyles.mutation}`}
-          data-id="${food.id}"
+          data-id={product.id}
         >
           Edit dish
         </p>
-      </button>
+      </Button>
     </div>
   );
-};
+});
