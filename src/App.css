@@ -1,0 +1,5 @@
+:root {
+  background-color: var(--bg-primary);
+  padding: var(--padding-sm);
+  font-family: Barlow, sans-serif;
+}

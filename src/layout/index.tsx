@@ -1,11 +1,19 @@
-import { ReactNode, memo } from 'react'
-
+import { ReactNode, memo } from 'react';
+import layoutStyles from './layout.module.css';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 interface Props {
-  children: ReactNode
+  children: ReactNode;
 }
 
 const Layout = memo(({ children }: Props) => {
-  return <div>{children}</div>
-})
+  return (
+    <div className={layoutStyles.container}>
+      <Header>Foods Management</Header>
+      {children}
+      <Footer />
+    </div>
+  );
+});
 
-export default Layout
+export default Layout;

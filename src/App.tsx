@@ -1,11 +1,11 @@
-import Layout from './layout'
-
+import Layout from './layout';
+import './App.css';
 function App() {
   return (
     <>
-      <Layout>siuuu</Layout>
+      <Layout>siuu</Layout>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

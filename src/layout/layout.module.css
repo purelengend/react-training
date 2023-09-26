@@ -1,0 +1,27 @@
+
+.container {
+  max-width: var(--layout-default-max-width);
+  margin: 0 auto;
+  background-color: var(--bg-secondary);
+  border-radius: var(--border-primary);
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+:global(.d-flex) {
+  display: flex;
+}
+
+:global(.d-flex-center) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+:global(.d-flex-col) {
+  display: flex;
+  flex-direction: column;
+}
