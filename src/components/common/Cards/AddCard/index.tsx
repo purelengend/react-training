@@ -4,7 +4,7 @@ import addCardStyles from './add-card.module.css';
 interface AddCardProps {
   children: ReactNode;
 }
-export const AddCard = ({ children }: AddCardProps) => {
+export const AddCard = ({children}: AddCardProps) => {
   return (
     <div
       id="add-card"

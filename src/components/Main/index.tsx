@@ -1,12 +1,9 @@
-import { ReactNode } from 'react';
 import mainStyles from './main.module.css';
-import { Spinner } from '../common/Spinner';
+// import { Spinner } from '../common/Spinner';
 import { AddCard } from '../common/Cards/AddCard';
-interface Props {
-  children?: ReactNode;
-}
+import { ProductCard } from '../common/Cards/ProductCard';
 
-const Main = ({ children }: Props) => {
+const Main = () => {
   return (
     <main className={`d-flex-col ${mainStyles['main-container']}`}>
       <div
@@ -15,6 +12,7 @@ const Main = ({ children }: Props) => {
       >
         {/* <Spinner /> */}
         <AddCard>Add new dish</AddCard>
+        <ProductCard />
       </div>
       <button
         id="expand"
