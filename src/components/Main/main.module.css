@@ -24,9 +24,6 @@
   transition: box-shadow 0.2s ease-in-out;
 }
 
-
-
-
 .empty-message {
   color: var(--text-primary);
   font-size: var(--font-size-xs);
@@ -34,4 +31,8 @@
   line-height: var(--line-height-md);
   margin: 0 auto;
   align-items: center;
+}
+
+.expand-btn:hover {
+  box-shadow: 0px 8px 24px 0px var(--box-shadow-primary);
 }

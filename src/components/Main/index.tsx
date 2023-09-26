@@ -2,6 +2,7 @@ import mainStyles from './main.module.css';
 // import { Spinner } from '../common/Spinner';
 import { AddCard } from '../common/Cards/AddCard';
 import { Food, ProductCard } from '../common/Cards/ProductCard';
+import { Button } from '../common/Button';
 
 const testFood: Food = {
   id: '0',
@@ -21,15 +22,11 @@ const Main = () => {
       >
         {/* <Spinner /> */}
         <AddCard>Add new dish</AddCard>
-        <ProductCard product={testFood}/>
+        <ProductCard product={testFood} />
       </div>
-      <button
-        id="expand"
-        type="button"
-        className={`d-flex-center ${mainStyles['expand-btn']}`}
-      >
+      <Button className={`d-flex-center ${mainStyles['expand-btn']}`}>
         SHOW MORE
-      </button>
+      </Button>
     </main>
   );
 };

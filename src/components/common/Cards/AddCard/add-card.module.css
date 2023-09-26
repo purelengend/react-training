@@ -19,7 +19,6 @@
   line-height: var(--line-height-lg);
 }
 
-.addition-card:hover,
-.expand-btn:hover {
+.addition-card:hover {
   box-shadow: 0px 8px 24px 0px var(--box-shadow-primary);
 }
