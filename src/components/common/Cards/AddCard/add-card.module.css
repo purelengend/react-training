@@ -1,0 +1,26 @@
+.addition-card {
+  width: 246px;
+  height: 299px;
+  border-radius: var(--border-primary);
+  border: 1px dashed var(--primary-color);
+  transition: box-shadow 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.addition-wrapper {
+  gap: 22px;
+  align-items: center;
+}
+
+.addition-content {
+  color: var(--primary-color);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-lg);
+}
+
+.addition-card:hover,
+.product-card:hover,
+.expand-btn:hover {
+  box-shadow: 0px 8px 24px 0px var(--box-shadow-primary);
+}

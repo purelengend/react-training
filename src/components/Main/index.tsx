@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import mainStyles from './main.module.css';
-import plusIcon from '../../assets/icons/plus-icon.svg';
 import { Spinner } from '../common/Spinner';
+import { AddCard } from '../common/Cards/AddCard';
 interface Props {
   children?: ReactNode;
 }
@@ -14,19 +14,7 @@ const Main = ({ children }: Props) => {
         className={`d-flex ${mainStyles['main-content-wrapper']}`}
       >
         {/* <Spinner /> */}
-        <div
-          id="add-card"
-          className={`d-flex-center ${mainStyles['addition-card']}`}
-        >
-          <div className={`d-flex-col ${mainStyles['addition-wrapper']}`}>
-            <img
-              src={plusIcon}
-              alt="Plus Icon"
-              className={mainStyles['primary-icon']}
-            />
-            <p className={mainStyles['addition-content']}>Add new dish</p>
-          </div>
-        </div>
+        <AddCard>Add new dish</AddCard>
       </div>
       <button
         id="expand"
