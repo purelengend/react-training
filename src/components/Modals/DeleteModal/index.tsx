@@ -2,7 +2,11 @@ import { Button } from '../../common/Button';
 import deleteModalStyles from './delete-modal.module.css';
 const DeleteModal = () => {
   return (
-    <div id="delete-modal" className="d-flex-center modal-overlay">
+    <div
+      id="delete-modal"
+      style={{ display: 'none' }}
+      className="d-flex-center modal-overlay"
+    >
       <form
         id="delete-form"
         className={`d-flex-col ${deleteModalStyles['delete-modal-body']}`}
