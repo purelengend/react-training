@@ -1,18 +1,14 @@
-import { ReactNode, memo } from 'react';
 import headerStyles from './header.module.css';
 import searchIcon from '../../assets/icons/search-icon.svg';
 import { SelectOption } from '../common/SelectOption';
-interface Props {
-  children: ReactNode;
-}
 
-const Header = memo(({ children }: Props) => {
+const Header = () => {
   return (
     <header className={headerStyles['header-container']}>
       <div className={`d-flex ${headerStyles['header-main-wrapper']}`}>
         <a href="#">
           <h1 id="header" className={headerStyles['header-brand']}>
-            {children}
+            Foods Management
           </h1>
         </a>
         <form className={`d-flex ${headerStyles['search-form']}`}>
@@ -43,6 +39,6 @@ const Header = memo(({ children }: Props) => {
       </div>
     </header>
   );
-});
+};
 
 export default Header;

@@ -3,6 +3,8 @@ import layoutStyles from './layout.module.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import DeleteModal from '../components/Modals/DeleteModal';
+import MutationModal from '../components/Modals/MutationModal';
+import { Toast } from '../components/common/Toast';
 interface Props {
   children: ReactNode;
 }
@@ -11,11 +13,13 @@ const Layout = memo(({ children }: Props) => {
   return (
     <>
       <div className={layoutStyles.container}>
-        <Header>Foods Management</Header>
+        <Header />
         {children}
         <Footer />
       </div>
-      <DeleteModal />
+      <DeleteModal isVisible={false} />
+      <MutationModal isVisible={false} />
+      <Toast message="something" isVisible={true}/>
     </>
   );
 });

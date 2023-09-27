@@ -21,7 +21,7 @@ const Main = () => {
         className={`d-flex ${mainStyles['main-content-wrapper']}`}
       >
         {/* <Spinner /> */}
-        <AddCard>Add new dish</AddCard>
+        <AddCard />
         <ProductCard product={testFood} />
       </div>
       <Button className={`d-flex-center ${mainStyles['expand-btn']}`}>
