@@ -7,6 +7,7 @@ interface ToastProps {
   message: string;
   isVisible?: boolean;
   isSuccess?: boolean;
+  // handleClick: () => void;
 }
 export const Toast = memo(
   ({ message, isSuccess = true, isVisible = false }: ToastProps) => {

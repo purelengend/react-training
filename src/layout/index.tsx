@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import DeleteModal from '../components/Modals/DeleteModal';
 import MutationModal from '../components/Modals/MutationModal';
 import { Toast } from '../components/common/Toast';
+import LoadingModal from '../components/Modals/LoadingModal';
 interface Props {
   children: ReactNode;
 }
@@ -19,7 +20,8 @@ const Layout = memo(({ children }: Props) => {
       </div>
       <DeleteModal isVisible={false} />
       <MutationModal isVisible={false} />
-      <Toast message="something" isVisible={true}/>
+      <LoadingModal isVisible={false} />
+      <Toast message="something" isVisible={false} />
     </>
   );
 });
