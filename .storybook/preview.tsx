@@ -3,7 +3,7 @@ import '../src/assets/styles/abstracts/index.css';
 import '../src/assets/styles/modals/index.css';
 import '../src/assets/styles/base/index.css';
 import '../src/layout/index';
-import '../src/App'
+import '../src/App';
 
 const preview: Preview = {
   parameters: {
