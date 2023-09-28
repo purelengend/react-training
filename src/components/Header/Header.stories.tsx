@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Footer from './index';
-import './Footer.module.css';
+import Header from './index';
+import './Header.module.css';
 import layoutStyles from '../../layout/layout.module.css';
-
-const meta: Meta<typeof Footer> = {
-  title: 'Example/Footer',
-  component: Footer,
+const meta: Meta<typeof Header> = {
+  title: 'Example/Header',
+  component: Header,
   decorators: [
     Story => (
       <div className={layoutStyles.container}>
@@ -15,7 +14,7 @@ const meta: Meta<typeof Footer> = {
   ]
 };
 
-type Story = StoryObj<typeof Footer>;
+type Story = StoryObj<typeof Header>;
 
-export const FooterExample: Story = {};
+export const HeaderExample: Story = {};
 export default meta;

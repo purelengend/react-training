@@ -2,6 +2,7 @@ import { memo } from 'react';
 import mutationModalStyles from './mutation-modal.module.css';
 import { Button } from '../../common/Button';
 import { Food } from '../../common/Cards/ProductCard';
+import { InputField } from '../../common/InputField';
 
 interface MutationModalProps {
   isVisible: boolean;
@@ -11,10 +12,10 @@ interface MutationModalProps {
 
 const defaultData: Food = {
   id: '0',
-  name: '',
-  price: 0,
-  imageUrl: '',
-  quantity: 0,
+  name: 'test value',
+  price: 230,
+  imageUrl: 'google.com',
+  quantity: 2000,
   createdAt: new Date()
 };
 const MutationModal = memo(
@@ -50,72 +51,58 @@ const MutationModal = memo(
               <div
                 className={`d-flex-col ${mutationModalStyles['mutation-form-field']}`}
               >
-                <label
+                <InputField
                   htmlFor="food"
-                  className={mutationModalStyles['mutation-label']}
-                >
-                  Name
-                </label>
-                <input
+                  labelClass={mutationModalStyles['mutation-label']}
                   type="text"
-                  className={mutationModalStyles['mutation-input']}
-                  id="food"
+                  inputClass={mutationModalStyles['mutation-input']}
                   name="food"
                   value={prodData.name}
-                />
+                >
+                  Name
+                </InputField>
               </div>
               <div
                 className={`d-flex-col ${mutationModalStyles['mutation-form-field']}`}
               >
-                <label
+                <InputField
                   htmlFor="price"
-                  className={mutationModalStyles['mutation-label']}
+                  labelClass={mutationModalStyles['mutation-label']}
+                  type="number"
+                  inputClass={mutationModalStyles['mutation-input']}
+                  name="price"
+                  value={`${prodData.price}`}
                 >
                   Price
-                </label>
-                <input
-                  type="number"
-                  step="any"
-                  className={mutationModalStyles['mutation-input']}
-                  id="price"
-                  name="price"
-                  value={prodData.price}
-                />
+                </InputField>
               </div>
               <div
                 className={`d-flex-col ${mutationModalStyles['mutation-form-field']}`}
               >
-                <label
+                <InputField
                   htmlFor="image"
-                  className={mutationModalStyles['mutation-label']}
-                >
-                  Image URL
-                </label>
-                <input
+                  labelClass={mutationModalStyles['mutation-label']}
                   type="text"
-                  className={mutationModalStyles['mutation-input']}
-                  id="image"
+                  inputClass={mutationModalStyles['mutation-input']}
                   name="image"
                   value={prodData.imageUrl}
-                />
+                >
+                  Image URL
+                </InputField>
               </div>
               <div
                 className={`d-flex-col ${mutationModalStyles['mutation-form-field']}`}
               >
-                <label
+                <InputField
                   htmlFor="quantity"
-                  className={mutationModalStyles['mutation-label']}
+                  labelClass={mutationModalStyles['mutation-label']}
+                  type="number"
+                  inputClass={`${mutationModalStyles['mutation-input']} ${mutationModalStyles.half}`}
+                  name="quantity"
+                  value={`${prodData.quantity}`}
                 >
                   Quantity
-                </label>
-                <input
-                  type="number"
-                  step="any"
-                  className={`${mutationModalStyles['mutation-input']} ${mutationModalStyles.half}`}
-                  id="quantity"
-                  name="quantity"
-                  value={prodData.quantity}
-                />
+                </InputField>
               </div>
               <div
                 className={`d-flex ${mutationModalStyles['mutation-modal-btn-wrapper']}`}

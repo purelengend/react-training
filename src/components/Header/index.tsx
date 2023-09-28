@@ -2,6 +2,7 @@ import headerStyles from './header.module.css';
 import searchIcon from '../../assets/icons/search-icon.svg';
 import { SelectOption } from '../common/Select/SelectOption';
 import { Select } from '../common/Select';
+import { InputField } from '../common/InputField';
 
 const Header = () => {
   return (
@@ -13,17 +14,19 @@ const Header = () => {
           </h1>
         </a>
         <form className={`d-flex ${headerStyles['search-form']}`}>
-          <img
-            src={searchIcon}
-            alt="Search Icon"
-            className={headerStyles['primary-icon']}
-          />
-          <input
-            id="search"
+          <InputField
+            htmlFor="search"
             type="text"
-            className={headerStyles['search-input']}
+            name="search"
+            inputClass={headerStyles['search-input']}
             placeholder="Search for food, coffee, etc.."
-          />
+          >
+            <img
+              src={searchIcon}
+              alt="Search Icon"
+              className={headerStyles['primary-icon']}
+            />
+          </InputField>
         </form>
       </div>
       <div className={`d-flex-center ${headerStyles['header-sub-wrapper']}`}>
