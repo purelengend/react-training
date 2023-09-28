@@ -49,22 +49,6 @@
   margin-top: 38px;
 }
 
-.sort-select {
-  width: 162px;
-  padding: var(--padding-xs) var(--padding-xs) var(--padding-xs) 44px;
-  background-color: transparent;
-  border: 1px solid var(--base-dark-line);
-  border-radius: var(--border-primary);
-  color: var(--text-primary);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--line-height-md);
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-image: url('../../assets/icons/down-arrow-icon.svg');
-  background-position: var(--padding-xs) center;
-  background-repeat: no-repeat;
-  outline: none;
-}
+
 
 

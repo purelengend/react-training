@@ -1,6 +1,7 @@
 import headerStyles from './header.module.css';
 import searchIcon from '../../assets/icons/search-icon.svg';
-import { SelectOption } from '../common/SelectOption';
+import { SelectOption } from '../common/Select/SelectOption';
+import { Select } from '../common/Select';
 
 const Header = () => {
   return (
@@ -26,7 +27,7 @@ const Header = () => {
         </form>
       </div>
       <div className={`d-flex-center ${headerStyles['header-sub-wrapper']}`}>
-        <select id="sort" className={headerStyles['sort-select']}>
+        <Select>
           <SelectOption disable={true}>Sort by price</SelectOption>
           <SelectOption value="orderby=createdAt&order=desc">
             Default
@@ -35,7 +36,7 @@ const Header = () => {
           <SelectOption value="orderby=price&order=desc">
             Descending
           </SelectOption>
-        </select>
+        </Select>
       </div>
     </header>
   );

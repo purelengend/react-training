@@ -21,6 +21,9 @@ const meta: Meta<typeof ProductCard> = {
     handleClick: {
       action: 'clicked',
       description: 'the function feature will be implemented later'
+    },
+    product: {
+      description: 'the product object contains all the information fields'
     }
   },
   parameters: {
@@ -34,7 +37,7 @@ export default meta;
 
 type Story = StoryObj<typeof ProductCard>;
 
-export const Primary: Story = {
+export const ProductCardExample: Story = {
   args: {
     product: {
       id: '0',

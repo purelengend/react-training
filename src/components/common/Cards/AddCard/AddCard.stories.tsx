@@ -34,4 +34,4 @@ export default meta;
 
 type Story = StoryObj<typeof AddCard>;
 
-export const Primary: Story = {};
+export const AddCardExample: Story = {};
