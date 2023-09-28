@@ -14,8 +14,9 @@ export interface Food {
 }
 interface ProductCardProps {
   product: Food;
+  handleClick: React.MouseEventHandler<HTMLButtonElement>;
 }
-export const ProductCard = memo(({ product }: ProductCardProps) => {
+export const ProductCard = memo(({ product, handleClick }: ProductCardProps) => {
   return (
     <div
       className={`d-flex-center d-flex-col ${productCardStyles['product-card']}`}
@@ -48,6 +49,7 @@ export const ProductCard = memo(({ product }: ProductCardProps) => {
 
       <Button
         className={`d-flex-center ${productCardStyles['product-mutation']} ${productCardStyles.mutation}`}
+        handleClick={handleClick}
       >
         <img
           src={editIcon}

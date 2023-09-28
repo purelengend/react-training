@@ -21,8 +21,8 @@ const Main = () => {
         className={`d-flex ${mainStyles['main-content-wrapper']}`}
       >
         {/* <Spinner /> */}
-        <AddCard handleClick={() => console.log('added food!!')} />
-        <ProductCard product={testFood} />
+        <AddCard handleClick={() => console.log('add food!!')} />
+        <ProductCard handleClick={() => console.log('edit food!!')} product={testFood} />
       </div>
       <Button className={`d-flex-center ${mainStyles['expand-btn']}`}>
         SHOW MORE
