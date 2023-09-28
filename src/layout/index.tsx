@@ -19,7 +19,7 @@ const Layout = memo(({ children }: Props) => {
         <Footer />
       </div>
       <DeleteModal isVisible={false} />
-      <MutationModal isVisible={false} />
+      <MutationModal title='Edit' isVisible={false} />
       <LoadingModal isVisible={false} />
       <Toast message="something" isVisible={false} />
     </>

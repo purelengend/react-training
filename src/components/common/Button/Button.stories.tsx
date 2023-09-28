@@ -29,7 +29,7 @@ const meta: Meta<typeof Button> = {
     },
     isVisible: {
       description:
-        'The boolean value that indicates whether the button is visible or hidden'
+        'Indicates whether the button is visible or hidden'
     }
   },
   parameters: {
