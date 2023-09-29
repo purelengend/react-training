@@ -78,7 +78,7 @@ export const SearchInputFieldExample: Story = {
   ]
 };
 
-export const MutationInputFieldExample: Story = {
+export const PriceInputFieldExample: Story = {
   args: {
     children: 'Price',
     htmlFor: 'price',
@@ -87,6 +87,27 @@ export const MutationInputFieldExample: Story = {
     name: 'price',
     type: 'number',
     value: `234`
+  },
+  decorators: [
+    Story => (
+      <div
+        className={`d-flex-col ${mutationModalStyles['mutation-form-field']}`}
+      >
+        <Story />
+      </div>
+    )
+  ]
+};
+
+export const NameInputFieldExample: Story = {
+  args: {
+    children: 'Name',
+    htmlFor: 'food',
+    labelClass: mutationModalStyles['mutation-label'],
+    inputClass: mutationModalStyles['mutation-input'],
+    name: 'food',
+    type: 'text',
+    value: `Example`
   },
   decorators: [
     Story => (
