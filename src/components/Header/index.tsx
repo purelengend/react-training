@@ -30,7 +30,7 @@ const Header = () => {
         </form>
       </div>
       <div className={`d-flex-center ${headerStyles['header-sub-wrapper']}`}>
-        <Select>
+        <Select value="1" onChange={e => console.log(e.target.value)}>
           <SelectOption disable={true}>Sort by price</SelectOption>
           <SelectOption value="orderby=createdAt&order=desc">
             Default

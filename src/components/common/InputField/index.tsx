@@ -4,8 +4,8 @@ interface InputFieldProps {
   labelClass?: string;
   inputClass?: string;
   htmlFor?: string;
-  type: string;
-  name: string;
+  type?: string;
+  name?: string;
   placeholder?: string;
   value?: string;
   children: ReactNode;

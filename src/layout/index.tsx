@@ -1,4 +1,4 @@
-import { ReactNode, memo } from 'react';
+import { ReactNode } from 'react';
 import layoutStyles from './layout.module.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -10,7 +10,7 @@ interface Props {
   children: ReactNode;
 }
 
-const Layout = memo(({ children }: Props) => {
+const Layout = ({ children }: Props) => {
   return (
     <>
       <div className={layoutStyles.container}>
@@ -19,11 +19,11 @@ const Layout = memo(({ children }: Props) => {
         <Footer />
       </div>
       <DeleteModal isVisible={false} />
-      <MutationModal title='Edit' isVisible={false} />
+      <MutationModal title="Edit" isVisible={false} />
       <LoadingModal isVisible={false} />
       <Toast message="something" isVisible={false} />
     </>
   );
-});
+};
 
 export default Layout;

@@ -3,10 +3,17 @@ import selectStyles from './select.module.css';
 
 interface SelectProps {
   children: ReactNode;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  value: string;
 }
-export const Select = memo(({ children }: SelectProps) => {
+export const Select = memo(({ children, onChange, value }: SelectProps) => {
   return (
-    <select id="sort" className={selectStyles['sort-select']}>
+    <select
+      value={value}
+      onChange={onChange}
+      id="sort"
+      className={selectStyles['sort-select']}
+    >
       {children}
     </select>
   );
