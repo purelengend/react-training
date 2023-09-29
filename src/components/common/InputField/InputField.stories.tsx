@@ -20,8 +20,8 @@ const meta: Meta<typeof InputField> = {
     )
   ],
   argTypes: {
-    children: {
-      description: 'The children of the button, e.g. text, react components'
+    label: {
+      description: 'The children of the label, e.g. text, react components'
     },
     inputClass: {
       description: 'The css class of input field inherited from the parent'
@@ -56,7 +56,7 @@ type Story = StoryObj<typeof InputField>;
 
 export const SearchInputFieldExample: Story = {
   args: {
-    children: (
+    label: (
       <img
         src={searchIcon}
         alt="Search Icon"
@@ -80,7 +80,7 @@ export const SearchInputFieldExample: Story = {
 
 export const PriceInputFieldExample: Story = {
   args: {
-    children: 'Price',
+    label: 'Price',
     htmlFor: 'price',
     labelClass: mutationModalStyles['mutation-label'],
     inputClass: mutationModalStyles['mutation-input'],
@@ -101,7 +101,7 @@ export const PriceInputFieldExample: Story = {
 
 export const NameInputFieldExample: Story = {
   args: {
-    children: 'Name',
+    label: 'Name',
     htmlFor: 'food',
     labelClass: mutationModalStyles['mutation-label'],
     inputClass: mutationModalStyles['mutation-input'],

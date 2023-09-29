@@ -2,6 +2,7 @@ import mutationModalStyles from './mutation-modal.module.css';
 import { Button } from '../../common/Button';
 import { Food } from '../../common/Cards/ProductCard';
 import { InputField } from '../../common/InputField';
+import { useState } from 'react';
 
 interface MutationModalProps {
   isVisible: boolean;
@@ -24,6 +25,14 @@ const MutationModal = ({
   title,
   prodData = defaultData
 }: MutationModalProps) => {
+  const [mutationData, setMutationData] = useState(prodData);
+  const onChangeMutation = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setMutationData({
+      ...mutationData,
+      [e.target.name]: value
+    });
+  };
   return (
     isVisible && (
       <div id="mutation-modal" className={`d-flex-center modal-overlay`}>
@@ -44,69 +53,69 @@ const MutationModal = ({
               type="hidden"
               id="food-id"
               name="food-id"
-              value={prodData.id}
+              value={mutationData.id}
             />
             <input
               type="hidden"
               id="created-at"
               name="created-at"
-              value={prodData.createdAt.toDateString()}
+              value={mutationData.createdAt.toDateString()}
             />
             <div
               className={`d-flex-col ${mutationModalStyles['mutation-form-field']}`}
             >
               <InputField
-                htmlFor="food"
+                label="Name"
+                htmlFor="name"
                 labelClass={mutationModalStyles['mutation-label']}
                 type="text"
                 inputClass={mutationModalStyles['mutation-input']}
-                name="food"
-                value={prodData.name}
-              >
-                Name
-              </InputField>
+                name="name"
+                value={mutationData.name}
+                onChange={onChangeMutation}
+              />
             </div>
             <div
               className={`d-flex-col ${mutationModalStyles['mutation-form-field']}`}
             >
               <InputField
+                label="Price"
                 htmlFor="price"
                 labelClass={mutationModalStyles['mutation-label']}
                 type="number"
                 inputClass={mutationModalStyles['mutation-input']}
                 name="price"
-                value={`${prodData.price}`}
-              >
-                Price
-              </InputField>
+                value={`${mutationData.price}`}
+                onChange={onChangeMutation}
+              />
             </div>
             <div
               className={`d-flex-col ${mutationModalStyles['mutation-form-field']}`}
             >
               <InputField
+                label="Image URL"
                 htmlFor="image"
                 labelClass={mutationModalStyles['mutation-label']}
                 type="text"
                 inputClass={mutationModalStyles['mutation-input']}
-                name="image"
-                value={prodData.imageUrl}
-              >
-                Image URL
-              </InputField>
+                name="imageUrl"
+                value={mutationData.imageUrl}
+                onChange={onChangeMutation}
+              />
             </div>
             <div
               className={`d-flex-col ${mutationModalStyles['mutation-form-field']}`}
             >
               <InputField
+                label="Quantity"
                 htmlFor="quantity"
                 labelClass={mutationModalStyles['mutation-label']}
                 type="number"
                 inputClass={`${mutationModalStyles['mutation-input']} ${mutationModalStyles.half}`}
                 name="quantity"
-                value={`${prodData.quantity}`}
-              >
-                Quantity
-              </InputField>
+                value={`${mutationData.quantity}`}
+                onChange={onChangeMutation}
+              />
             </div>
             <div
               className={`d-flex ${mutationModalStyles['mutation-modal-btn-wrapper']}`}

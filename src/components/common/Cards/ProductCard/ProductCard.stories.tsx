@@ -18,7 +18,7 @@ const meta: Meta<typeof ProductCard> = {
     )
   ],
   argTypes: {
-    handleClick: {
+    onClick: {
       action: 'clicked',
       description: 'the function feature will be implemented later'
     },

@@ -24,7 +24,7 @@ const meta: Meta<typeof Button> = {
     className: {
       description: 'The css class inherited from the parent'
     },
-    handleClick: {
+    onClick: {
       description: 'The click event handling function from the parent'
     },
     isVisible: {

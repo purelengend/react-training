@@ -23,7 +23,7 @@ const MainPage = () => {
         {/* <Spinner /> */}
         <AddCard handleClick={() => console.log('add food!!')} />
         <ProductCard
-          handleClick={() => console.log('edit food!!')}
+          onClick={() => console.log('edit food!!')}
           product={testFood}
         />
       </div>

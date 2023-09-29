@@ -8,7 +8,8 @@ interface InputFieldProps {
   name?: string;
   placeholder?: string;
   value?: string;
-  children: ReactNode;
+  label: ReactNode;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const InputField = ({
@@ -19,21 +20,23 @@ export const InputField = ({
   name,
   placeholder,
   value,
-  children
+  onChange,
+  label
 }: InputFieldProps) => {
   return (
     <>
       <label htmlFor={htmlFor} className={labelClass}>
-        {children}
+        {label}
       </label>
       <input
+        onChange={onChange}
         type={type}
         className={inputClass}
         id={htmlFor}
         name={name}
         value={value}
         placeholder={placeholder}
-        step='any'
+        step="any"
       />
     </>
   );

@@ -20,13 +20,15 @@ const Header = () => {
             name="search"
             inputClass={headerStyles['search-input']}
             placeholder="Search for food, coffee, etc.."
-          >
-            <img
-              src={searchIcon}
-              alt="Search Icon"
-              className={headerStyles['primary-icon']}
-            />
-          </InputField>
+            onChange={e => console.log(e.target.value)}
+            label={
+              <img
+                src={searchIcon}
+                alt="Search Icon"
+                className={headerStyles['primary-icon']}
+              />
+            }
+          />
         </form>
       </div>
       <div className={`d-flex-center ${headerStyles['header-sub-wrapper']}`}>

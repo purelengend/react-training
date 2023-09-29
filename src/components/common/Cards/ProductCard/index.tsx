@@ -14,9 +14,9 @@ export interface Food {
 }
 interface ProductCardProps {
   product: Food;
-  handleClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
-export const ProductCard = memo(({ product, handleClick }: ProductCardProps) => {
+export const ProductCard = memo(({ product }: ProductCardProps) => {
   return (
     <div
       className={`d-flex-center d-flex-col ${productCardStyles['product-card']}`}
@@ -49,17 +49,14 @@ export const ProductCard = memo(({ product, handleClick }: ProductCardProps) => 
 
       <Button
         className={`d-flex-center ${productCardStyles['product-mutation']} ${productCardStyles.mutation}`}
-        handleClick={handleClick}
       >
         <img
           src={editIcon}
           alt="Edit Icon"
           className={`primary-icon ${productCardStyles.mutation}`}
-          data-id={product.id}
         />
         <p
           className={`${productCardStyles['mutation-content']} ${productCardStyles.mutation}`}
-          data-id={product.id}
         >
           Edit dish
         </p>
