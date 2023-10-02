@@ -28,8 +28,7 @@ const meta: Meta<typeof Button> = {
       description: 'The click event handling function from the parent'
     },
     isVisible: {
-      description:
-        'Indicates whether the button is visible or hidden'
+      description: 'Indicates whether the button is visible or hidden'
     }
   },
   parameters: {

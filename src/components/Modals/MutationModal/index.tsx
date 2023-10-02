@@ -130,4 +130,5 @@ const MutationModal = ({
   );
 };
 
+MutationModal.whyDidYouRender = true;
 export default MutationModal;

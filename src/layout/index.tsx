@@ -21,7 +21,7 @@ const Layout = ({ children }: Props) => {
       <DeleteModal isVisible={false} />
       <MutationModal title="Edit" isVisible={false} />
       <LoadingModal isVisible={false} />
-      <Toast message="something" isVisible={false} />
+      <Toast message="something" isVisible={true} isSuccess />
     </>
   );
 };
