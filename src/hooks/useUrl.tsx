@@ -1,34 +1,34 @@
 import { useReducer } from 'react';
-import { ActionKind, initialState, urlReducer } from '../store/url';
+import { UrlActionKind, initialUrlState, urlReducer } from '../store/url';
 
 const useUrl = () => {
-  const [state, dispatch] = useReducer(urlReducer, initialState);
+  const [state, dispatch] = useReducer(urlReducer, initialUrlState);
   const path = `?${state.name}&${state.sort}&page=${state.page}&limit=${state.limit}`;
 
   const setSearchName = (searchName: string) => {
     dispatch({
-      type: ActionKind.Name,
+      type: UrlActionKind.Name,
       payload: searchName
     });
   };
 
   const setSortFilter = (sortFilter: string) => {
     dispatch({
-      type: ActionKind.Sort,
+      type: UrlActionKind.Sort,
       payload: sortFilter
     });
   };
 
   const setPage = (page: number) => {
     dispatch({
-      type: ActionKind.Page,
+      type: UrlActionKind.Page,
       payload: page
     });
   };
 
   const setLimit = (limit: number) => {
     dispatch({
-      type: ActionKind.Limit,
+      type: UrlActionKind.Limit,
       payload: limit
     });
   };

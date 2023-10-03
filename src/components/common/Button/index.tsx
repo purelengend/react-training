@@ -5,6 +5,7 @@ export interface ButtonProps {
   className: string;
   type?: 'submit' | 'reset' | 'button';
   isVisible?: boolean;
+  isDisabled?: boolean;
   dataId?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
@@ -15,6 +16,7 @@ export const Button = memo(
     className,
     type = 'button',
     isVisible = true,
+    isDisabled = false,
     dataId = '0',
     onClick = () => {}
   }: ButtonProps) => {
@@ -25,6 +27,7 @@ export const Button = memo(
           className={className}
           onClick={onClick}
           data-id={dataId}
+          disabled={isDisabled}
         >
           {children}
         </button>

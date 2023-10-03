@@ -6,6 +6,9 @@ import { getFoods } from '../../services/food.service';
 import { Spinner } from '../../components/common/Spinner';
 import { useQuery } from '@tanstack/react-query';
 import useUrl from '../../hooks/useUrl';
+import { useContext } from 'react';
+import { ModalContext } from '../../context';
+import { DEFAULT_MUTATION_MODAL_TITLE } from '../../constants/modal';
 
 const MainPage = () => {
   const { path } = useUrl();
@@ -14,6 +17,7 @@ const MainPage = () => {
     queryFn: () => getFoods(path)
   });
 
+  const { setMutationShowUp } = useContext(ModalContext);
   return (
     <main className={`d-flex-col ${mainStyles['main-container']}`}>
       <div
@@ -21,7 +25,9 @@ const MainPage = () => {
         className={`d-flex ${mainStyles['main-content-wrapper']}`}
       >
         {isLoading && <Spinner />}
-        <AddCard onClick={() => console.log('add food!!')} />
+        <AddCard
+          onClick={() => setMutationShowUp(true, DEFAULT_MUTATION_MODAL_TITLE)}
+        />
         {data &&
           data.map(food => (
             <ProductCard

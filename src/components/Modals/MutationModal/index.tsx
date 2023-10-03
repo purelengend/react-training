@@ -2,7 +2,15 @@ import mutationModalStyles from './mutation-modal.module.css';
 import { Button } from '../../common/Button';
 import { Food } from '../../common/Cards/ProductCard';
 import { InputField } from '../../common/InputField';
-import { useState } from 'react';
+import { FormEvent, useCallback, useContext, useState } from 'react';
+import { ModalContext } from '../../../context';
+// import {
+//   FOOD_IMG_WARNING_MSG,
+//   FOOD_NAME_WARNING_MSG,
+//   FOOD_PRICE_WARNING_MSG,
+//   FOOD_QUANTITY_WARNING_MSG
+// } from '../../../constants/food';
+import { validateForm } from '../../../helpers/form-validation';
 
 interface MutationModalProps {
   isVisible: boolean;
@@ -10,12 +18,18 @@ interface MutationModalProps {
   prodData?: Food;
 }
 
+export interface FoodErrorMessage {
+  name: string;
+  price: string;
+  imageUrl: string;
+  quantity: string;
+}
+
 const defaultData: Food = {
-  id: '0',
+  id: '',
   name: '',
   price: 0,
-  imageUrl:
-    'https://images.unsplash.com/photo-1614777986387-015c2a89b696?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3774&q=80',
+  imageUrl: '',
   quantity: 0,
   createdAt: new Date()
 };
@@ -26,12 +40,27 @@ const MutationModal = ({
   prodData = defaultData
 }: MutationModalProps) => {
   const [mutationData, setMutationData] = useState(prodData);
+  // const [errorMessage, setErrorMessage] = useState(defaultErrorMessage);
+  const { setMutationShowUp } = useContext(ModalContext);
   const onChangeMutation = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setMutationData({
       ...mutationData,
       [e.target.name]: value
     });
+  };
+  const onCancelClick = useCallback(() => {
+    setMutationData(defaultData);
+    setMutationShowUp(false);
+  }, [setMutationShowUp]);
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const validateMessage = validateForm(mutationData);
+    if (Object.values(validateMessage).join('')) {
+      console.log(validateMessage);
+    } else {
+      console.log('Enough for submitting');
+    }
   };
   return (
     isVisible && (
@@ -48,6 +77,7 @@ const MutationModal = ({
           <form
             id="mutation-form"
             className={`d-flex-col ${mutationModalStyles['mutation-form']}`}
+            onSubmit={onSubmit}
           >
             <input
               type="hidden"
@@ -120,8 +150,12 @@ const MutationModal = ({
             <div
               className={`d-flex ${mutationModalStyles['mutation-modal-btn-wrapper']}`}
             >
-              <Button className="modal-btn cancel">Cancel</Button>
-              <Button className="modal-btn confirm">Save</Button>
+              <Button onClick={onCancelClick} className="modal-btn cancel">
+                Cancel
+              </Button>
+              <Button type="submit" className="modal-btn confirm">
+                Save
+              </Button>
             </div>
           </form>
         </div>

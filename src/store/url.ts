@@ -5,50 +5,50 @@ import {
   SEARCH_KEYWORD
 } from '../constants/filter';
 
-export enum ActionKind {
+export enum UrlActionKind {
   Name = 'NAME',
   Sort = 'SORT',
   Limit = 'LIMIT',
   Page = 'PAGE'
 }
 
-export interface Action {
-  type: ActionKind;
+export interface UrlAction {
+  type: UrlActionKind;
   payload: string | number | boolean;
 }
 
-export interface InitState {
+export interface UrlState {
   name: string;
   sort: string;
   limit: number;
   page: number;
 }
-export const initialState: InitState = {
+export const initialUrlState: UrlState = {
   name: SEARCH_KEYWORD,
   sort: FILTER_ATTRIBUTE,
   limit: DEFAULT_LIMITATION,
   page: DEFAULT_PAGINATION
 };
 
-export const urlReducer = (state: InitState, action: Action): InitState => {
+export const urlReducer = (state: UrlState, action: UrlAction): UrlState => {
   const { type, payload } = action;
   switch (type) {
-    case ActionKind.Name:
+    case UrlActionKind.Name:
       return {
         ...state,
         name: payload as string
       };
-    case ActionKind.Sort:
+    case UrlActionKind.Sort:
       return {
         ...state,
         sort: payload as string
       };
-    case ActionKind.Limit:
+    case UrlActionKind.Limit:
       return {
         ...state,
         limit: payload as number
       };
-    case ActionKind.Page:
+    case UrlActionKind.Page:
       return {
         ...state,
         page: payload as number
