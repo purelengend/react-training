@@ -2,15 +2,18 @@ import mainStyles from './main.module.css';
 import { AddCard } from '../../components/common/Cards/AddCard';
 import { ProductCard } from '../../components/common/Cards/ProductCard';
 import { Button } from '../../components/common/Button';
-import useSWR from 'swr';
-import { getAllFoods } from '../../services/food.service';
+import { getFoods } from '../../services/food.service';
 import { Spinner } from '../../components/common/Spinner';
-// import { useReducer } from 'react';
-// import { initialUrlState, urlReducer } from '../../store';
+import { useQuery } from '@tanstack/react-query';
+import useUrl from '../../hooks/useUrl';
 
 const MainPage = () => {
-  const { data, isLoading } = useSWR('/foods', getAllFoods);
-  // const [state, dispatch] = useReducer(urlReducer, initialUrlState);
+  const { path } = useUrl();
+  const { data, isLoading } = useQuery({
+    queryKey: ['foods', path],
+    queryFn: () => getFoods(path)
+  });
+
   return (
     <main className={`d-flex-col ${mainStyles['main-container']}`}>
       <div

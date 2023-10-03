@@ -1,4 +1,7 @@
 import { Food } from '../components/common/Cards/ProductCard';
-import { request } from './common.service';
+import http from './http.service';
 
-export const getAllFoods = async () => await request<Food[]>('GET', '/');
+export const getFoods = async (path: string) => {
+  const listFood = (await http.get<Food[]>(path)).data;
+  return listFood;
+};

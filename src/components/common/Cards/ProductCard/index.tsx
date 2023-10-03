@@ -2,7 +2,7 @@ import productCardStyles from './product-card.module.css';
 import deleteIcon from '../../../../assets/icons/cross-icon.svg';
 import editIcon from '../../../../assets/icons/edit-icon.svg';
 import { Button } from '../../Button';
-import { memo } from 'react';
+// import { memo } from 'react';
 
 export interface Food {
   id: string;
@@ -16,7 +16,7 @@ interface ProductCardProps {
   product: Food;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
-export const ProductCard = memo(({ product }: ProductCardProps) => {
+export const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div
       className={`d-flex-center d-flex-col ${productCardStyles['product-card']}`}
@@ -63,4 +63,4 @@ export const ProductCard = memo(({ product }: ProductCardProps) => {
       </Button>
     </div>
   );
-});
+};

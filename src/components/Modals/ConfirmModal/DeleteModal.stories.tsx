@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import DeleteModal from './index';
+import ConfirmModal from './index';
 import './delete-modal.module.css';
-const meta: Meta<typeof DeleteModal> = {
-  title: 'Example/DeleteModal',
-  component: DeleteModal,
+const meta: Meta<typeof ConfirmModal> = {
+  title: 'Example/ConfirmModal',
+  component: ConfirmModal,
   argTypes: {
     isVisible: {
       description: 'Indicates whether the modal is hidden or visible.'
@@ -11,9 +11,9 @@ const meta: Meta<typeof DeleteModal> = {
   }
 };
 
-type Story = StoryObj<typeof DeleteModal>;
+type Story = StoryObj<typeof ConfirmModal>;
 
-export const DeleteModalExample: Story = {
+export const ConfirmModalExample: Story = {
   args: {
     isVisible: true
   }
