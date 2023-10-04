@@ -7,6 +7,11 @@ export const getFoods = async (path: string) => {
   return listFood;
 };
 
+export const getFoodById = async (id: string) => {
+  const food = (await http.get<Food[]>(id)).data;
+  return food;
+};
+
 export const mutationFood = async (inputFood: Food) => {
   let result: Food;
   if (inputFood.id === DEFAULT_FOOD_ID_VALUE) {
@@ -19,7 +24,7 @@ export const mutationFood = async (inputFood: Food) => {
     };
     result = (await http.post<Food>('', food)).data;
   } else {
-    result = (await http.put<Food>('', inputFood)).data;
+    result = (await http.put<Food>(`${inputFood.id}`, inputFood)).data;
   }
   return result;
 };

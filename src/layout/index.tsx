@@ -8,14 +8,33 @@ import { Toast } from '../components/common/Toast';
 import LoadingModal from '../components/Modals/LoadingModal';
 import useModal from '../hooks/useModal';
 import { ModalContext } from '../context';
+import useToast from '../hooks/useToast';
 interface Props {
   children: ReactNode;
 }
 
 const Layout = ({ children }: Props) => {
-  const { mutationModal, setMutationShowUp } = useModal();
+  const {
+    mutationModal,
+    setMutationShowUp,
+    isLoadingShowUp,
+    setLoadingShowUp
+  } = useModal();
+
+  const { toast, showToast, hideToast } = useToast();
+
   return (
-    <ModalContext.Provider value={{ mutationModal, setMutationShowUp }}>
+    <ModalContext.Provider
+      value={{
+        mutationModal,
+        setMutationShowUp,
+        isLoadingShowUp,
+        setLoadingShowUp,
+        toast,
+        showToast,
+        hideToast
+      }}
+    >
       <div className={layoutStyles.container}>
         <Header />
         {children}
@@ -32,9 +51,14 @@ const Layout = ({ children }: Props) => {
       <MutationModal
         title={mutationModal.title}
         isVisible={mutationModal.isShowUp}
+        prodData={mutationModal.prodData}
       />
-      <LoadingModal isVisible={false} />
-      <Toast message="something" isVisible={false} isSuccess />
+      <LoadingModal isVisible={isLoadingShowUp} />
+      <Toast
+        message={toast.message}
+        isVisible={toast.isVisible}
+        isSuccess={toast.isSuccess}
+      />
     </ModalContext.Provider>
   );
 };

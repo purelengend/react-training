@@ -2,7 +2,7 @@ import mutationModalStyles from './mutation-modal.module.css';
 import { Button } from '../../common/Button';
 import { Food } from '../../common/Cards/ProductCard';
 import { InputField } from '../../common/InputField';
-import { FormEvent, useCallback, useContext, useState } from 'react';
+import { FormEvent, useCallback, useContext, useEffect, useState } from 'react';
 import { ModalContext } from '../../../context';
 // import {
 //   FOOD_IMG_WARNING_MSG,
@@ -11,6 +11,15 @@ import { ModalContext } from '../../../context';
 //   FOOD_QUANTITY_WARNING_MSG
 // } from '../../../constants/food';
 import { validateForm } from '../../../helpers/form-validation';
+import { defaultData } from '../../../constants/food';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { mutationFood } from '../../../services/food.service';
+import {
+  TOAST_ADD_MSG,
+  TOAST_EDIT_MSG,
+  TOAST_ERROR_MSG,
+  TOAST_TIME
+} from '../../../constants/toast';
 
 interface MutationModalProps {
   isVisible: boolean;
@@ -25,23 +34,68 @@ export interface FoodErrorMessage {
   quantity: string;
 }
 
-const defaultData: Food = {
-  id: '',
+const defaultErrorMessage: FoodErrorMessage = {
   name: '',
-  price: 0,
+  price: '',
   imageUrl: '',
-  quantity: 0,
-  createdAt: new Date()
+  quantity: ''
 };
-
 const MutationModal = ({
   isVisible,
   title,
   prodData = defaultData
 }: MutationModalProps) => {
   const [mutationData, setMutationData] = useState(prodData);
-  // const [errorMessage, setErrorMessage] = useState(defaultErrorMessage);
-  const { setMutationShowUp } = useContext(ModalContext);
+  const [errorMessage, setErrorMessage] = useState(defaultErrorMessage);
+  const { setMutationShowUp, setLoadingShowUp, showToast, hideToast } =
+    useContext(ModalContext);
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    setMutationData(prodData);
+  }, [prodData]);
+
+  const mutation = useMutation({
+    mutationFn: (input: Food) => {
+      return mutationFood(input);
+    },
+    onMutate: () => {
+      setLoadingShowUp(true);
+    },
+    onSuccess: data => {
+      const oldFoodList = queryClient.getQueryData<Food[]>(['foods']);
+      let toastMessage = '';
+      if (oldFoodList) {
+        const updatedFoodIndex = oldFoodList.findIndex(
+          food => food.id === data.id
+        );
+        if (updatedFoodIndex < 0) {
+          queryClient.setQueryData<Food[]>(['foods'], [...oldFoodList, data]);
+          toastMessage = TOAST_ADD_MSG;
+        } else {
+          const updatedFoodList = [...oldFoodList];
+          updatedFoodList[updatedFoodIndex] = data;
+          queryClient.setQueryData<Food[]>(['foods'], [...updatedFoodList]);
+          toastMessage = TOAST_EDIT_MSG;
+        }
+      }
+      onCancelClick();
+      setLoadingShowUp(false);
+      showToast(toastMessage, true);
+      setTimeout(() => {
+        hideToast();
+      }, TOAST_TIME);
+    },
+    onError: () => {
+      onCancelClick();
+      setLoadingShowUp(false);
+      showToast(TOAST_ERROR_MSG, false);
+      setTimeout(() => {
+        hideToast();
+      }, TOAST_TIME);
+    }
+  });
+
   const onChangeMutation = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setMutationData({
@@ -49,17 +103,20 @@ const MutationModal = ({
       [e.target.name]: value
     });
   };
+
   const onCancelClick = useCallback(() => {
-    setMutationData(defaultData);
+    if (mutationData.id === defaultData.id) setMutationData(defaultData);
+    setErrorMessage(defaultErrorMessage);
     setMutationShowUp(false);
-  }, [setMutationShowUp]);
+  }, [setMutationShowUp, mutationData.id]);
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const validateMessage = validateForm(mutationData);
     if (Object.values(validateMessage).join('')) {
-      console.log(validateMessage);
+      setErrorMessage(validateMessage);
     } else {
-      console.log('Enough for submitting');
+      mutation.mutate(mutationData);
     }
   };
   return (
@@ -89,7 +146,7 @@ const MutationModal = ({
               type="hidden"
               id="created-at"
               name="created-at"
-              value={mutationData.createdAt.toDateString()}
+              value={mutationData.createdAt}
             />
             <div
               className={`d-flex-col ${mutationModalStyles['mutation-form-field']}`}
@@ -104,6 +161,11 @@ const MutationModal = ({
                 value={mutationData.name}
                 onChange={onChangeMutation}
               />
+              {errorMessage.name && (
+                <p className={mutationModalStyles['mutation-warning']}>
+                  {errorMessage.name}
+                </p>
+              )}
             </div>
             <div
               className={`d-flex-col ${mutationModalStyles['mutation-form-field']}`}
@@ -118,6 +180,11 @@ const MutationModal = ({
                 value={`${mutationData.price}`}
                 onChange={onChangeMutation}
               />
+              {errorMessage.price && (
+                <p className={mutationModalStyles['mutation-warning']}>
+                  {errorMessage.price}
+                </p>
+              )}
             </div>
             <div
               className={`d-flex-col ${mutationModalStyles['mutation-form-field']}`}
@@ -132,6 +199,11 @@ const MutationModal = ({
                 value={mutationData.imageUrl}
                 onChange={onChangeMutation}
               />
+              {errorMessage.imageUrl && (
+                <p className={mutationModalStyles['mutation-warning']}>
+                  {errorMessage.imageUrl}
+                </p>
+              )}
             </div>
             <div
               className={`d-flex-col ${mutationModalStyles['mutation-form-field']}`}
@@ -146,6 +218,11 @@ const MutationModal = ({
                 value={`${mutationData.quantity}`}
                 onChange={onChangeMutation}
               />
+              {errorMessage.quantity && (
+                <p className={mutationModalStyles['mutation-warning']}>
+                  {errorMessage.quantity}
+                </p>
+              )}
             </div>
             <div
               className={`d-flex ${mutationModalStyles['mutation-modal-btn-wrapper']}`}

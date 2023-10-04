@@ -1,37 +1,48 @@
-import { useReducer } from 'react';
+import { useCallback, useReducer } from 'react';
 import {
   ModalActionKind,
   initialModalState,
   modalReducer
 } from '../store/modal';
+import { Food } from '../components/common/Cards/ProductCard';
 
 const useModal = () => {
   const [state, dispatch] = useReducer(modalReducer, initialModalState);
   const { confirmModal, mutationModal, isLoadingShowUp } = state;
-  const setConfirmShowUp = (isShowUp: boolean, title?: string) => {
-    dispatch({
-      type: ModalActionKind.Confirm,
-      payload: {
-        isShowUp,
-        title
-      }
-    });
-  };
-  const setMutationShowUp = (isShowUp: boolean, title?: string) => {
-    dispatch({
-      type: ModalActionKind.Mutation,
-      payload: {
-        isShowUp,
-        title
-      }
-    });
-  };
-  const setLoadingShowUp = (isShowUp: boolean) => {
-    dispatch({
-      type: ModalActionKind.Loading,
-      payload: { isShowUp }
-    });
-  };
+  const setConfirmShowUp = useCallback(
+    (isShowUp: boolean, title?: string) => {
+      dispatch({
+        type: ModalActionKind.Confirm,
+        payload: {
+          isShowUp,
+          title
+        }
+      });
+    },
+    [dispatch]
+  );
+  const setMutationShowUp = useCallback(
+    (isShowUp: boolean, title?: string, prodData?: Food) => {
+      dispatch({
+        type: ModalActionKind.Mutation,
+        payload: {
+          isShowUp,
+          title,
+          prodData
+        }
+      });
+    },
+    [dispatch]
+  );
+  const setLoadingShowUp = useCallback(
+    (isShowUp: boolean) => {
+      dispatch({
+        type: ModalActionKind.Loading,
+        payload: { isShowUp }
+      });
+    },
+    [dispatch]
+  );
   return {
     confirmModal,
     mutationModal,

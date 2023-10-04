@@ -1,3 +1,5 @@
+import { Food } from '../components/common/Cards/ProductCard';
+
 export const FOOD_NAME_WARNING_MSG =
   'The food name cannot be empty or have two trailing spaces consecutive.';
 export const FOOD_PRICE_WARNING_MSG =
@@ -9,3 +11,12 @@ export const FOOD_QUANTITY_WARNING_MSG =
 export const EMPTY_MSG =
   'Oops! It looks like there are no food items available at the moment.';
 export const DEFAULT_FOOD_ID_VALUE = '';
+
+export const defaultData: Food = {
+  id: '',
+  name: '',
+  price: 0,
+  imageUrl: '',
+  quantity: 0,
+  createdAt: new Date().toDateString()
+};

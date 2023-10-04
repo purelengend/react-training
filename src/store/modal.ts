@@ -1,6 +1,8 @@
+import { Food } from '../components/common/Cards/ProductCard';
+import { defaultData } from '../constants/food';
 import {
-  DEFAULT_CONFIRM_MODAL_TITLE,
-  DEFAULT_MUTATION_MODAL_TITLE
+  DEFAULT_ADD_MODAL_TITLE,
+  DEFAULT_CONFIRM_MODAL_TITLE
 } from '../constants/modal';
 
 export enum ModalActionKind {
@@ -14,6 +16,7 @@ export interface ModalAction {
   payload: {
     isShowUp: boolean;
     title?: string;
+    prodData?: Food;
   };
 }
 
@@ -24,7 +27,9 @@ export interface ModalProp {
 
 export interface ModalState {
   confirmModal: ModalProp;
-  mutationModal: ModalProp;
+  mutationModal: ModalProp & {
+    prodData?: Food;
+  };
   isLoadingShowUp: boolean;
 }
 export const initialModalState: ModalState = {
@@ -34,7 +39,8 @@ export const initialModalState: ModalState = {
   },
   mutationModal: {
     isShowUp: false,
-    title: DEFAULT_MUTATION_MODAL_TITLE
+    title: DEFAULT_ADD_MODAL_TITLE,
+    prodData: defaultData
   },
   isLoadingShowUp: false
 };
@@ -59,7 +65,8 @@ export const modalReducer = (
         ...state,
         mutationModal: {
           isShowUp: payload.isShowUp,
-          title: payload.title ?? state.mutationModal.title
+          title: payload.title ?? state.mutationModal.title,
+          prodData: payload.prodData ?? state.mutationModal.prodData
         }
       };
     case ModalActionKind.Loading:

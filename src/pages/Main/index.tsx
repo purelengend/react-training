@@ -8,12 +8,16 @@ import { useQuery } from '@tanstack/react-query';
 import useUrl from '../../hooks/useUrl';
 import { useContext } from 'react';
 import { ModalContext } from '../../context';
-import { DEFAULT_MUTATION_MODAL_TITLE } from '../../constants/modal';
+import {
+  DEFAULT_ADD_MODAL_TITLE,
+  DEFAULT_EDIT_MODAL_TITLE
+} from '../../constants/modal';
+import { defaultData } from '../../constants/food';
 
 const MainPage = () => {
   const { path } = useUrl();
   const { data, isLoading } = useQuery({
-    queryKey: ['foods', path],
+    queryKey: ['foods'],
     queryFn: () => getFoods(path)
   });
 
@@ -26,12 +30,16 @@ const MainPage = () => {
       >
         {isLoading && <Spinner />}
         <AddCard
-          onClick={() => setMutationShowUp(true, DEFAULT_MUTATION_MODAL_TITLE)}
+          onClick={() =>
+            setMutationShowUp(true, DEFAULT_ADD_MODAL_TITLE, defaultData)
+          }
         />
         {data &&
           data.map(food => (
             <ProductCard
-              onClick={() => console.log('edit food!!')}
+              onClick={() =>
+                setMutationShowUp(true, DEFAULT_EDIT_MODAL_TITLE, food)
+              }
               product={food}
               key={food.id}
             />
