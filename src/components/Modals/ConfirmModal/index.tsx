@@ -1,7 +1,7 @@
 import { FormEvent, memo, useContext } from 'react';
 import { Button } from '../../common/Button';
 import confirmModalStyles from './confirm-modal.module.css';
-import { ModalContext } from '../../../context';
+import { ModalContext } from '../../../context/modal';
 interface ConfirmModalProps {
   isVisible: boolean;
   message: string;

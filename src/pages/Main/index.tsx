@@ -5,20 +5,20 @@ import { Button } from '../../components/common/Button';
 import { getFoods } from '../../services/food.service';
 import { Spinner } from '../../components/common/Spinner';
 import { useQuery } from '@tanstack/react-query';
-import useUrl from '../../hooks/useUrl';
 import { useContext } from 'react';
-import { ModalContext } from '../../context';
+import { ModalContext } from '../../context/modal';
 import {
   DEFAULT_ADD_MODAL_TITLE,
   DEFAULT_CONFIRM_MODAL_TITLE,
   DEFAULT_EDIT_MODAL_TITLE
 } from '../../constants/modal';
 import { defaultData } from '../../constants/food';
+import { UrlContext } from '../../context/url';
 
 const MainPage = () => {
-  const { path } = useUrl();
+  const { path } = useContext(UrlContext);
   const { data, isLoading } = useQuery({
-    queryKey: ['foods'],
+    queryKey: ['foods', path],
     queryFn: () => getFoods(path)
   });
 

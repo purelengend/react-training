@@ -10,7 +10,7 @@ import {
   useEffect,
   useState
 } from 'react';
-import { ModalContext } from '../../../context';
+import { ModalContext } from '../../../context/modal';
 // import {
 //   FOOD_IMG_WARNING_MSG,
 //   FOOD_NAME_WARNING_MSG,

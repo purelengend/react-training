@@ -7,11 +7,13 @@ import MutationModal from '../components/Modals/MutationModal';
 import { Toast } from '../components/common/Toast';
 import LoadingModal from '../components/Modals/LoadingModal';
 import useModal from '../hooks/useModal';
-import { ModalContext } from '../context';
+import { ModalContext } from '../context/modal';
 import useToast from '../hooks/useToast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteFoodById } from '../services/food.service';
-import { Food } from '../components/common/Cards/ProductCard';
+import useUrl from '../hooks/useUrl';
+import { UrlContext } from '../context/url';
+// import { DEFAULT_PAGINATION } from '../constants/filter';
 interface Props {
   children: ReactNode;
 }
@@ -27,6 +29,7 @@ const Layout = ({ children }: Props) => {
   } = useModal();
 
   const { toast, showToast, hideToast } = useToast();
+  const { path, setPage } = useUrl();
 
   const queryClient = useQueryClient();
 
@@ -34,55 +37,54 @@ const Layout = ({ children }: Props) => {
     mutationFn: (id: string) => {
       return deleteFoodById(id);
     },
-    onSuccess(data) {
-      const oldFoodList = queryClient.getQueryData<Food[]>(['foods']);
-      if (oldFoodList) {
-        const updatedFoodList = oldFoodList.filter(food => food.id !== data.id);
-        queryClient.setQueryData<Food[]>(['foods'], updatedFoodList);
-      }
+    onSuccess() {
+      setPage(1);
+      queryClient.resetQueries({ queryKey: ['foods', path] });
       setConfirmShowUp(false);
     }
   });
   return (
-    <ModalContext.Provider
-      value={{
-        mutationModal,
-        setMutationShowUp,
-        isLoadingShowUp,
-        setLoadingShowUp,
-        confirmModal,
-        setConfirmShowUp,
-        toast,
-        showToast,
-        hideToast
-      }}
-    >
-      <div className={layoutStyles.container}>
-        <Header />
-        {children}
-        <Footer />
-      </div>
-      <ConfirmModal
-        isVisible={confirmModal.isShowUp}
-        message={confirmModal.title}
-        dataId={confirmModal.dataId}
-        onSubmit={e => {
-          e.preventDefault();
-          mutation.mutate(confirmModal.dataId);
+    <UrlContext.Provider value={{ path, setPage }}>
+      <ModalContext.Provider
+        value={{
+          mutationModal,
+          setMutationShowUp,
+          isLoadingShowUp,
+          setLoadingShowUp,
+          confirmModal,
+          setConfirmShowUp,
+          toast,
+          showToast,
+          hideToast
         }}
-      />
-      <MutationModal
-        title={mutationModal.title}
-        isVisible={mutationModal.isShowUp}
-        prodData={mutationModal.prodData}
-      />
-      <LoadingModal isVisible={isLoadingShowUp} />
-      <Toast
-        message={toast.message}
-        isVisible={toast.isVisible}
-        isSuccess={toast.isSuccess}
-      />
-    </ModalContext.Provider>
+      >
+        <div className={layoutStyles.container}>
+          <Header />
+          {children}
+          <Footer />
+        </div>
+        <ConfirmModal
+          isVisible={confirmModal.isShowUp}
+          message={confirmModal.title}
+          dataId={confirmModal.dataId}
+          onSubmit={e => {
+            e.preventDefault();
+            mutation.mutate(confirmModal.dataId);
+          }}
+        />
+        <MutationModal
+          title={mutationModal.title}
+          isVisible={mutationModal.isShowUp}
+          prodData={mutationModal.prodData}
+        />
+        <LoadingModal isVisible={isLoadingShowUp} />
+        <Toast
+          message={toast.message}
+          isVisible={toast.isVisible}
+          isSuccess={toast.isSuccess}
+        />
+      </ModalContext.Provider>
+    </UrlContext.Provider>
   );
 };
 
