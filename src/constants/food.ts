@@ -18,5 +18,5 @@ export const defaultData: Food = {
   price: 0,
   imageUrl: '',
   quantity: 0,
-  createdAt: new Date().toDateString()
+  createdAt: new Date()
 };

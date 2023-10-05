@@ -10,6 +10,7 @@ import { useContext } from 'react';
 import { ModalContext } from '../../context';
 import {
   DEFAULT_ADD_MODAL_TITLE,
+  DEFAULT_CONFIRM_MODAL_TITLE,
   DEFAULT_EDIT_MODAL_TITLE
 } from '../../constants/modal';
 import { defaultData } from '../../constants/food';
@@ -21,7 +22,7 @@ const MainPage = () => {
     queryFn: () => getFoods(path)
   });
 
-  const { setMutationShowUp } = useContext(ModalContext);
+  const { setMutationShowUp, setConfirmShowUp } = useContext(ModalContext);
   return (
     <main className={`d-flex-col ${mainStyles['main-container']}`}>
       <div
@@ -37,7 +38,10 @@ const MainPage = () => {
         {data &&
           data.map(food => (
             <ProductCard
-              onClick={() =>
+              onDeleteClick={() => {
+                setConfirmShowUp(true, DEFAULT_CONFIRM_MODAL_TITLE, food.id);
+              }}
+              onEditClick={() =>
                 setMutationShowUp(true, DEFAULT_EDIT_MODAL_TITLE, food)
               }
               product={food}

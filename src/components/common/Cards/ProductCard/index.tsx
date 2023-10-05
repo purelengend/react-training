@@ -10,18 +10,24 @@ export interface Food {
   price: number;
   quantity: number;
   imageUrl: string;
-  createdAt: string;
+  createdAt: Date;
 }
 interface ProductCardProps {
   product: Food;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onDeleteClick: React.MouseEventHandler<HTMLButtonElement>;
+  onEditClick: React.MouseEventHandler<HTMLButtonElement>;
 }
-export const ProductCard = ({ product, onClick }: ProductCardProps) => {
+export const ProductCard = ({
+  product,
+  onDeleteClick,
+  onEditClick
+}: ProductCardProps) => {
   return (
     <div
       className={`d-flex-center d-flex-col ${productCardStyles['product-card']}`}
     >
       <Button
+        onClick={onDeleteClick}
         className={`d-flex-center ${productCardStyles['secondary-icon']} ${productCardStyles['delete-btn']}`}
       >
         <img src={deleteIcon} alt="Cross Icon" data-id={product.id} />
@@ -49,7 +55,7 @@ export const ProductCard = ({ product, onClick }: ProductCardProps) => {
 
       <Button
         className={`d-flex-center ${productCardStyles['product-mutation']} ${productCardStyles.mutation}`}
-        onClick={onClick}
+        onClick={onEditClick}
       >
         <img
           src={editIcon}

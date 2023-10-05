@@ -37,7 +37,6 @@ function isValidNumber(input: number): boolean {
  * @param input
  */
 function isValidInteger(input: number): boolean {
-  console.log(typeof input);
   return Number.isInteger(input) && input > 0;
 }
 

@@ -1,8 +1,11 @@
 import { createContext } from 'react';
 import { ModalProp } from '../store/modal';
-import { DEFAULT_ADD_MODAL_TITLE } from '../constants/modal';
+import {
+  DEFAULT_ADD_MODAL_TITLE,
+  DEFAULT_CONFIRM_MODAL_TITLE
+} from '../constants/modal';
 import { Food } from '../components/common/Cards/ProductCard';
-import { defaultData } from '../constants/food';
+import { DEFAULT_FOOD_ID_VALUE, defaultData } from '../constants/food';
 
 export interface ModalContextProps {
   mutationModal: ModalProp & {
@@ -15,6 +18,14 @@ export interface ModalContextProps {
   ) => void;
   isLoadingShowUp: boolean;
   setLoadingShowUp: (isShowUp: boolean) => void;
+  confirmModal: ModalProp & {
+    dataId?: string;
+  };
+  setConfirmShowUp: (
+    isShowUp: boolean,
+    title?: string,
+    dataId?: string
+  ) => void;
   toast: {
     message: string;
     isSuccess: boolean;
@@ -36,6 +47,14 @@ export const ModalContext = createContext<ModalContextProps>({
   isLoadingShowUp: false,
   setLoadingShowUp(isShowUp) {
     console.log(isShowUp);
+  },
+  confirmModal: {
+    isShowUp: false,
+    title: DEFAULT_CONFIRM_MODAL_TITLE,
+    dataId: DEFAULT_FOOD_ID_VALUE
+  },
+  setConfirmShowUp(isShowUp, title) {
+    console.log(isShowUp, title);
   },
   toast: {
     message: '',

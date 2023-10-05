@@ -17,4 +17,5 @@ const LoadingModal = memo(({ isVisible }: LoadingModalProps) => {
   );
 });
 
+LoadingModal.whyDidYouRender = true;
 export default LoadingModal;

@@ -10,12 +10,13 @@ const useModal = () => {
   const [state, dispatch] = useReducer(modalReducer, initialModalState);
   const { confirmModal, mutationModal, isLoadingShowUp } = state;
   const setConfirmShowUp = useCallback(
-    (isShowUp: boolean, title?: string) => {
+    (isShowUp: boolean, title?: string, dataId?: string) => {
       dispatch({
         type: ModalActionKind.Confirm,
         payload: {
           isShowUp,
-          title
+          title,
+          dataId
         }
       });
     },

@@ -9,6 +9,9 @@ import LoadingModal from '../components/Modals/LoadingModal';
 import useModal from '../hooks/useModal';
 import { ModalContext } from '../context';
 import useToast from '../hooks/useToast';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { deleteFoodById } from '../services/food.service';
+import { Food } from '../components/common/Cards/ProductCard';
 interface Props {
   children: ReactNode;
 }
@@ -18,11 +21,28 @@ const Layout = ({ children }: Props) => {
     mutationModal,
     setMutationShowUp,
     isLoadingShowUp,
-    setLoadingShowUp
+    setLoadingShowUp,
+    confirmModal,
+    setConfirmShowUp
   } = useModal();
 
   const { toast, showToast, hideToast } = useToast();
 
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (id: string) => {
+      return deleteFoodById(id);
+    },
+    onSuccess(data) {
+      const oldFoodList = queryClient.getQueryData<Food[]>(['foods']);
+      if (oldFoodList) {
+        const updatedFoodList = oldFoodList.filter(food => food.id !== data.id);
+        queryClient.setQueryData<Food[]>(['foods'], updatedFoodList);
+      }
+      setConfirmShowUp(false);
+    }
+  });
   return (
     <ModalContext.Provider
       value={{
@@ -30,6 +50,8 @@ const Layout = ({ children }: Props) => {
         setMutationShowUp,
         isLoadingShowUp,
         setLoadingShowUp,
+        confirmModal,
+        setConfirmShowUp,
         toast,
         showToast,
         hideToast
@@ -41,11 +63,12 @@ const Layout = ({ children }: Props) => {
         <Footer />
       </div>
       <ConfirmModal
-        isVisible={false}
-        message="Are you sure you want to delete this food?"
+        isVisible={confirmModal.isShowUp}
+        message={confirmModal.title}
+        dataId={confirmModal.dataId}
         onSubmit={e => {
           e.preventDefault();
-          console.log(e.currentTarget.elements[0]);
+          mutation.mutate(confirmModal.dataId);
         }}
       />
       <MutationModal

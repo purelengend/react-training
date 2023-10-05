@@ -1,5 +1,5 @@
 import { Food } from '../components/common/Cards/ProductCard';
-import { defaultData } from '../constants/food';
+import { DEFAULT_FOOD_ID_VALUE, defaultData } from '../constants/food';
 import {
   DEFAULT_ADD_MODAL_TITLE,
   DEFAULT_CONFIRM_MODAL_TITLE
@@ -17,6 +17,7 @@ export interface ModalAction {
     isShowUp: boolean;
     title?: string;
     prodData?: Food;
+    dataId?: string;
   };
 }
 
@@ -26,7 +27,9 @@ export interface ModalProp {
 }
 
 export interface ModalState {
-  confirmModal: ModalProp;
+  confirmModal: ModalProp & {
+    dataId: string;
+  };
   mutationModal: ModalProp & {
     prodData?: Food;
   };
@@ -35,7 +38,8 @@ export interface ModalState {
 export const initialModalState: ModalState = {
   confirmModal: {
     isShowUp: false,
-    title: DEFAULT_CONFIRM_MODAL_TITLE
+    title: DEFAULT_CONFIRM_MODAL_TITLE,
+    dataId: DEFAULT_FOOD_ID_VALUE
   },
   mutationModal: {
     isShowUp: false,
@@ -57,7 +61,8 @@ export const modalReducer = (
         confirmModal: {
           ...state.confirmModal,
           isShowUp: payload.isShowUp,
-          title: payload.title ?? state.confirmModal.title
+          title: payload.title ?? state.confirmModal.title,
+          dataId: payload.dataId ?? state.confirmModal.dataId
         }
       };
     case ModalActionKind.Mutation:

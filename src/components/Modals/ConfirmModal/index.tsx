@@ -1,13 +1,16 @@
-import { FormEvent, memo } from 'react';
+import { FormEvent, memo, useContext } from 'react';
 import { Button } from '../../common/Button';
 import confirmModalStyles from './confirm-modal.module.css';
+import { ModalContext } from '../../../context';
 interface ConfirmModalProps {
   isVisible: boolean;
   message: string;
+  dataId: string;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
 }
 const ConfirmModal = memo(
-  ({ isVisible, message, onSubmit }: ConfirmModalProps) => {
+  ({ isVisible, message, dataId, onSubmit }: ConfirmModalProps) => {
+    const { setConfirmShowUp } = useContext(ModalContext);
     return (
       isVisible && (
         <div id="confirm-modal" className="d-flex-center modal-overlay">
@@ -19,7 +22,7 @@ const ConfirmModal = memo(
             <input
               id="hidden-confirm-id"
               type="number"
-              defaultValue="0"
+              defaultValue={dataId}
               name="id"
               hidden
             />
@@ -29,7 +32,12 @@ const ConfirmModal = memo(
             <div
               className={`d-flex ${confirmModalStyles['confirm-modal-btn-wrapper']}`}
             >
-              <Button className="modal-btn cancel">Cancel</Button>
+              <Button
+                onClick={() => setConfirmShowUp(false)}
+                className="modal-btn cancel"
+              >
+                Cancel
+              </Button>
               <Button type="submit" className="modal-btn confirm">
                 Yes
               </Button>
@@ -41,4 +49,5 @@ const ConfirmModal = memo(
   }
 );
 
+ConfirmModal.whyDidYouRender = true;
 export default ConfirmModal;

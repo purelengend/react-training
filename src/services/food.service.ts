@@ -12,6 +12,11 @@ export const getFoodById = async (id: string) => {
   return food;
 };
 
+export const deleteFoodById = async (id: string) => {
+  const food = (await http.delete<Food>(id)).data;
+  return food;
+};
+
 export const mutationFood = async (inputFood: Food) => {
   let result: Food;
   if (inputFood.id === DEFAULT_FOOD_ID_VALUE) {
@@ -20,7 +25,7 @@ export const mutationFood = async (inputFood: Food) => {
       price: inputFood.price,
       imageUrl: inputFood.imageUrl,
       quantity: inputFood.quantity,
-      createdAt: inputFood.createdAt
+      createdAt: new Date()
     };
     result = (await http.post<Food>('', food)).data;
   } else {
