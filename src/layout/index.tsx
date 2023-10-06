@@ -9,11 +9,10 @@ import LoadingModal from '../components/Modals/LoadingModal';
 import useModal from '../hooks/useModal';
 import { ModalContext } from '../context/modal';
 import useToast from '../hooks/useToast';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteFoodById } from '../services/food.service';
 import useUrl from '../hooks/useUrl';
 import { UrlContext } from '../context/url';
-// import { DEFAULT_PAGINATION } from '../constants/filter';
+import { deleteFoodById } from '../services/food.service';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 interface Props {
   children: ReactNode;
 }
@@ -27,24 +26,27 @@ const Layout = ({ children }: Props) => {
     confirmModal,
     setConfirmShowUp
   } = useModal();
-
   const { toast, showToast, hideToast } = useToast();
-  const { path, setPage } = useUrl();
+  const { path, setPage, resetPage } = useUrl();
 
   const queryClient = useQueryClient();
 
-  const mutation = useMutation({
+  const { mutate: deleteFood } = useMutation({
     mutationFn: (id: string) => {
       return deleteFoodById(id);
     },
+    onMutate() {
+      setLoadingShowUp(true);
+    },
     onSuccess() {
-      setPage(1);
-      queryClient.resetQueries({ queryKey: ['foods', path] });
+      queryClient.resetQueries({ queryKey: ['foods'] });
       setConfirmShowUp(false);
+      setLoadingShowUp(false);
     }
   });
+
   return (
-    <UrlContext.Provider value={{ path, setPage }}>
+    <UrlContext.Provider value={{ path, setPage, resetPage }}>
       <ModalContext.Provider
         value={{
           mutationModal,
@@ -69,7 +71,7 @@ const Layout = ({ children }: Props) => {
           dataId={confirmModal.dataId}
           onSubmit={e => {
             e.preventDefault();
-            mutation.mutate(confirmModal.dataId);
+            deleteFood(confirmModal.dataId);
           }}
         />
         <MutationModal

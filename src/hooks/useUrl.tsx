@@ -3,7 +3,7 @@ import { UrlActionKind, initialUrlState, urlReducer } from '../store/url';
 
 const useUrl = () => {
   const [state, dispatch] = useReducer(urlReducer, initialUrlState);
-  const path = `?${state.name}&${state.sort}&page=${state.page}&limit=${state.limit}`;
+  const path = `?${state.name}&${state.sort}&limit=${state.limit}&page=`;
 
   const setSearchName = useCallback(
     (searchName: string) => {
@@ -35,6 +35,13 @@ const useUrl = () => {
     [dispatch]
   );
 
+  const resetPage = useCallback(() => {
+    dispatch({
+      type: UrlActionKind.ResetPage,
+      payload: undefined
+    });
+  }, [dispatch]);
+
   const setLimit = useCallback(
     (limit: number) => {
       dispatch({
@@ -46,9 +53,11 @@ const useUrl = () => {
   );
   return {
     path,
+    currentPage: state.page,
     setSearchName,
     setSortFilter,
     setPage,
+    resetPage,
     setLimit
   };
 };

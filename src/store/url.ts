@@ -9,12 +9,13 @@ export enum UrlActionKind {
   Name = 'NAME',
   Sort = 'SORT',
   Limit = 'LIMIT',
-  Page = 'PAGE'
+  Page = 'PAGE',
+  ResetPage = 'RESET_PAGE'
 }
 
 export interface UrlAction {
   type: UrlActionKind;
-  payload: string | number | boolean;
+  payload: string | number | boolean | undefined;
 }
 
 export interface UrlState {
@@ -52,6 +53,11 @@ export const urlReducer = (state: UrlState, action: UrlAction): UrlState => {
       return {
         ...state,
         page: payload as number
+      };
+    case UrlActionKind.ResetPage:
+      return {
+        ...state,
+        page: initialUrlState.page
       };
     default:
       return state;

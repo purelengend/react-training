@@ -27,10 +27,7 @@ import {
   TOAST_ERROR_MSG,
   TOAST_TIME
 } from '../../../constants/toast';
-import {
-  DEFAULT_LIMITATION,
-  DEFAULT_PAGINATION
-} from '../../../constants/filter';
+import { InfiniteQueryProps } from '../../../hooks/useFood';
 
 interface MutationModalProps {
   isVisible: boolean;
@@ -71,23 +68,15 @@ const MutationModal = memo(
         setLoadingShowUp(true);
       },
       onSuccess: data => {
-        const oldFoodList = queryClient.getQueryData<Food[]>(['foods']);
+        const currentFoodData = queryClient.getQueryData<
+          InfiniteQueryProps<Food>
+        >(['foods']);
         let toastMessage = '';
-        if (oldFoodList) {
-          const updatedFoodIndex = oldFoodList.findIndex(
-            food => food.id === data.id
+        if (currentFoodData) {
+          const isFoodExisted = currentFoodData.pages.some(foodPage =>
+            foodPage.data.some(food => food.id === data.id)
           );
-          if (updatedFoodIndex < 0) {
-            if (oldFoodList.length === DEFAULT_LIMITATION * DEFAULT_PAGINATION)
-              oldFoodList.pop();
-            queryClient.setQueryData<Food[]>(['foods'], [data, ...oldFoodList]);
-            toastMessage = TOAST_ADD_MSG;
-          } else {
-            const updatedFoodList = [...oldFoodList];
-            updatedFoodList[updatedFoodIndex] = data;
-            queryClient.setQueryData<Food[]>(['foods'], [...updatedFoodList]);
-            toastMessage = TOAST_EDIT_MSG;
-          }
+          toastMessage = isFoodExisted ? TOAST_EDIT_MSG : TOAST_ADD_MSG;
         }
         onCancelClick();
         setLoadingShowUp(false);
@@ -156,7 +145,11 @@ const MutationModal = memo(
                 type="hidden"
                 id="created-at"
                 name="created-at"
-                value={mutationData.createdAt.toDateString()}
+                value={
+                  typeof mutationData.createdAt === 'string'
+                    ? mutationData.createdAt
+                    : mutationData.createdAt.toDateString()
+                }
               />
               <div
                 className={`d-flex-col ${mutationModalStyles['mutation-form-field']}`}
