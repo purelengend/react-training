@@ -1,11 +1,11 @@
 import { createContext } from 'react';
-import { ModalProp } from '../store/modal';
+import { ModalProp } from '@store/modal';
 import {
   DEFAULT_ADD_MODAL_TITLE,
   DEFAULT_CONFIRM_MODAL_TITLE
-} from '../constants/modal';
-import { Food } from '../components/common/Cards/ProductCard';
-import { DEFAULT_FOOD_ID_VALUE, defaultData } from '../constants/food';
+} from '@constants/modal';
+import { Food } from '@components/common/Cards/ProductCard';
+import { DEFAULT_FOOD_ID_VALUE, defaultData } from '@constants/food';
 
 export interface ModalContextProps {
   mutationModal: ModalProp & {

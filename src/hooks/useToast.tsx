@@ -1,9 +1,5 @@
 import { useCallback, useReducer } from 'react';
-import {
-  ToastActionKind,
-  initialToastState,
-  toastReducer
-} from '../store/toast';
+import { ToastActionKind, initialToastState, toastReducer } from '@store/toast';
 
 const useToast = () => {
   const [state, dispatch] = useReducer(toastReducer, initialToastState);

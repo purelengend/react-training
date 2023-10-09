@@ -1,5 +1,5 @@
 import { useCallback, useReducer } from 'react';
-import { UrlActionKind, initialUrlState, urlReducer } from '../store/url';
+import { UrlActionKind, initialUrlState, urlReducer } from '@store/url';
 
 const useUrl = () => {
   const [state, dispatch] = useReducer(urlReducer, initialUrlState);

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import LoadingModal from './index';
-import './loading-modal.module.css';
+import LoadingModal from '@components/Modals/LoadingModal';
+import '@components/Modals/LoadingModal/loading-modal.module.css';
 const meta: Meta<typeof LoadingModal> = {
   title: 'Example/LoadingModal',
   component: LoadingModal,

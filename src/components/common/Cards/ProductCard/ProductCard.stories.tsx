@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ProductCard } from './index';
-import './product-card.module.css';
+import { ProductCard } from '@components/common/Cards/ProductCard';
+import '@components/common/Cards/ProductCard/product-card.module.css';
 const meta: Meta<typeof ProductCard> = {
   title: 'Example/ProductCard',
   component: ProductCard,
@@ -18,9 +18,13 @@ const meta: Meta<typeof ProductCard> = {
     )
   ],
   argTypes: {
-    onClick: {
+    onEditClick: {
       action: 'clicked',
-      description: 'the function feature will be implemented later'
+      description: 'this is the mock click function handler'
+    },
+    onDeleteClick: {
+      action: 'clicked',
+      description: 'this is the mock click function handler'
     },
     product: {
       description: 'the product object contains all the information fields'

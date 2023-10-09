@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import plusIcon from '../../../../assets/icons/plus-icon.svg';
-import addCardStyles from './add-card.module.css';
+import plusIcon from '@assets/icons/plus-icon.svg';
+import addCardStyles from '@components/common/Cards/AddCard/add-card.module.css';
 
 export interface AddCardProps {
   onClick: React.MouseEventHandler<HTMLDivElement>;

@@ -1,8 +1,8 @@
-import headerStyles from './header.module.css';
-import searchIcon from '../../assets/icons/search-icon.svg';
-import { SelectOption } from '../common/Select/SelectOption';
-import { Select } from '../common/Select';
-import { InputField } from '../common/InputField';
+import headerStyles from '@components/Header/header.module.css';
+import searchIcon from '@assets/icons/search-icon.svg';
+import { SelectOption } from '@components/common/Select/SelectOption';
+import { Select } from '@components/common/Select';
+import { InputField } from '@components/common/InputField';
 
 const Header = () => {
   return (

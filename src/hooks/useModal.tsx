@@ -1,10 +1,6 @@
 import { useCallback, useReducer } from 'react';
-import {
-  ModalActionKind,
-  initialModalState,
-  modalReducer
-} from '../store/modal';
-import { Food } from '../components/common/Cards/ProductCard';
+import { ModalActionKind, initialModalState, modalReducer } from '@store/modal';
+import { Food } from '@components/common/Cards/ProductCard';
 
 const useModal = () => {
   const [state, dispatch] = useReducer(modalReducer, initialModalState);

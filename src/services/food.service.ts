@@ -1,6 +1,6 @@
-import { Food } from '../components/common/Cards/ProductCard';
-import { DEFAULT_FOOD_ID_VALUE } from '../constants/food';
-import http from './http.service';
+import { Food } from '@components/common/Cards/ProductCard';
+import { DEFAULT_FOOD_ID_VALUE } from '@constants/food';
+import http from '@services/http.service';
 
 export const getFoods = async (path: string) => {
   const listFood = (await http.get<Food[]>(path)).data;

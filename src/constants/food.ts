@@ -1,4 +1,4 @@
-import { Food } from '../components/common/Cards/ProductCard';
+import { Food } from '@components/common/Cards/ProductCard';
 
 export const FOOD_NAME_WARNING_MSG =
   'The food name cannot be empty or have two trailing spaces consecutive.';

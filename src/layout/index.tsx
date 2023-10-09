@@ -1,18 +1,19 @@
 import { ReactNode } from 'react';
-import layoutStyles from './layout.module.css';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import ConfirmModal from '../components/Modals/ConfirmModal';
-import MutationModal from '../components/Modals/MutationModal';
-import { Toast } from '../components/common/Toast';
-import LoadingModal from '../components/Modals/LoadingModal';
-import useModal from '../hooks/useModal';
-import { ModalContext } from '../context/modal';
-import useToast from '../hooks/useToast';
-import useUrl from '../hooks/useUrl';
-import { UrlContext } from '../context/url';
-import { deleteFoodById } from '../services/food.service';
+import layoutStyles from '@layout/layout.module.css';
+import Header from '@components/Header';
+import Footer from '@components/Footer';
+import ConfirmModal from '@components/Modals/ConfirmModal';
+import MutationModal from '@components/Modals/MutationModal';
+import { Toast } from '@components/common/Toast';
+import LoadingModal from '@components/Modals/LoadingModal';
+import useModal from '@hooks/useModal';
+import { ModalContext } from '@context/modal';
+import useToast from '@hooks/useToast';
+import useUrl from '@hooks/useUrl';
+import { UrlContext } from '@context/url';
+import { deleteFoodById } from '@services/food.service';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { TOAST_DELETE_MSG, TOAST_TIME } from '@constants/toast';
 interface Props {
   children: ReactNode;
 }
@@ -42,6 +43,10 @@ const Layout = ({ children }: Props) => {
       queryClient.resetQueries({ queryKey: ['foods'] });
       setConfirmShowUp(false);
       setLoadingShowUp(false);
+      showToast(TOAST_DELETE_MSG, true);
+      setTimeout(() => {
+        hideToast();
+      }, TOAST_TIME);
     }
   });
 

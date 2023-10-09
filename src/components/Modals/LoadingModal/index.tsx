@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Spinner } from '../../common/Spinner';
+import { Spinner } from '@components/common/Spinner';
 
 interface LoadingModalProps {
   isVisible: boolean;

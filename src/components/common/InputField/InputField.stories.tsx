@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { InputField } from './index';
-import searchIcon from '../../../assets/icons/search-icon.svg';
-import headerStyles from '../../Header/header.module.css';
-import mutationModalStyles from '../../Modals/MutationModal/mutation-modal.module.css';
+import { InputField } from '@components/common/InputField';
+import searchIcon from '@assets/icons/search-icon.svg';
+import headerStyles from '@components/Header/header.module.css';
+import mutationModalStyles from '@components/Modals/MutationModal/mutation-modal.module.css';
 const meta: Meta<typeof InputField> = {
   title: 'Example/InputField',
   component: InputField,

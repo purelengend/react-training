@@ -1,5 +1,5 @@
 import { ReactNode, memo } from 'react';
-import selectStyles from './select.module.css';
+import selectStyles from '@components/common/Select/select.module.css';
 
 interface SelectProps {
   children: ReactNode;

@@ -1,9 +1,9 @@
-import { Food } from '../components/common/Cards/ProductCard';
-import { DEFAULT_FOOD_ID_VALUE, defaultData } from '../constants/food';
+import { Food } from '@components/common/Cards/ProductCard';
+import { DEFAULT_FOOD_ID_VALUE, defaultData } from '@constants/food';
 import {
   DEFAULT_ADD_MODAL_TITLE,
   DEFAULT_CONFIRM_MODAL_TITLE
-} from '../constants/modal';
+} from '@constants/modal';
 
 export enum ModalActionKind {
   Confirm = 'CONFIRM',

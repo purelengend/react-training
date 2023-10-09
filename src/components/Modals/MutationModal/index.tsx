@@ -1,7 +1,7 @@
-import mutationModalStyles from './mutation-modal.module.css';
-import { Button } from '../../common/Button';
-import { Food } from '../../common/Cards/ProductCard';
-import { InputField } from '../../common/InputField';
+import mutationModalStyles from '@components/Modals/MutationModal/mutation-modal.module.css';
+import { Button } from '@components/common/Button';
+import { Food } from '@components/common/Cards/ProductCard';
+import { InputField } from '@components/common/InputField';
 import {
   FormEvent,
   memo,
@@ -10,24 +10,19 @@ import {
   useEffect,
   useState
 } from 'react';
-import { ModalContext } from '../../../context/modal';
-// import {
-//   FOOD_IMG_WARNING_MSG,
-//   FOOD_NAME_WARNING_MSG,
-//   FOOD_PRICE_WARNING_MSG,
-//   FOOD_QUANTITY_WARNING_MSG
-// } from '../../../constants/food';
-import { validateForm } from '../../../helpers/form-validation';
-import { defaultData } from '../../../constants/food';
+import { ModalContext } from '@context/modal';
+import { validateForm } from '@helpers/form-validation';
+import { defaultData } from '@constants/food';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { mutationFood } from '../../../services/food.service';
+import { mutationFood } from '@services/food.service';
 import {
   TOAST_ADD_MSG,
   TOAST_EDIT_MSG,
   TOAST_ERROR_MSG,
   TOAST_TIME
-} from '../../../constants/toast';
-import { InfiniteQueryProps } from '../../../hooks/useFood';
+} from '@constants/toast';
+import { InfiniteQueryProps } from '@hooks/useFood';
+import { deepClone } from '@helpers/deep-clone';
 
 interface MutationModalProps {
   isVisible: boolean;
@@ -73,10 +68,36 @@ const MutationModal = memo(
         >(['foods']);
         let toastMessage = '';
         if (currentFoodData) {
-          const isFoodExisted = currentFoodData.pages.some(foodPage =>
-            foodPage.data.some(food => food.id === data.id)
-          );
-          toastMessage = isFoodExisted ? TOAST_EDIT_MSG : TOAST_ADD_MSG;
+          let existedFoodIndex = -1;
+
+          // Loop all food pages, check the data prop and loop over all food items in data to find the existed food
+          for (const [index, foodPage] of currentFoodData.pages.entries()) {
+            const foundedFoodIndex = foodPage.data.findIndex(food => {
+              return food.id === data.id;
+            });
+
+            // If the food is exist, updated the local client food data
+            if (foundedFoodIndex > -1) {
+              existedFoodIndex = foundedFoodIndex;
+
+              const updatedFoodData =
+                deepClone<InfiniteQueryProps<Food>>(currentFoodData);
+
+              updatedFoodData.pages[index].data[foundedFoodIndex] = data;
+              queryClient.setQueryData<InfiniteQueryProps<Food>>(
+                ['foods'],
+                updatedFoodData
+              );
+            }
+          }
+
+          // Otherwise, re-call the get food API
+          if (existedFoodIndex < 0) {
+            toastMessage = TOAST_ADD_MSG;
+            queryClient.resetQueries({ queryKey: ['foods'] });
+          } else {
+            toastMessage = TOAST_EDIT_MSG;
+          }
         }
         onCancelClick();
         setLoadingShowUp(false);

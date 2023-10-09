@@ -3,7 +3,7 @@ import {
   DEFAULT_PAGINATION,
   FILTER_ATTRIBUTE,
   SEARCH_KEYWORD
-} from '../constants/filter';
+} from '@constants/filter';
 
 export enum UrlActionKind {
   Name = 'NAME',

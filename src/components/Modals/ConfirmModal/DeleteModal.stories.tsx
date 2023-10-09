@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import ConfirmModal from './index';
-import './delete-modal.module.css';
+import ConfirmModal from '@components/Modals/ConfirmModal';
+import '@components/Modals/ConfirmModal/confirm-modal.module.css';
 const meta: Meta<typeof ConfirmModal> = {
   title: 'Example/ConfirmModal',
   component: ConfirmModal,

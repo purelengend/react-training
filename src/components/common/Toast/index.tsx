@@ -1,7 +1,7 @@
 import { memo } from 'react';
-import toastStyles from './toast.module.css';
-import successToastIcon from '../../../assets/icons/check-mark-icon.svg';
-import errorToastIcon from '../../../assets/icons/cross-icon.svg';
+import toastStyles from '@components/common/Toast/toast.module.css';
+import successToastIcon from '@assets/icons/check-mark-icon.svg';
+import errorToastIcon from '@assets/icons/cross-icon.svg';
 
 interface ToastProps {
   message: string;
