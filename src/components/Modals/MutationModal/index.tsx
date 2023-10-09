@@ -43,12 +43,15 @@ const defaultErrorMessage: FoodErrorMessage = {
   imageUrl: '',
   quantity: ''
 };
+
 const MutationModal = memo(
   ({ isVisible, title, prodData = defaultData }: MutationModalProps) => {
-    const [mutationData, setMutationData] = useState(prodData);
-    const [errorMessage, setErrorMessage] = useState(defaultErrorMessage);
     const { setMutationShowUp, setLoadingShowUp, showToast, hideToast } =
       useContext(ModalContext);
+
+    const [mutationData, setMutationData] = useState(prodData);
+    const [errorMessage, setErrorMessage] = useState(defaultErrorMessage);
+
     const queryClient = useQueryClient();
 
     useEffect(() => {
@@ -66,6 +69,7 @@ const MutationModal = memo(
         const currentFoodData = queryClient.getQueryData<
           InfiniteQueryProps<Food>
         >(['foods']);
+
         let toastMessage = '';
         if (currentFoodData) {
           let existedFoodIndex = -1;
@@ -99,6 +103,7 @@ const MutationModal = memo(
             toastMessage = TOAST_EDIT_MSG;
           }
         }
+
         onCancelClick();
         setLoadingShowUp(false);
         showToast(toastMessage, true);
@@ -140,6 +145,7 @@ const MutationModal = memo(
         mutation.mutate(mutationData);
       }
     };
+
     return (
       isVisible && (
         <div id="mutation-modal" className={`d-flex-center modal-overlay`}>

@@ -8,25 +8,35 @@ import {
   DEFAULT_FILTER_ATTRIBUTE,
   DESCENDING_FILTER_ATTRIBUTE
 } from '@constants/filter';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UrlContext } from '@context/url';
 import useFood from '@hooks/useFood';
 import { ModalContext } from '@context/modal';
+import { useDebounce } from '@hooks/useDebounce';
 
 const Header = () => {
-  const { path, sortFilter, setSortFilter } = useContext(UrlContext);
+  const { path, sortFilter, setSortFilter, searchName, setSearchName } =
+    useContext(UrlContext);
   const { setLoadingShowUp } = useContext(ModalContext);
 
-  const { refetch, isFetching } = useFood();
+  const { refetch, isRefetching } = useFood();
+
+  const [searchText, setSearchText] = useState('');
+  const debouncedText = useDebounce(searchText);
 
   useEffect(() => {
     async function getFoods() {
       await refetch();
     }
     getFoods();
-  }, [refetch, path]);
+  }, [refetch, path, searchName]);
 
-  useEffect(() => setLoadingShowUp(isFetching), [isFetching, setLoadingShowUp]);
+  useEffect(
+    () => setLoadingShowUp(isRefetching),
+    [isRefetching, setLoadingShowUp]
+  );
+
+  useEffect(() => setSearchName(debouncedText), [debouncedText, setSearchName]);
 
   const onRefresh = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault();
@@ -47,7 +57,8 @@ const Header = () => {
             name="search"
             inputClass={headerStyles['search-input']}
             placeholder="Search for food, coffee, etc.."
-            onChange={e => console.log(e.target.value)}
+            value={searchText}
+            onChange={e => setSearchText(e.target.value)}
             label={
               <img
                 src={searchIcon}

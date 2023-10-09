@@ -4,9 +4,11 @@ import { createContext } from 'react';
 export interface UrlContextProps {
   path: string;
   setPage: (page: number) => void;
+  resetPage: () => void;
   sortFilter: string;
   setSortFilter: (filter: string) => void;
-  resetPage: () => void;
+  searchName: string;
+  setSearchName: (name: string) => void;
 }
 
 export const UrlContext = createContext<UrlContextProps>({
@@ -14,9 +16,13 @@ export const UrlContext = createContext<UrlContextProps>({
   setPage(page) {
     console.log(page);
   },
+  resetPage() {},
   sortFilter: DEFAULT_FILTER_ATTRIBUTE,
   setSortFilter(filter) {
     console.log(filter);
   },
-  resetPage() {}
+  searchName: '',
+  setSearchName(name) {
+    console.log(name);
+  }
 });

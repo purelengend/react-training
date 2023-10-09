@@ -1,11 +1,7 @@
-import { ReactNode } from 'react';
+import { ReactNode, lazy } from 'react';
 import layoutStyles from '@layout/layout.module.css';
 import Header from '@components/Header';
 import Footer from '@components/Footer';
-import ConfirmModal from '@components/Modals/ConfirmModal';
-import MutationModal from '@components/Modals/MutationModal';
-import { Toast } from '@components/common/Toast';
-import LoadingModal from '@components/Modals/LoadingModal';
 import useModal from '@hooks/useModal';
 import { ModalContext } from '@context/modal';
 import useToast from '@hooks/useToast';
@@ -18,6 +14,13 @@ interface Props {
   children: ReactNode;
 }
 
+const ConfirmModal = lazy(() => import('@components/Modals/ConfirmModal'));
+const MutationModal = lazy(() => import('@components/Modals/MutationModal'));
+const LoadingModal = lazy(() => import('@components/Modals/LoadingModal'));
+const Toast = lazy(() =>
+  import('@components/common/Toast').then(module => ({ default: module.Toast }))
+);
+
 const Layout = ({ children }: Props) => {
   const {
     mutationModal,
@@ -27,8 +30,17 @@ const Layout = ({ children }: Props) => {
     confirmModal,
     setConfirmShowUp
   } = useModal();
+
   const { toast, showToast, hideToast } = useToast();
-  const { path, setPage, resetPage, sortFilter, setSortFilter } = useUrl();
+  const {
+    path,
+    setPage,
+    resetPage,
+    sortFilter,
+    setSortFilter,
+    searchName,
+    setSearchName
+  } = useUrl();
 
   const queryClient = useQueryClient();
 
@@ -52,7 +64,15 @@ const Layout = ({ children }: Props) => {
 
   return (
     <UrlContext.Provider
-      value={{ path, setPage, resetPage, sortFilter, setSortFilter }}
+      value={{
+        path,
+        setPage,
+        resetPage,
+        sortFilter,
+        setSortFilter,
+        searchName,
+        setSearchName
+      }}
     >
       <ModalContext.Provider
         value={{
