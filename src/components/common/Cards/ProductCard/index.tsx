@@ -29,7 +29,13 @@ export const ProductCard = ({
         onClick={onDeleteClick}
         className={`d-flex-center ${productCardStyles['secondary-icon']} ${productCardStyles['delete-btn']}`}
       >
-        <img src={deleteIcon} alt="Cross Icon" data-id={product.id} />
+        <img
+          width="20"
+          height="20"
+          src={deleteIcon}
+          alt="Cross Icon"
+          data-id={product.id}
+        />
       </Button>
 
       <div className={`d-flex-col ${productCardStyles['product-wrapper']}`}>
