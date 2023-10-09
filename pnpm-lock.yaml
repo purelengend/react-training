@@ -100,6 +100,9 @@ devDependencies:
   vite:
     specifier: ^4.4.5
     version: 4.4.9(@types/node@20.8.0)
+  vite-plugin-compression2:
+    specifier: ^0.10.5
+    version: 0.10.5
 
 packages:
 
@@ -2094,6 +2097,17 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
+    dev: true
+
+  /@nolyfill/es-aggregate-error@1.0.21:
+    resolution: {integrity: sha512-1P+7535ZSQAD/BoSmeu+xv9eOZA5oCQ3e40rO5ZVbFZBafWR+WoZJsoEwlzUDsZz9iFFIKQiMsrSsN4HbUMtTQ==}
+    engines: {node: '>=12.4.0'}
+    dependencies:
+      '@nolyfill/shared': 1.0.21
+    dev: true
+
+  /@nolyfill/shared@1.0.21:
+    resolution: {integrity: sha512-qDc/NoaFU23E0hhiDPeUrvWzTXIPE+RbvRQtRWSeHHNmCIgYI9HS1jKzNYNJxv4jvZ/1VmM3L6rNVxbj+LBMNA==}
     dev: true
 
   /@pkgjs/parseargs@0.11.0:
@@ -9048,6 +9062,15 @@ packages:
   /vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
+    dev: true
+
+  /vite-plugin-compression2@0.10.5:
+    resolution: {integrity: sha512-IaZUzl9pmZXSAwX3XA6LiB9S7vWK/+4P1r5hT/NlygFWjF6OXNbXJq2/jtkh4HzsxILa0+kwmihTYbJRR406Uw==}
+    dependencies:
+      '@nolyfill/es-aggregate-error': 1.0.21
+      '@rollup/pluginutils': 5.0.4
+    transitivePeerDependencies:
+      - rollup
     dev: true
 
   /vite@4.4.9(@types/node@20.8.0):

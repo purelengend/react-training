@@ -61,8 +61,8 @@ const Header = () => {
             onChange={e => setSearchText(e.target.value)}
             label={
               <img
-                width='16'
-                height='16'
+                width="16"
+                height="16"
                 src={searchIcon}
                 alt="Search Icon"
                 className={headerStyles['primary-icon']}

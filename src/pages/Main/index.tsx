@@ -10,7 +10,7 @@ import {
   DEFAULT_CONFIRM_MODAL_TITLE,
   DEFAULT_EDIT_MODAL_TITLE
 } from '@constants/modal';
-import { defaultData } from '@constants/food';
+import { EMPTY_MSG, defaultData } from '@constants/food';
 import useFood from '@hooks/useFood';
 
 const MainPage = () => {
@@ -42,6 +42,7 @@ const MainPage = () => {
             setMutationShowUp(true, DEFAULT_ADD_MODAL_TITLE, defaultData)
           }
         />
+
         {foodData &&
           foodData.pages &&
           foodData.pages.map((page, index) => (
@@ -64,7 +65,14 @@ const MainPage = () => {
               ))}
             </Fragment>
           ))}
+
+        {!isLoading && foodData?.pages.length === 0 && (
+          <div className={`d-flex ${mainStyles['empty-message']}`}>
+            {EMPTY_MSG}
+          </div>
+        )}
       </div>
+
       <Button
         isVisible={hasNextPage}
         onClick={() => fetchNextPage()}

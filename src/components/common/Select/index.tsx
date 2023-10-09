@@ -9,6 +9,7 @@ interface SelectProps {
 export const Select = memo(({ children, onChange, value }: SelectProps) => {
   return (
     <select
+      aria-label="sort"
       value={value}
       onChange={onChange}
       id="sort"
