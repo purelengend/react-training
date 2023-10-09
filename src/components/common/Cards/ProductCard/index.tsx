@@ -40,6 +40,8 @@ export const ProductCard = ({
 
       <div className={`d-flex-col ${productCardStyles['product-wrapper']}`}>
         <img
+          width="127"
+          height="127"
           src={product.imageUrl}
           alt={product.name}
           className={productCardStyles['primary-product']}
