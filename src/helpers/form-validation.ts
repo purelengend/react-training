@@ -63,6 +63,7 @@ function isValidImageUrl(url: string): boolean {
     'bmp',
     'svg',
     'webp',
+    'avif',
     'q=80'
   ];
 
