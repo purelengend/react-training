@@ -76,7 +76,7 @@ const MutationModal = memo(
               return food.id === data.id;
             });
 
-            // If the food is exist, updated the local client food data
+            // If the food is exist, update the local client food data
             if (foundedFoodIndex > -1) {
               existedFoodIndex = foundedFoodIndex;
 
@@ -126,9 +126,10 @@ const MutationModal = memo(
 
     const onCancelClick = useCallback(() => {
       if (mutationData.id === defaultData.id) setMutationData(defaultData);
+      else setMutationData(prodData);
       setErrorMessage(defaultErrorMessage);
       setMutationShowUp(false);
-    }, [setMutationShowUp, mutationData.id]);
+    }, [mutationData.id, prodData, setMutationShowUp]);
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();

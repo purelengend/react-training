@@ -55,6 +55,7 @@ const useUrl = () => {
     path,
     currentPage: state.page,
     setSearchName,
+    sortFilter: state.sort,
     setSortFilter,
     setPage,
     resetPage,

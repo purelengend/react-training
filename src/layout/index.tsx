@@ -28,7 +28,7 @@ const Layout = ({ children }: Props) => {
     setConfirmShowUp
   } = useModal();
   const { toast, showToast, hideToast } = useToast();
-  const { path, setPage, resetPage } = useUrl();
+  const { path, setPage, resetPage, sortFilter, setSortFilter } = useUrl();
 
   const queryClient = useQueryClient();
 
@@ -51,7 +51,9 @@ const Layout = ({ children }: Props) => {
   });
 
   return (
-    <UrlContext.Provider value={{ path, setPage, resetPage }}>
+    <UrlContext.Provider
+      value={{ path, setPage, resetPage, sortFilter, setSortFilter }}
+    >
       <ModalContext.Provider
         value={{
           mutationModal,

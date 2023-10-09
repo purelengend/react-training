@@ -14,7 +14,7 @@ import { defaultData } from '@constants/food';
 import useFood from '@hooks/useFood';
 
 const MainPage = () => {
-  const { foodData, isLoading, hasNextPage, fetchNextPage } = useFood();
+  const { foodData, isFetching, hasNextPage, fetchNextPage } = useFood();
 
   const { setMutationShowUp, setConfirmShowUp } = useContext(ModalContext);
 
@@ -24,7 +24,7 @@ const MainPage = () => {
         id="food-list"
         className={`d-flex ${mainStyles['main-content-wrapper']}`}
       >
-        {isLoading && <Spinner />}
+        {isFetching && <Spinner />}
         <AddCard
           onClick={() =>
             setMutationShowUp(true, DEFAULT_ADD_MODAL_TITLE, defaultData)

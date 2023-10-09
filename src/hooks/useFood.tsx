@@ -12,27 +12,30 @@ export interface InfiniteQueryProps<T> {
 }
 const useFood = () => {
   const { path } = useContext(UrlContext);
-
   const getMoreFoods = async (pageParams: number) => {
+    console.log(path);
     const result = await getFoods(path + `${pageParams}`);
     return { data: [...result], pageParams: pageParams + 1 };
   };
 
-  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery({
-    queryKey: ['foods'],
-    queryFn: ({ pageParam = DEFAULT_PAGINATION }) => getMoreFoods(pageParam),
-    getNextPageParam: lastPages => {
-      if (lastPages.data.length < DEFAULT_LIMITATION) return undefined;
-      return lastPages.pageParams;
-    },
-    refetchOnWindowFocus: false
-  });
+  const { data, isLoading, isFetching, fetchNextPage, hasNextPage, refetch } =
+    useInfiniteQuery({
+      queryKey: ['foods'],
+      queryFn: ({ pageParam = DEFAULT_PAGINATION }) => getMoreFoods(pageParam),
+      getNextPageParam: lastPages => {
+        if (lastPages.data.length < DEFAULT_LIMITATION) return undefined;
+        return lastPages.pageParams;
+      },
+      refetchOnWindowFocus: false
+    });
 
   return {
     foodData: data,
     isLoading,
+    isFetching,
     fetchNextPage,
-    hasNextPage
+    hasNextPage,
+    refetch
   };
 };
 
