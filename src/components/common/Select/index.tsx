@@ -21,8 +21,12 @@ export const Select = memo(
         id="sort"
         className={selectStyles['sort-select']}
       >
-        {selectOptions.map(option => (
-          <SelectOption disable={option.disabled} value={option.value}>
+        {selectOptions.map((option, index) => (
+          <SelectOption
+            key={index}
+            disable={option.disabled}
+            value={option.value}
+          >
             {option.label}
           </SelectOption>
         ))}

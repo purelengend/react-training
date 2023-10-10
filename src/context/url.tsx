@@ -13,16 +13,10 @@ export interface UrlContextProps {
 
 export const UrlContext = createContext<UrlContextProps>({
   path: '/',
-  setPage(page) {
-    console.log(page);
-  },
+  setPage() {},
   resetPage() {},
   sortFilter: DEFAULT_FILTER_ATTRIBUTE,
-  setSortFilter(filter) {
-    console.log(filter);
-  },
+  setSortFilter() {},
   searchName: '',
-  setSearchName(name) {
-    console.log(name);
-  }
+  setSearchName() {}
 });

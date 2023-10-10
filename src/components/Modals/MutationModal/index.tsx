@@ -24,6 +24,7 @@ import {
 import { InfiniteQueryProps } from '@hooks/useFood';
 import { deepClone } from '@helpers/deep-clone';
 import isEqual from 'react-fast-compare';
+import { ToastContext } from '@context/toast';
 interface MutationModalProps {
   isVisible: boolean;
   title: string;
@@ -46,9 +47,8 @@ const defaultErrorMessage: FoodErrorMessage = {
 
 const MutationModal = memo(
   ({ isVisible, title, prodData = defaultData }: MutationModalProps) => {
-    const { setMutationShowUp, setLoadingShowUp, showToast, hideToast } =
-      useContext(ModalContext);
-
+    const { setMutationShowUp, setLoadingShowUp } = useContext(ModalContext);
+    const { showToast, hideToast } = useContext(ToastContext);
     const [mutationData, setMutationData] = useState(prodData);
     const [errorMessage, setErrorMessage] = useState(defaultErrorMessage);
 

@@ -11,6 +11,7 @@ import { deleteFoodById } from '@services/food.service';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { TOAST_DELETE_MSG, TOAST_TIME } from '@constants/toast';
 import isEqual from 'react-fast-compare';
+import { ToastContext } from '@context/toast';
 interface Props {
   children: ReactNode;
 }
@@ -75,45 +76,50 @@ const Layout = memo(({ children }: Props) => {
         setSearchName
       }}
     >
-      <ModalContext.Provider
+      <ToastContext.Provider
         value={{
-          mutationModal,
-          setMutationShowUp,
-          isLoadingShowUp,
-          setLoadingShowUp,
-          confirmModal,
-          setConfirmShowUp,
           toast,
           showToast,
           hideToast
         }}
       >
-        <div className={layoutStyles.container}>
-          <Header />
-          {children}
-          <Footer />
-        </div>
-        <ConfirmModal
-          isVisible={confirmModal.isShowUp}
-          message={confirmModal.title}
-          dataId={confirmModal.dataId}
-          onSubmit={e => {
-            e.preventDefault();
-            deleteFood(confirmModal.dataId);
+        <ModalContext.Provider
+          value={{
+            mutationModal,
+            setMutationShowUp,
+            isLoadingShowUp,
+            setLoadingShowUp,
+            confirmModal,
+            setConfirmShowUp
           }}
-        />
-        <MutationModal
-          title={mutationModal.title}
-          isVisible={mutationModal.isShowUp}
-          prodData={mutationModal.prodData}
-        />
-        <LoadingModal isVisible={isLoadingShowUp} />
-        <Toast
-          message={toast.message}
-          isVisible={toast.isVisible}
-          isSuccess={toast.isSuccess}
-        />
-      </ModalContext.Provider>
+        >
+          <div className={layoutStyles.container}>
+            <Header />
+            {children}
+            <Footer />
+          </div>
+          <ConfirmModal
+            isVisible={confirmModal.isShowUp}
+            message={confirmModal.title}
+            dataId={confirmModal.dataId}
+            onSubmit={e => {
+              e.preventDefault();
+              deleteFood(confirmModal.dataId);
+            }}
+          />
+          <MutationModal
+            title={mutationModal.title}
+            isVisible={mutationModal.isShowUp}
+            prodData={mutationModal.prodData}
+          />
+          <LoadingModal isVisible={isLoadingShowUp} />
+          <Toast
+            message={toast.message}
+            isVisible={toast.isVisible}
+            isSuccess={toast.isSuccess}
+          />
+        </ModalContext.Provider>
+      </ToastContext.Provider>
     </UrlContext.Provider>
   );
 }, isEqual);
