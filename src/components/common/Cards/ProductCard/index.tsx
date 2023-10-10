@@ -30,7 +30,6 @@ export const ProductCard = ({
         className={`d-flex-center ${productCardStyles['secondary-icon']} ${productCardStyles['delete-btn']}`}
       >
         <img
-          loading="lazy"
           width="20"
           height="20"
           src={deleteIcon}
@@ -41,7 +40,6 @@ export const ProductCard = ({
 
       <div className={`d-flex-col ${productCardStyles['product-wrapper']}`}>
         <img
-          loading="lazy"
           width="127"
           height="127"
           src={product.imageUrl}
