@@ -2,6 +2,7 @@ import { FormEvent, memo, useContext } from 'react';
 import { Button } from '@components/common/Button';
 import confirmModalStyles from '@components/Modals/ConfirmModal/confirm-modal.module.css';
 import { ModalContext } from '@context/modal';
+import isEqual from 'react-fast-compare';
 interface ConfirmModalProps {
   isVisible: boolean;
   message: string;
@@ -46,7 +47,8 @@ const ConfirmModal = memo(
         </div>
       )
     );
-  }
+  },
+  isEqual
 );
 
 ConfirmModal.whyDidYouRender = true;

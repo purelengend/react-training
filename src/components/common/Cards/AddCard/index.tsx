@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import plusIcon from '@assets/icons/plus-icon.svg';
 import addCardStyles from '@components/common/Cards/AddCard/add-card.module.css';
+import isEqual from 'react-fast-compare';
 
 export interface AddCardProps {
   onClick: React.MouseEventHandler<HTMLDivElement>;
@@ -18,4 +19,6 @@ export const AddCard = memo(({ onClick }: AddCardProps) => {
       </div>
     </div>
   );
-});
+}, isEqual);
+
+AddCard.whyDidYouRender = true;

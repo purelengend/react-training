@@ -17,6 +17,9 @@ dependencies:
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
+  react-fast-compare:
+    specifier: ^3.2.2
+    version: 3.2.2
 
 devDependencies:
   '@commitlint/cli':
@@ -7936,6 +7939,10 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
       react-is: 18.1.0
     dev: true
+
+  /react-fast-compare@3.2.2:
+    resolution: {integrity: sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ==}
+    dev: false
 
   /react-inspector@6.0.2(react@18.2.0):
     resolution: {integrity: sha512-x+b7LxhmHXjHoU/VrFAzw5iutsILRoYyDq97EDYdFpPLcvqtEzk4ZSZSQjnFPbr5T57tLXnHcqFYoN1pI6u8uQ==}

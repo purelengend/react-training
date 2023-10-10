@@ -1,6 +1,5 @@
 import headerStyles from '@components/Header/header.module.css';
 import searchIcon from '@assets/icons/search-icon.svg';
-import { SelectOption } from '@components/common/Select/SelectOption';
 import { Select } from '@components/common/Select';
 import { InputField } from '@components/common/InputField';
 import {
@@ -77,16 +76,29 @@ const Header = () => {
           onChange={e => {
             setSortFilter(e.target.value);
           }}
-        >
-          <SelectOption disable={true}>Sort by price</SelectOption>
-          <SelectOption value={DEFAULT_FILTER_ATTRIBUTE}>Default</SelectOption>
-          <SelectOption value={ASCENDING_FILTER_ATTRIBUTE}>
-            Ascending
-          </SelectOption>
-          <SelectOption value={DESCENDING_FILTER_ATTRIBUTE}>
-            Descending
-          </SelectOption>
-        </Select>
+          selectOptions={[
+            {
+              value: undefined,
+              disabled: true,
+              label: 'Sort by price'
+            },
+            {
+              value: DEFAULT_FILTER_ATTRIBUTE,
+              disabled: false,
+              label: 'Default'
+            },
+            {
+              value: ASCENDING_FILTER_ATTRIBUTE,
+              disabled: false,
+              label: 'Ascending'
+            },
+            {
+              value: DESCENDING_FILTER_ATTRIBUTE,
+              disabled: false,
+              label: 'Descending'
+            }
+          ]}
+        />
       </div>
     </header>
   );

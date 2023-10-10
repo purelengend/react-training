@@ -1,4 +1,4 @@
-import { ReactNode, lazy } from 'react';
+import { ReactNode, lazy, memo } from 'react';
 import layoutStyles from '@layout/layout.module.css';
 import Header from '@components/Header';
 import Footer from '@components/Footer';
@@ -10,6 +10,7 @@ import { UrlContext } from '@context/url';
 import { deleteFoodById } from '@services/food.service';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { TOAST_DELETE_MSG, TOAST_TIME } from '@constants/toast';
+import isEqual from 'react-fast-compare';
 interface Props {
   children: ReactNode;
 }
@@ -21,7 +22,7 @@ const Toast = lazy(() =>
   import('@components/common/Toast').then(module => ({ default: module.Toast }))
 );
 
-const Layout = ({ children }: Props) => {
+const Layout = memo(({ children }: Props) => {
   const {
     mutationModal,
     setMutationShowUp,
@@ -115,6 +116,7 @@ const Layout = ({ children }: Props) => {
       </ModalContext.Provider>
     </UrlContext.Provider>
   );
-};
+}, isEqual);
 
+Layout.whyDidYouRender = true;
 export default Layout;

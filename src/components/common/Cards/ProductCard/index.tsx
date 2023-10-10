@@ -2,6 +2,8 @@ import productCardStyles from '@components/common/Cards/ProductCard/product-card
 import deleteIcon from '@assets/icons/cross-icon.svg';
 import editIcon from '@assets/icons/edit-icon.svg';
 import { Button } from '@components/common/Button';
+import isEqual from 'react-fast-compare';
+import { memo } from 'react';
 
 export interface Food {
   id: string;
@@ -16,65 +18,66 @@ interface ProductCardProps {
   onDeleteClick: React.MouseEventHandler<HTMLButtonElement>;
   onEditClick: React.MouseEventHandler<HTMLButtonElement>;
 }
-export const ProductCard = ({
-  product,
-  onDeleteClick,
-  onEditClick
-}: ProductCardProps) => {
-  return (
-    <div
-      className={`d-flex-center d-flex-col ${productCardStyles['product-card']}`}
-    >
-      <Button
-        onClick={onDeleteClick}
-        className={`d-flex-center ${productCardStyles['secondary-icon']} ${productCardStyles['delete-btn']}`}
+export const ProductCard = memo(
+  ({ product, onDeleteClick, onEditClick }: ProductCardProps) => {
+    return (
+      <div
+        className={`d-flex-center d-flex-col ${productCardStyles['product-card']}`}
       >
-        <img
-          width="20"
-          height="20"
-          src={deleteIcon}
-          alt="Cross Icon"
-          data-id={product.id}
-        />
-      </Button>
-
-      <div className={`d-flex-col ${productCardStyles['product-wrapper']}`}>
-        <img
-          width="127"
-          height="127"
-          src={product.imageUrl}
-          alt={product.name}
-          className={productCardStyles['primary-product']}
-        />
-        <div
-          className={`d-flex-col ${productCardStyles['product-content-wrapper']}`}
+        <Button
+          onClick={onDeleteClick}
+          className={`d-flex-center ${productCardStyles['secondary-icon']} ${productCardStyles['delete-btn']}`}
         >
-          <p className={productCardStyles['product-name']}>{product.name}</p>
+          <img
+            width="20"
+            height="20"
+            src={deleteIcon}
+            alt="Cross Icon"
+            data-id={product.id}
+          />
+        </Button>
+
+        <div className={`d-flex-col ${productCardStyles['product-wrapper']}`}>
+          <img
+            width="127"
+            height="127"
+            src={product.imageUrl}
+            alt={product.name}
+            className={productCardStyles['primary-product']}
+          />
           <div
-            className={`d-flex-center ${productCardStyles['product-detail']}`}
+            className={`d-flex-col ${productCardStyles['product-content-wrapper']}`}
           >
-            $ {product.price}
-            <div className={productCardStyles.separate}></div>
-            {product.quantity} Bowls
+            <p className={productCardStyles['product-name']}>{product.name}</p>
+            <div
+              className={`d-flex-center ${productCardStyles['product-detail']}`}
+            >
+              $ {product.price}
+              <div className={productCardStyles.separate}></div>
+              {product.quantity} Bowls
+            </div>
           </div>
         </div>
-      </div>
 
-      <Button
-        className={`d-flex-center ${productCardStyles['product-mutation']} ${productCardStyles.mutation}`}
-        onClick={onEditClick}
-      >
-        <img
-          src={editIcon}
-          alt="Edit Icon"
-          className={`primary-icon ${productCardStyles.mutation}`}
-        />
-        <p
-          className={`${productCardStyles['mutation-content']} ${productCardStyles.mutation}`}
+        <Button
+          className={`d-flex-center ${productCardStyles['product-mutation']} ${productCardStyles.mutation}`}
+          onClick={onEditClick}
         >
-          Edit dish
-        </p>
-      </Button>
-    </div>
-  );
-};
+          <img
+            src={editIcon}
+            alt="Edit Icon"
+            className={`primary-icon ${productCardStyles.mutation}`}
+          />
+          <p
+            className={`${productCardStyles['mutation-content']} ${productCardStyles.mutation}`}
+          >
+            Edit dish
+          </p>
+        </Button>
+      </div>
+    );
+  },
+  isEqual
+);
+
+ProductCard.whyDidYouRender = true;

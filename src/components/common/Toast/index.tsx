@@ -34,3 +34,5 @@ export const Toast = memo(
     );
   }
 );
+
+Toast.whyDidYouRender = true;

@@ -77,9 +77,9 @@ function isValidImageUrl(url: string): boolean {
 export const validateForm = (inputData: Food): FoodErrorMessage => {
   const errorMessage: FoodErrorMessage = {
     name: isValidName(inputData.name) ? '' : FOOD_NAME_WARNING_MSG,
-    price: isValidNumber(inputData.price) ? '' : FOOD_PRICE_WARNING_MSG,
+    price: isValidNumber(Number(inputData.price)) ? '' : FOOD_PRICE_WARNING_MSG,
     imageUrl: isValidImageUrl(inputData.imageUrl) ? '' : FOOD_IMG_WARNING_MSG,
-    quantity: isValidInteger(inputData.quantity)
+    quantity: isValidInteger(Number(inputData.quantity))
       ? ''
       : FOOD_QUANTITY_WARNING_MSG
   };

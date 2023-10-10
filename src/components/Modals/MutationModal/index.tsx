@@ -23,7 +23,7 @@ import {
 } from '@constants/toast';
 import { InfiniteQueryProps } from '@hooks/useFood';
 import { deepClone } from '@helpers/deep-clone';
-
+import isEqual from 'react-fast-compare';
 interface MutationModalProps {
   isVisible: boolean;
   title: string;
@@ -140,6 +140,7 @@ const MutationModal = memo(
       e.preventDefault();
       const validateMessage = validateForm(mutationData);
       if (Object.values(validateMessage).join('')) {
+        console.log(mutationData);
         setErrorMessage(validateMessage);
       } else {
         mutation.mutate(mutationData);
@@ -270,7 +271,8 @@ const MutationModal = memo(
         </div>
       )
     );
-  }
+  },
+  isEqual
 );
 
 MutationModal.whyDidYouRender = true;

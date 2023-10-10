@@ -1,4 +1,5 @@
 import { ReactNode, memo } from 'react';
+import isEqual from 'react-fast-compare';
 
 export interface ButtonProps {
   children: ReactNode;
@@ -33,5 +34,8 @@ export const Button = memo(
         </button>
       )
     );
-  }
+  },
+  isEqual
 );
+
+Button.whyDidYouRender = true;
