@@ -66,7 +66,7 @@ const MainPage = () => {
             </Fragment>
           ))}
 
-        {!isLoading && foodData?.pages.length === 0 && (
+        {!isLoading && foodData?.pages[0].data.length === 0 && (
           <div className={`d-flex ${mainStyles['empty-message']}`}>
             {EMPTY_MSG}
           </div>
