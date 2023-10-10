@@ -30,6 +30,7 @@ export const ProductCard = ({
         className={`d-flex-center ${productCardStyles['secondary-icon']} ${productCardStyles['delete-btn']}`}
       >
         <img
+          loading="lazy"
           width="20"
           height="20"
           src={deleteIcon}
