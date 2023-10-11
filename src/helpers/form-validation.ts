@@ -55,23 +55,11 @@ function isValidInteger(input: number): boolean {
  * @param input
  */
 function isValidImageUrl(url: string): boolean {
-  const imageExtensions = [
-    'jpg',
-    'jpeg',
-    'png',
-    'gif',
-    'bmp',
-    'svg',
-    'webp',
-    'avif',
-    'q=80'
-  ];
+  // Define a regular expression pattern to match valid URLs
+  const pattern = /^https:\/\/.+\.(jpg|jpeg|png|gif|bmp|svg|webp|avif|q=80)$/i;
 
-  const urlLower = url.toLowerCase();
-  return imageExtensions.some(
-    extension =>
-      urlLower.endsWith('.' + extension) || urlLower.endsWith('&' + extension)
-  );
+  // Use the test method of the regular expression to check if the URL matches the pattern
+  return pattern.test(url);
 }
 
 export const validateForm = (inputData: Food): FoodErrorMessage => {

@@ -52,6 +52,7 @@ const Layout = memo(({ children }: Props) => {
       }, TOAST_TIME);
     },
     onError: () => {
+      setConfirmShowUp(false);
       setLoadingShowUp(false);
       showToast(TOAST_ERROR_MSG, false);
       setTimeout(() => {
