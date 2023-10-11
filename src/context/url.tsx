@@ -3,7 +3,7 @@ import useUrl from '@hooks/useUrl';
 import { ReactNode, createContext, memo, useMemo } from 'react';
 import isEqual from 'react-fast-compare';
 
-export interface UrlContextProps {
+interface UrlContextProps {
   path: string;
   setPage: (page: number) => void;
   resetPage: () => void;

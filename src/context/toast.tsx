@@ -2,7 +2,7 @@ import useToast from '@hooks/useToast';
 import { ReactNode, createContext, memo, useMemo } from 'react';
 import isEqual from 'react-fast-compare';
 
-export interface ToastContextProps {
+interface ToastContextProps {
   toast: {
     message: string;
     isSuccess: boolean;

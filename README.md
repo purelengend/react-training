@@ -10,6 +10,7 @@
 - Apply knowledge of React TypeScript.
 - Get familiar with React TypeScript.
 - Use Storybook for documenting React components.
+
 # Techstacks
 
 - HTML5/CSS3
@@ -36,7 +37,6 @@
 - Get familiar with React TypeScript.
 - Know how to use Storybook for documenting components.
 
-
 # Getting Started
 
 - Clone the `practice-one` branch of this repository via HTTP: `git clone -b practice-one https://gitlab.asoft-python.com/huy.phamnhat/react-training`.
@@ -44,6 +44,7 @@
 - Open terminal and run command: `pnpm i`.
 - After that run this command to host the web: `pnpm dev`.
 - Open browser and browse `http://localhost:5173`.
+- To start Storybook, run the following command: `pnpm storybook`.
 
 # Author
 

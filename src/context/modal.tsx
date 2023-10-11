@@ -9,7 +9,7 @@ import { DEFAULT_FOOD_ID_VALUE, defaultData } from '@constants/food';
 import useModal from '@hooks/useModal';
 import isEqual from 'react-fast-compare';
 
-export interface ModalContextProps {
+interface ModalContextProps {
   mutationModal: ModalProp & {
     prodData?: Food;
   };
