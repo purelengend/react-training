@@ -34,7 +34,8 @@ const meta: Meta<typeof SelectOption> = {
     controls: {
       expanded: true
     }
-  }
+  },
+  
 };
 
 type Story = StoryObj<typeof SelectOption>;

@@ -1,5 +1,7 @@
 import { DEFAULT_FILTER_ATTRIBUTE } from '@constants/filter';
-import { createContext } from 'react';
+import useUrl from '@hooks/useUrl';
+import { ReactNode, createContext, memo, useMemo } from 'react';
+import isEqual from 'react-fast-compare';
 
 export interface UrlContextProps {
   path: string;
@@ -20,3 +22,50 @@ export const UrlContext = createContext<UrlContextProps>({
   searchName: '',
   setSearchName() {}
 });
+
+interface UrlContextProviderProps {
+  children: ReactNode;
+}
+
+export const UrlContextProvider = memo(
+  ({ children }: UrlContextProviderProps) => {
+    const {
+      path,
+      setPage,
+      resetPage,
+      sortFilter,
+      setSortFilter,
+      searchName,
+      setSearchName
+    } = useUrl();
+
+    const urlContextValue = useMemo(
+      () => ({
+        path,
+        setPage,
+        resetPage,
+        sortFilter,
+        setSortFilter,
+        searchName,
+        setSearchName
+      }),
+      [
+        path,
+        setPage,
+        resetPage,
+        sortFilter,
+        setSortFilter,
+        searchName,
+        setSearchName
+      ]
+    );
+    return (
+      <UrlContext.Provider value={urlContextValue}>
+        {children}
+      </UrlContext.Provider>
+    );
+  },
+  isEqual
+);
+
+UrlContextProvider.whyDidYouRender = true;

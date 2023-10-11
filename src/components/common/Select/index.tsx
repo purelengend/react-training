@@ -1,6 +1,7 @@
 import { ReactNode, memo } from 'react';
 import selectStyles from '@components/common/Select/select.module.css';
 import { SelectOption } from './SelectOption';
+import isEqual from 'react-fast-compare';
 interface SelectOptionProps {
   disabled: boolean;
   value: string | undefined;
@@ -32,5 +33,8 @@ export const Select = memo(
         ))}
       </select>
     );
-  }
+  },
+  isEqual
 );
+
+Select.whyDidYouRender = true;

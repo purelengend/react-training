@@ -34,7 +34,8 @@ const meta: Meta<typeof ProductCard> = {
     controls: {
       expanded: true
     }
-  }
+  },
+  
 };
 
 export default meta;

@@ -1,12 +1,8 @@
-import { ReactNode, lazy, memo } from 'react';
+import { ReactNode, lazy, memo, useContext } from 'react';
 import layoutStyles from '@layout/layout.module.css';
 import Header from '@components/Header';
 import Footer from '@components/Footer';
-import useModal from '@hooks/useModal';
 import { ModalContext } from '@context/modal';
-import useToast from '@hooks/useToast';
-import useUrl from '@hooks/useUrl';
-import { UrlContext } from '@context/url';
 import { deleteFoodById } from '@services/food.service';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { TOAST_DELETE_MSG, TOAST_TIME } from '@constants/toast';
@@ -26,23 +22,13 @@ const Toast = lazy(() =>
 const Layout = memo(({ children }: Props) => {
   const {
     mutationModal,
-    setMutationShowUp,
     isLoadingShowUp,
     setLoadingShowUp,
     confirmModal,
     setConfirmShowUp
-  } = useModal();
+  } = useContext(ModalContext);
 
-  const { toast, showToast, hideToast } = useToast();
-  const {
-    path,
-    setPage,
-    resetPage,
-    sortFilter,
-    setSortFilter,
-    searchName,
-    setSearchName
-  } = useUrl();
+  const { toast, showToast, hideToast } = useContext(ToastContext);
 
   const queryClient = useQueryClient();
 
@@ -65,62 +51,33 @@ const Layout = memo(({ children }: Props) => {
   });
 
   return (
-    <UrlContext.Provider
-      value={{
-        path,
-        setPage,
-        resetPage,
-        sortFilter,
-        setSortFilter,
-        searchName,
-        setSearchName
-      }}
-    >
-      <ToastContext.Provider
-        value={{
-          toast,
-          showToast,
-          hideToast
+    <>
+      <div className={layoutStyles.container}>
+        <Header />
+        {children}
+        <Footer />
+      </div>
+      <ConfirmModal
+        isVisible={confirmModal.isShowUp}
+        message={confirmModal.title}
+        dataId={confirmModal.dataId}
+        onSubmit={e => {
+          e.preventDefault();
+          deleteFood(confirmModal.dataId);
         }}
-      >
-        <ModalContext.Provider
-          value={{
-            mutationModal,
-            setMutationShowUp,
-            isLoadingShowUp,
-            setLoadingShowUp,
-            confirmModal,
-            setConfirmShowUp
-          }}
-        >
-          <div className={layoutStyles.container}>
-            <Header />
-            {children}
-            <Footer />
-          </div>
-          <ConfirmModal
-            isVisible={confirmModal.isShowUp}
-            message={confirmModal.title}
-            dataId={confirmModal.dataId}
-            onSubmit={e => {
-              e.preventDefault();
-              deleteFood(confirmModal.dataId);
-            }}
-          />
-          <MutationModal
-            title={mutationModal.title}
-            isVisible={mutationModal.isShowUp}
-            prodData={mutationModal.prodData}
-          />
-          <LoadingModal isVisible={isLoadingShowUp} />
-          <Toast
-            message={toast.message}
-            isVisible={toast.isVisible}
-            isSuccess={toast.isSuccess}
-          />
-        </ModalContext.Provider>
-      </ToastContext.Provider>
-    </UrlContext.Provider>
+      />
+      <MutationModal
+        title={mutationModal.title}
+        isVisible={mutationModal.isShowUp}
+        prodData={mutationModal.prodData}
+      />
+      <LoadingModal isVisible={isLoadingShowUp} />
+      <Toast
+        message={toast.message}
+        isVisible={toast.isVisible}
+        isSuccess={toast.isSuccess}
+      />
+    </>
   );
 }, isEqual);
 

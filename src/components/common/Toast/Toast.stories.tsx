@@ -20,7 +20,8 @@ const meta: Meta<typeof Toast> = {
     controls: {
       expanded: true
     }
-  }
+  },
+  
 };
 
 type Story = StoryObj<typeof Toast>;

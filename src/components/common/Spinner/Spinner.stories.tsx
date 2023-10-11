@@ -17,7 +17,8 @@ const meta: Meta<typeof Spinner> = {
         <Story />
       </div>
     )
-  ]
+  ],
+  
 };
 
 type Story = StoryObj<typeof Spinner>;
