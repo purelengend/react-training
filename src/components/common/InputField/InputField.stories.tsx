@@ -47,8 +47,7 @@ const meta: Meta<typeof InputField> = {
     controls: {
       expanded: true
     }
-  },
-  
+  }
 };
 
 export default meta;

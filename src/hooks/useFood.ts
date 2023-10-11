@@ -3,6 +3,8 @@ import { getFoods } from '@services/food.service';
 import { DEFAULT_LIMITATION, DEFAULT_PAGINATION } from '@constants/filter';
 import { useContext } from 'react';
 import { UrlContext } from '@context/url';
+import { ToastContext } from '@context/toast';
+import { TOAST_ERROR_MSG, TOAST_TIME } from '@constants/toast';
 export interface InfiniteQueryProps<T> {
   pages: {
     data: T[];
@@ -12,6 +14,8 @@ export interface InfiniteQueryProps<T> {
 }
 const useFood = () => {
   const { path } = useContext(UrlContext);
+  const { showToast, hideToast } = useContext(ToastContext);
+
   const getMoreFoods = async (pageParams: number) => {
     const result = await getFoods(path + `${pageParams}`);
     return { data: [...result], pageParams: pageParams + 1 };
@@ -32,7 +36,13 @@ const useFood = () => {
       if (lastPages.data.length < DEFAULT_LIMITATION) return undefined;
       return lastPages.pageParams;
     },
-    refetchOnWindowFocus: false
+    refetchOnWindowFocus: false,
+    onError: () => {
+      showToast(TOAST_ERROR_MSG, false);
+      setTimeout(() => {
+        hideToast();
+      }, TOAST_TIME);
+    }
   });
 
   return {

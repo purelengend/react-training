@@ -37,8 +37,7 @@ const meta: Meta<typeof ConfirmModal> = {
     controls: {
       expanded: true
     }
-  },
-  
+  }
 };
 
 type Story = StoryObj<typeof ConfirmModal>;

@@ -27,8 +27,7 @@ const meta: Meta<typeof AddCard> = {
     controls: {
       expanded: true
     }
-  },
-  
+  }
 };
 
 export default meta;

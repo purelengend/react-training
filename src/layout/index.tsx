@@ -5,7 +5,11 @@ import Footer from '@components/Footer';
 import { ModalContext } from '@context/modal';
 import { deleteFoodById } from '@services/food.service';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { TOAST_DELETE_MSG, TOAST_TIME } from '@constants/toast';
+import {
+  TOAST_DELETE_MSG,
+  TOAST_ERROR_MSG,
+  TOAST_TIME
+} from '@constants/toast';
 import isEqual from 'react-fast-compare';
 import { ToastContext } from '@context/toast';
 interface Props {
@@ -42,8 +46,14 @@ const Layout = memo(({ children }: Props) => {
     onSuccess() {
       queryClient.resetQueries({ queryKey: ['foods'] });
       setConfirmShowUp(false);
-      setLoadingShowUp(false);
       showToast(TOAST_DELETE_MSG, true);
+      setTimeout(() => {
+        hideToast();
+      }, TOAST_TIME);
+    },
+    onError: () => {
+      setLoadingShowUp(false);
+      showToast(TOAST_ERROR_MSG, false);
       setTimeout(() => {
         hideToast();
       }, TOAST_TIME);
