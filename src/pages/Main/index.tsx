@@ -43,28 +43,22 @@ const MainPage = () => {
           }
         />
 
-        {foodData &&
-          foodData.pages &&
-          foodData.pages.map((page, index) => (
-            <Fragment key={index}>
-              {page.data.map(food => (
-                <ProductCard
-                  onDeleteClick={() => {
-                    setConfirmShowUp(
-                      true,
-                      DEFAULT_CONFIRM_MODAL_TITLE,
-                      food.id
-                    );
-                  }}
-                  onEditClick={() =>
-                    setMutationShowUp(true, DEFAULT_EDIT_MODAL_TITLE, food)
-                  }
-                  product={food}
-                  key={food.id}
-                />
-              ))}
-            </Fragment>
-          ))}
+        {foodData?.pages?.map((page, index) => (
+          <Fragment key={index}>
+            {page.data.map(food => (
+              <ProductCard
+                onDeleteClick={() => {
+                  setConfirmShowUp(true, DEFAULT_CONFIRM_MODAL_TITLE, food.id);
+                }}
+                onEditClick={() =>
+                  setMutationShowUp(true, DEFAULT_EDIT_MODAL_TITLE, food)
+                }
+                product={food}
+                key={food.id}
+              />
+            ))}
+          </Fragment>
+        ))}
 
         {!isLoading && foodData?.pages[0].data.length === 0 && (
           <div className={`d-flex ${mainStyles['empty-message']}`}>

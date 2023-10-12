@@ -9,7 +9,7 @@ interface InputFieldProps {
   name?: string;
   placeholder?: string;
   value?: string;
-  label: ReactNode;
+  label?: ReactNode;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 

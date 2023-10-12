@@ -22,7 +22,6 @@ import {
   TOAST_TIME
 } from '@constants/toast';
 import { InfiniteQueryProps } from '@hooks/useFood';
-import { deepClone } from '@helpers/deep-clone';
 import isEqual from 'react-fast-compare';
 import { ToastContext } from '@context/toast';
 interface MutationModalProps {
@@ -75,33 +74,22 @@ const MutationModal = memo(
           let existedFoodIndex = -1;
 
           // Loop all food pages, check the data prop and loop over all food items in data to find the existed food
-          for (const [index, foodPage] of currentFoodData.pages.entries()) {
+          for (const foodPage of currentFoodData.pages) {
             const foundedFoodIndex = foodPage.data.findIndex(food => {
               return food.id === data.id;
             });
 
-            // If the food is exist, update the local client food data
             if (foundedFoodIndex > -1) {
               existedFoodIndex = foundedFoodIndex;
-
-              const updatedFoodData =
-                deepClone<InfiniteQueryProps<Food>>(currentFoodData);
-
-              updatedFoodData.pages[index].data[foundedFoodIndex] = data;
-              queryClient.setQueryData<InfiniteQueryProps<Food>>(
-                ['foods'],
-                updatedFoodData
-              );
             }
           }
 
-          // Otherwise, re-call the get food API
           if (existedFoodIndex < 0) {
             toastMessage = TOAST_ADD_MSG;
-            queryClient.resetQueries({ queryKey: ['foods'] });
           } else {
             toastMessage = TOAST_EDIT_MSG;
           }
+          queryClient.resetQueries({ queryKey: ['foods'] });
         }
 
         onCancelClick();
@@ -131,8 +119,11 @@ const MutationModal = memo(
     };
 
     const onCancelClick = useCallback(() => {
-      if (mutationData.id === defaultData.id) setMutationData(defaultData);
-      else setMutationData(prodData);
+      if (mutationData.id === defaultData.id) {
+        setMutationData(defaultData);
+      } else {
+        setMutationData(prodData);
+      }
       setErrorMessage(defaultErrorMessage);
       setMutationShowUp(false);
     }, [mutationData.id, prodData, setMutationShowUp]);
@@ -141,7 +132,6 @@ const MutationModal = memo(
       e.preventDefault();
       const validateMessage = validateForm(mutationData);
       if (Object.values(validateMessage).join('')) {
-        console.log(mutationData);
         setErrorMessage(validateMessage);
       } else {
         mutation.mutate(mutationData);
