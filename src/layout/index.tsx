@@ -46,6 +46,7 @@ const Layout = memo(({ children }: Props) => {
     onSuccess() {
       queryClient.resetQueries({ queryKey: ['foods'] });
       setConfirmShowUp(false);
+      setLoadingShowUp(false);
       showToast(TOAST_DELETE_MSG, true);
       setTimeout(() => {
         hideToast();
