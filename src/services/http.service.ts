@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const http = axios.create({
   baseURL: `${BASE_URL}${RESOURCE.food}`,
-  timeout: 5000,
+  timeout: 0,
   headers: { Accept: 'application/json', 'Content-Type': 'application/json' }
 });
 

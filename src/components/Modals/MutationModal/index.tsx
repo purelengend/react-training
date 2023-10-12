@@ -118,7 +118,8 @@ const MutationModal = memo(
         setTimeout(() => {
           hideToast();
         }, TOAST_TIME);
-      }
+      },
+      networkMode: 'always'
     });
 
     const onChangeMutation = (e: React.ChangeEvent<HTMLInputElement>) => {

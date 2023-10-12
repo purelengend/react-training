@@ -41,6 +41,7 @@ const Header = () => {
     e.preventDefault();
     window.location.reload();
   };
+
   return (
     <header className={headerStyles['header-container']}>
       <div className={`d-flex ${headerStyles['header-main-wrapper']}`}>
@@ -49,7 +50,10 @@ const Header = () => {
             Foods Management
           </h1>
         </a>
-        <form className={`d-flex ${headerStyles['search-form']}`}>
+        <form
+          onSubmit={e => e.preventDefault()}
+          className={`d-flex ${headerStyles['search-form']}`}
+        >
           <InputField
             htmlFor="search"
             type="text"

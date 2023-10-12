@@ -58,7 +58,8 @@ const Layout = memo(({ children }: Props) => {
       setTimeout(() => {
         hideToast();
       }, TOAST_TIME);
-    }
+    },
+    networkMode: 'always'
   });
 
   return (

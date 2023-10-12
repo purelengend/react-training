@@ -56,7 +56,8 @@ function isValidInteger(input: number): boolean {
  */
 function isValidImageUrl(url: string): boolean {
   // Define a regular expression pattern to match valid URLs
-  const pattern = /^https:\/\/.+\.(jpg|jpeg|png|gif|bmp|svg|webp|avif|q=80)$/i;
+  const pattern =
+    /^https:\/\/.+(\.(jpg|jpeg|png|gif|bmp|svg|webp|avif)|q=80)$/i;
 
   // Use the test method of the regular expression to check if the URL matches the pattern
   return pattern.test(url);
