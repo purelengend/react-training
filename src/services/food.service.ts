@@ -29,7 +29,15 @@ export const mutationFood = async (inputFood: Food) => {
     };
     result = (await http.post<Food>('', food)).data;
   } else {
-    result = (await http.put<Food>(`${inputFood.id}`, inputFood)).data;
+    const food: Food = {
+      id: inputFood.id,
+      name: inputFood.name,
+      price: Number(inputFood.price),
+      imageUrl: inputFood.imageUrl,
+      quantity: Number(inputFood.quantity),
+      createdAt: new Date()
+    };
+    result = (await http.put<Food>(`${inputFood.id}`, food)).data;
   }
   return result;
 };
