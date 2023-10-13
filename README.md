@@ -19,7 +19,6 @@
 - React
 - Storybook
 
-
 # Development Tools
 
 - [Eslint](https://eslint.org/docs/latest/)
@@ -43,6 +42,7 @@
 - Clone the `practice-one` branch of this repository via HTTP: `git clone -b practice-one https://gitlab.asoft-python.com/huy.phamnhat/react-training`.
 - Open the project folder with your code editor.
 - Open terminal and run command: `pnpm i`.
+- Before running the project, you must create an `.env` file at the the `practice-one` folder, you can get it [here](https://drive.google.com/file/d/10tpJW5s0c2g0-K2zTxtBjQcCHJPFkM7_/view?usp=sharing).
 - After that run this command to host the web: `pnpm dev`.
 - Open browser and browse `http://localhost:5173`.
 - To start Storybook, run the following command: `pnpm storybook`.
