@@ -10,6 +10,7 @@
 - Apply knowledge of React TypeScript.
 - Get familiar with React TypeScript.
 - Use Storybook for documenting React components.
+- Get familiar with [TanStack Query latest version](https://tanstack.com/query/latest/docs/react/overview)
 
 # Techstacks
 
@@ -18,6 +19,7 @@
 - TypeScript
 - React
 - Storybook
+- Tanstack Query
 
 # Development Tools
 
