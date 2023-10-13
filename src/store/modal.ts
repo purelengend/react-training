@@ -16,7 +16,7 @@ export interface ModalAction {
   payload: {
     isShowUp: boolean;
     title?: string;
-    prodData?: Food;
+    productData?: Food;
     dataId?: string;
   };
 }
@@ -31,7 +31,7 @@ export interface ModalState {
     dataId: string;
   };
   mutationModal: ModalProp & {
-    prodData?: Food;
+    productData?: Food;
   };
   isLoadingShowUp: boolean;
 }
@@ -44,7 +44,7 @@ export const initialModalState: ModalState = {
   mutationModal: {
     isShowUp: false,
     title: DEFAULT_ADD_MODAL_TITLE,
-    prodData: defaultData
+    productData: defaultData
   },
   isLoadingShowUp: false
 };
@@ -71,7 +71,7 @@ export const modalReducer = (
         mutationModal: {
           isShowUp: payload.isShowUp,
           title: payload.title ?? state.mutationModal.title,
-          prodData: payload.prodData ?? state.mutationModal.prodData
+          productData: payload.productData ?? state.mutationModal.productData
         }
       };
     case ModalActionKind.Loading:

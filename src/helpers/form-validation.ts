@@ -1,10 +1,10 @@
-import { FoodErrorMessage } from '@components/Modals/MutationModal';
 import { Food } from '@components/common/Cards/ProductCard';
 import {
   FOOD_IMG_WARNING_MSG,
   FOOD_NAME_WARNING_MSG,
   FOOD_PRICE_WARNING_MSG,
-  FOOD_QUANTITY_WARNING_MSG
+  FOOD_QUANTITY_WARNING_MSG,
+  FoodErrorMessage
 } from '@constants/food';
 
 /**

@@ -19,13 +19,13 @@ const useModal = () => {
     [dispatch]
   );
   const setMutationShowUp = useCallback(
-    (isShowUp: boolean, title?: string, prodData?: Food) => {
+    (isShowUp: boolean, title?: string, productData?: Food) => {
       dispatch({
         type: ModalActionKind.Mutation,
         payload: {
           isShowUp,
           title,
-          prodData
+          productData
         }
       });
     },

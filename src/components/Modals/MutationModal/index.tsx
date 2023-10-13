@@ -2,265 +2,147 @@ import mutationModalStyles from '@components/Modals/MutationModal/mutation-modal
 import { Button } from '@components/common/Button';
 import { Food } from '@components/common/Cards/ProductCard';
 import { InputField } from '@components/common/InputField';
+import { FormEvent, memo } from 'react';
 import {
-  FormEvent,
-  memo,
-  useCallback,
-  useContext,
-  useEffect,
-  useState
-} from 'react';
-import { ModalContext } from '@context/modal';
-import { validateForm } from '@helpers/form-validation';
-import { defaultData } from '@constants/food';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { mutationFood } from '@services/food.service';
-import {
-  TOAST_ADD_MSG,
-  TOAST_EDIT_MSG,
-  TOAST_ERROR_MSG,
-  TOAST_TIME
-} from '@constants/toast';
-import { InfiniteQueryProps } from '@hooks/useFood';
+  FoodErrorMessage,
+  defaultData,
+  defaultFoodErrorMessage
+} from '@constants/food';
 import isEqual from 'react-fast-compare';
-import { ToastContext } from '@context/toast';
 interface MutationModalProps {
-  isVisible: boolean;
   title: string;
-  prodData?: Food;
+  productData?: Food;
+  setProductData: (food: Food) => void;
+  errorProductMessage?: FoodErrorMessage;
+  setErrorProductMessage: (error: FoodErrorMessage) => void;
+  onCancelClick: () => void;
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }
-
-export interface FoodErrorMessage {
-  name: string;
-  price: string;
-  imageUrl: string;
-  quantity: string;
-}
-
-const defaultErrorMessage: FoodErrorMessage = {
-  name: '',
-  price: '',
-  imageUrl: '',
-  quantity: ''
-};
 
 const MutationModal = memo(
-  ({ isVisible, title, prodData = defaultData }: MutationModalProps) => {
-    const { setMutationShowUp, setLoadingShowUp } = useContext(ModalContext);
-    const { showToast, hideToast } = useContext(ToastContext);
-    const [mutationData, setMutationData] = useState(prodData);
-    const [errorMessage, setErrorMessage] = useState(defaultErrorMessage);
-
-    const queryClient = useQueryClient();
-
-    useEffect(() => {
-      setMutationData(prodData);
-    }, [prodData]);
-
-    const mutation = useMutation({
-      mutationFn: (input: Food) => {
-        return mutationFood(input);
-      },
-      onMutate: () => {
-        setLoadingShowUp(true);
-      },
-      onSuccess: data => {
-        const currentFoodData = queryClient.getQueryData<
-          InfiniteQueryProps<Food>
-        >(['foods']);
-
-        let toastMessage = '';
-        if (currentFoodData) {
-          let existedFoodIndex = -1;
-
-          // Loop all food pages, check the data prop and loop over all food items in data to find the existed food
-          for (const foodPage of currentFoodData.pages) {
-            const foundedFoodIndex = foodPage.data.findIndex(food => {
-              return food.id === data.id;
-            });
-
-            if (foundedFoodIndex > -1) {
-              existedFoodIndex = foundedFoodIndex;
-            }
-          }
-
-          if (existedFoodIndex < 0) {
-            toastMessage = TOAST_ADD_MSG;
-          } else {
-            toastMessage = TOAST_EDIT_MSG;
-          }
-          queryClient.resetQueries({ queryKey: ['foods'] });
-        }
-
-        onCancelClick();
-        setLoadingShowUp(false);
-        showToast(toastMessage, true);
-        setTimeout(() => {
-          hideToast();
-        }, TOAST_TIME);
-      },
-      onError: () => {
-        onCancelClick();
-        setLoadingShowUp(false);
-        showToast(TOAST_ERROR_MSG, false);
-        setTimeout(() => {
-          hideToast();
-        }, TOAST_TIME);
-      },
-      networkMode: 'always'
-    });
-
-    const onChangeMutation = (e: React.ChangeEvent<HTMLInputElement>) => {
+  ({
+    title,
+    productData = defaultData,
+    setProductData,
+    errorProductMessage = defaultFoodErrorMessage,
+    onCancelClick,
+    onSubmit
+  }: MutationModalProps) => {
+    const onChangeMutationProductData = (
+      e: React.ChangeEvent<HTMLInputElement>
+    ) => {
       const value = e.target.value;
-      setMutationData({
-        ...mutationData,
+      setProductData({
+        ...productData,
         [e.target.name]: value
       });
     };
 
-    const onCancelClick = useCallback(() => {
-      if (mutationData.id === defaultData.id) {
-        setMutationData(defaultData);
-      } else {
-        setMutationData(prodData);
-      }
-      setErrorMessage(defaultErrorMessage);
-      setMutationShowUp(false);
-    }, [mutationData.id, prodData, setMutationShowUp]);
-
-    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      const validateMessage = validateForm(mutationData);
-      if (Object.values(validateMessage).join('')) {
-        setErrorMessage(validateMessage);
-      } else {
-        mutation.mutate(mutationData);
-      }
-    };
-
     return (
-      isVisible && (
-        <div id="mutation-modal" className={`d-flex-center modal-overlay`}>
-          <div
-            className={`d-flex-col ${mutationModalStyles['mutation-modal-body']}`}
+      <div id="mutation-modal" className={`d-flex-center modal-overlay`}>
+        <div
+          className={`d-flex-col ${mutationModalStyles['mutation-modal-body']}`}
+        >
+          <h2
+            id="mutation-title"
+            className={mutationModalStyles['mutation-modal-content']}
           >
-            <h2
-              id="mutation-title"
-              className={mutationModalStyles['mutation-modal-content']}
+            {title}
+          </h2>
+          <form
+            id="mutation-form"
+            className={`d-flex-col ${mutationModalStyles['mutation-form']}`}
+            onSubmit={onSubmit}
+          >
+            <div
+              className={`d-flex-col ${mutationModalStyles['mutation-form-field']}`}
             >
-              {title}
-            </h2>
-            <form
-              id="mutation-form"
-              className={`d-flex-col ${mutationModalStyles['mutation-form']}`}
-              onSubmit={onSubmit}
+              <InputField
+                label="Name"
+                htmlFor="name"
+                labelClass={mutationModalStyles['mutation-label']}
+                type="text"
+                inputClass={mutationModalStyles['mutation-input']}
+                name="name"
+                value={productData.name}
+                onChange={onChangeMutationProductData}
+              />
+              {errorProductMessage.name && (
+                <p className={mutationModalStyles['mutation-warning']}>
+                  {errorProductMessage.name}
+                </p>
+              )}
+            </div>
+            <div
+              className={`d-flex-col ${mutationModalStyles['mutation-form-field']}`}
             >
-              <input
-                type="hidden"
-                id="food-id"
-                name="food-id"
-                value={mutationData.id}
+              <InputField
+                label="Price"
+                htmlFor="price"
+                labelClass={mutationModalStyles['mutation-label']}
+                type="number"
+                inputClass={mutationModalStyles['mutation-input']}
+                name="price"
+                value={`${productData.price}`}
+                onChange={onChangeMutationProductData}
               />
-              <input
-                type="hidden"
-                id="created-at"
-                name="created-at"
-                value={
-                  typeof mutationData.createdAt === 'string'
-                    ? mutationData.createdAt
-                    : mutationData.createdAt.toDateString()
-                }
+              {errorProductMessage.price && (
+                <p className={mutationModalStyles['mutation-warning']}>
+                  {errorProductMessage.price}
+                </p>
+              )}
+            </div>
+            <div
+              className={`d-flex-col ${mutationModalStyles['mutation-form-field']}`}
+            >
+              <InputField
+                label="Image URL"
+                htmlFor="image"
+                labelClass={mutationModalStyles['mutation-label']}
+                type="text"
+                inputClass={mutationModalStyles['mutation-input']}
+                name="imageUrl"
+                value={productData.imageUrl}
+                onChange={onChangeMutationProductData}
               />
-              <div
-                className={`d-flex-col ${mutationModalStyles['mutation-form-field']}`}
-              >
-                <InputField
-                  label="Name"
-                  htmlFor="name"
-                  labelClass={mutationModalStyles['mutation-label']}
-                  type="text"
-                  inputClass={mutationModalStyles['mutation-input']}
-                  name="name"
-                  value={mutationData.name}
-                  onChange={onChangeMutation}
-                />
-                {errorMessage.name && (
-                  <p className={mutationModalStyles['mutation-warning']}>
-                    {errorMessage.name}
-                  </p>
-                )}
-              </div>
-              <div
-                className={`d-flex-col ${mutationModalStyles['mutation-form-field']}`}
-              >
-                <InputField
-                  label="Price"
-                  htmlFor="price"
-                  labelClass={mutationModalStyles['mutation-label']}
-                  type="number"
-                  inputClass={mutationModalStyles['mutation-input']}
-                  name="price"
-                  value={`${mutationData.price}`}
-                  onChange={onChangeMutation}
-                />
-                {errorMessage.price && (
-                  <p className={mutationModalStyles['mutation-warning']}>
-                    {errorMessage.price}
-                  </p>
-                )}
-              </div>
-              <div
-                className={`d-flex-col ${mutationModalStyles['mutation-form-field']}`}
-              >
-                <InputField
-                  label="Image URL"
-                  htmlFor="image"
-                  labelClass={mutationModalStyles['mutation-label']}
-                  type="text"
-                  inputClass={mutationModalStyles['mutation-input']}
-                  name="imageUrl"
-                  value={mutationData.imageUrl}
-                  onChange={onChangeMutation}
-                />
-                {errorMessage.imageUrl && (
-                  <p className={mutationModalStyles['mutation-warning']}>
-                    {errorMessage.imageUrl}
-                  </p>
-                )}
-              </div>
-              <div
-                className={`d-flex-col ${mutationModalStyles['mutation-form-field']}`}
-              >
-                <InputField
-                  label="Quantity"
-                  htmlFor="quantity"
-                  labelClass={mutationModalStyles['mutation-label']}
-                  type="number"
-                  inputClass={`${mutationModalStyles['mutation-input']} ${mutationModalStyles.half}`}
-                  name="quantity"
-                  value={`${mutationData.quantity}`}
-                  onChange={onChangeMutation}
-                />
-                {errorMessage.quantity && (
-                  <p className={mutationModalStyles['mutation-warning']}>
-                    {errorMessage.quantity}
-                  </p>
-                )}
-              </div>
-              <div
-                className={`d-flex ${mutationModalStyles['mutation-modal-btn-wrapper']}`}
-              >
-                <Button onClick={onCancelClick} className="modal-btn cancel">
-                  Cancel
-                </Button>
-                <Button type="submit" className="modal-btn confirm">
-                  Save
-                </Button>
-              </div>
-            </form>
-          </div>
+              {errorProductMessage.imageUrl && (
+                <p className={mutationModalStyles['mutation-warning']}>
+                  {errorProductMessage.imageUrl}
+                </p>
+              )}
+            </div>
+            <div
+              className={`d-flex-col ${mutationModalStyles['mutation-form-field']}`}
+            >
+              <InputField
+                label="Quantity"
+                htmlFor="quantity"
+                labelClass={mutationModalStyles['mutation-label']}
+                type="number"
+                inputClass={`${mutationModalStyles['mutation-input']} ${mutationModalStyles.half}`}
+                name="quantity"
+                value={`${productData.quantity}`}
+                onChange={onChangeMutationProductData}
+              />
+              {errorProductMessage.quantity && (
+                <p className={mutationModalStyles['mutation-warning']}>
+                  {errorProductMessage.quantity}
+                </p>
+              )}
+            </div>
+            <div
+              className={`d-flex ${mutationModalStyles['mutation-modal-btn-wrapper']}`}
+            >
+              <Button onClick={onCancelClick} className="modal-btn cancel">
+                Cancel
+              </Button>
+              <Button type="submit" className="modal-btn confirm">
+                Save
+              </Button>
+            </div>
+          </form>
         </div>
-      )
+      </div>
     );
   },
   isEqual

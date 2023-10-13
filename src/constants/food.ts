@@ -20,3 +20,17 @@ export const defaultData: Food = {
   quantity: 0,
   createdAt: new Date()
 };
+
+export interface FoodErrorMessage {
+  name: string;
+  price: string;
+  imageUrl: string;
+  quantity: string;
+}
+
+export const defaultFoodErrorMessage: FoodErrorMessage = {
+  name: '',
+  price: '',
+  imageUrl: '',
+  quantity: ''
+};

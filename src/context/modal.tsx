@@ -11,12 +11,12 @@ import isEqual from 'react-fast-compare';
 
 interface ModalContextProps {
   mutationModal: ModalProp & {
-    prodData?: Food;
+    productData?: Food;
   };
   setMutationShowUp: (
     isShowUp: boolean,
     title?: string,
-    prodData?: Food
+    productData?: Food
   ) => void;
   isLoadingShowUp: boolean;
   setLoadingShowUp: (isShowUp: boolean) => void;
@@ -34,7 +34,7 @@ export const ModalContext = createContext<ModalContextProps>({
   mutationModal: {
     isShowUp: false,
     title: DEFAULT_ADD_MODAL_TITLE,
-    prodData: defaultData
+    productData: defaultData
   },
   setMutationShowUp: () => {},
   isLoadingShowUp: false,

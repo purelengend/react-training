@@ -19,13 +19,10 @@ const meta: Meta<typeof MutationModal> = {
     }
   ],
   argTypes: {
-    isVisible: {
-      description: 'Indicates whether the modal is hidden or visible.'
-    },
     title: {
       description: 'The title of the modal'
     },
-    prodData: {
+    productData: {
       description: 'The default data for the modal'
     }
   }
@@ -37,9 +34,8 @@ type Story = StoryObj<typeof MutationModal>;
 
 export const MutationModalExample: Story = {
   args: {
-    isVisible: true,
     title: 'Sample Title',
-    prodData: {
+    productData: {
       id: '0',
       name: 'Sample name',
       price: 213,

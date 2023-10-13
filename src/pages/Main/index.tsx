@@ -1,21 +1,47 @@
 import mainStyles from '@pages/Main/main.module.css';
 import { AddCard } from '@components/common/Cards/AddCard';
-import { ProductCard } from '@components/common/Cards/ProductCard';
+import { Food, ProductCard } from '@components/common/Cards/ProductCard';
 import { Button } from '@components/common/Button';
 import { Spinner } from '@components/common/Spinner';
-import { Fragment, useContext } from 'react';
+import {
+  FormEvent,
+  Fragment,
+  Suspense,
+  lazy,
+  useCallback,
+  useContext,
+  useEffect,
+  useState
+} from 'react';
 import { ModalContext } from '@context/modal';
 import {
   DEFAULT_ADD_MODAL_TITLE,
   DEFAULT_CONFIRM_MODAL_TITLE,
   DEFAULT_EDIT_MODAL_TITLE
 } from '@constants/modal';
-import { EMPTY_MSG, defaultData } from '@constants/food';
-import useFood from '@hooks/useFood';
+import {
+  EMPTY_MSG,
+  defaultData,
+  defaultFoodErrorMessage
+} from '@constants/food';
+import useFood, { InfiniteQueryProps } from '@hooks/useFood';
+import { ToastContext } from '@context/toast';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { deleteFoodById, mutationFood } from '@services/food.service';
+import {
+  TOAST_ADD_MSG,
+  TOAST_DELETE_MSG,
+  TOAST_EDIT_MSG,
+  TOAST_ERROR_MSG,
+  TOAST_TIME
+} from '@constants/toast';
+import LoadingModal from '@components/Modals/LoadingModal';
+import { validateForm } from '@helpers/form-validation';
+
+const ConfirmModal = lazy(() => import('@components/Modals/ConfirmModal'));
+const MutationModal = lazy(() => import('@components/Modals/MutationModal'));
 
 const MainPage = () => {
-  const { setMutationShowUp, setConfirmShowUp } = useContext(ModalContext);
-
   const {
     foodData,
     isLoading,
@@ -24,61 +50,208 @@ const MainPage = () => {
     isFetchingNextPage
   } = useFood();
 
-  // useEffect(
-  //   () => setLoadingShowUp(isFetchingNextPage),
-  //   [isFetchingNextPage, setLoadingShowUp]
-  // );
+  const {
+    mutationModal,
+    setMutationShowUp,
+    setLoadingShowUp,
+    confirmModal,
+    setConfirmShowUp
+  } = useContext(ModalContext);
 
-  return (
-    <main className={`d-flex-col ${mainStyles['main-container']}`}>
-      <div
-        id="food-list"
-        className={`d-flex ${mainStyles['main-content-wrapper']}`}
-      >
-        {isLoading && <Spinner customStyle={`${mainStyles['main-loading']}`} />}
-        <AddCard
-          onClick={() =>
-            setMutationShowUp(true, DEFAULT_ADD_MODAL_TITLE, defaultData)
+  const { showToast, hideToast } = useContext(ToastContext);
+
+  const queryClient = useQueryClient();
+
+  const [mutationFoodData, setMutationFoodData] = useState(defaultData);
+
+  const [errorMutationFoodMessage, setErrorMutationFoodMessage] = useState(
+    defaultFoodErrorMessage
+  );
+
+  useEffect(() => {
+    if (mutationModal.productData)
+      setMutationFoodData(mutationModal.productData);
+  }, [mutationModal.productData]);
+
+  const onCancelClick = useCallback(() => {
+    if (mutationFoodData.id === defaultData.id) {
+      setMutationFoodData(defaultData);
+    } else {
+      setMutationFoodData(mutationFoodData);
+    }
+    setErrorMutationFoodMessage(defaultFoodErrorMessage);
+    setMutationShowUp(false);
+  }, [mutationFoodData, setMutationShowUp]);
+
+  const { mutate: mutateFood } = useMutation({
+    mutationFn: (input: Food) => {
+      return mutationFood(input);
+    },
+    onMutate: () => {
+      setLoadingShowUp(true);
+    },
+    onSuccess: data => {
+      const currentFoodData = queryClient.getQueryData<
+        InfiniteQueryProps<Food>
+      >(['foods']);
+
+      let toastMessage = '';
+      if (currentFoodData) {
+        let existedFoodIndex = -1;
+
+        // Loop all food pages, check the data prop and loop over all food items in data to find the existed food
+        for (const foodPage of currentFoodData.pages) {
+          const foundedFoodIndex = foodPage.data.findIndex(food => {
+            return food.id === data.id;
+          });
+
+          if (foundedFoodIndex > -1) {
+            existedFoodIndex = foundedFoodIndex;
           }
-        />
+        }
 
-        {foodData?.pages?.map((page, index) => (
-          <Fragment key={index}>
-            {page.data.map(food => (
-              <ProductCard
-                onDeleteClick={() => {
-                  setConfirmShowUp(true, DEFAULT_CONFIRM_MODAL_TITLE, food.id);
-                }}
-                onEditClick={() =>
-                  setMutationShowUp(true, DEFAULT_EDIT_MODAL_TITLE, food)
-                }
-                product={food}
-                key={food.id}
-              />
-            ))}
-          </Fragment>
-        ))}
+        if (existedFoodIndex < 0) {
+          toastMessage = TOAST_ADD_MSG;
+        } else {
+          toastMessage = TOAST_EDIT_MSG;
+        }
+        queryClient.resetQueries({ queryKey: ['foods'] });
+      }
 
-        {!isLoading && foodData?.pages[0].data.length === 0 && (
-          <div className={`d-flex ${mainStyles['empty-message']}`}>
-            {EMPTY_MSG}
-          </div>
-        )}
-      </div>
+      onCancelClick();
+      setLoadingShowUp(false);
+      showToast(toastMessage, true);
+      setTimeout(() => {
+        hideToast();
+      }, TOAST_TIME);
+    },
+    onError: () => {
+      onCancelClick();
+      setLoadingShowUp(false);
+      showToast(TOAST_ERROR_MSG, false);
+      setTimeout(() => {
+        hideToast();
+      }, TOAST_TIME);
+    },
+    networkMode: 'always'
+  });
 
-      <Button
-        isVisible={hasNextPage}
-        isDisabled={isFetchingNextPage}
-        onClick={() => fetchNextPage()}
-        className={`d-flex-center ${mainStyles['expand-btn']}`}
-      >
-        {isFetchingNextPage ? (
-          <Spinner customStyle={`${mainStyles['expand-loading']}`} />
-        ) : (
-          'SHOW MORE'
-        )}
-      </Button>
-    </main>
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const validateMessage = validateForm(mutationFoodData);
+    if (Object.values(validateMessage).join('')) {
+      setErrorMutationFoodMessage(validateMessage);
+    } else {
+      mutateFood(mutationFoodData);
+    }
+  };
+  const { mutate: deleteFood } = useMutation({
+    mutationFn: (id: string) => {
+      return deleteFoodById(id);
+    },
+    onMutate: () => {
+      setLoadingShowUp(true);
+    },
+    onSuccess: () => {
+      queryClient.resetQueries({ queryKey: ['foods'] });
+      setConfirmShowUp(false);
+      setLoadingShowUp(false);
+      showToast(TOAST_DELETE_MSG, true);
+      setTimeout(() => {
+        hideToast();
+      }, TOAST_TIME);
+    },
+    onError: () => {
+      setConfirmShowUp(false);
+      setLoadingShowUp(false);
+      showToast(TOAST_ERROR_MSG, false);
+      setTimeout(() => {
+        hideToast();
+      }, TOAST_TIME);
+    },
+    networkMode: 'always'
+  });
+  return (
+    <>
+      <main className={`d-flex-col ${mainStyles['main-container']}`}>
+        <div
+          id="food-list"
+          className={`d-flex ${mainStyles['main-content-wrapper']}`}
+        >
+          {isLoading && (
+            <Spinner customStyle={`${mainStyles['main-loading']}`} />
+          )}
+          <AddCard
+            onClick={() =>
+              setMutationShowUp(true, DEFAULT_ADD_MODAL_TITLE, defaultData)
+            }
+          />
+
+          {foodData?.pages?.map((page, index) => (
+            <Fragment key={index}>
+              {page.data.map(food => (
+                <ProductCard
+                  onDeleteClick={() => {
+                    setConfirmShowUp(
+                      true,
+                      DEFAULT_CONFIRM_MODAL_TITLE,
+                      food.id
+                    );
+                  }}
+                  onEditClick={() =>
+                    setMutationShowUp(true, DEFAULT_EDIT_MODAL_TITLE, food)
+                  }
+                  product={food}
+                  key={food.id}
+                />
+              ))}
+            </Fragment>
+          ))}
+
+          {!isLoading && foodData?.pages[0].data.length === 0 && (
+            <div className={`d-flex ${mainStyles['empty-message']}`}>
+              {EMPTY_MSG}
+            </div>
+          )}
+        </div>
+
+        <Button
+          isVisible={hasNextPage}
+          isDisabled={isFetchingNextPage}
+          onClick={() => fetchNextPage()}
+          className={`d-flex-center ${mainStyles['expand-btn']}`}
+        >
+          {isFetchingNextPage ? (
+            <Spinner customStyle={`${mainStyles['expand-loading']}`} />
+          ) : (
+            'SHOW MORE'
+          )}
+        </Button>
+      </main>
+      <ConfirmModal
+        isVisible={confirmModal.isShowUp}
+        message={confirmModal.title}
+        dataId={confirmModal.dataId}
+        onSubmit={e => {
+          e.preventDefault();
+          deleteFood(confirmModal.dataId);
+        }}
+      />
+
+      {mutationModal.isShowUp && (
+        <Suspense fallback={<LoadingModal isVisible />}>
+          <MutationModal
+            title={mutationModal.title}
+            productData={mutationFoodData}
+            setProductData={setMutationFoodData}
+            errorProductMessage={errorMutationFoodMessage}
+            setErrorProductMessage={setErrorMutationFoodMessage}
+            onCancelClick={onCancelClick}
+            onSubmit={onSubmit}
+          />
+        </Suspense>
+      )}
+    </>
   );
 };
 
