@@ -2,16 +2,24 @@ import { memo } from 'react';
 import toastStyles from '@components/common/Toast/toast.module.css';
 import successToastIcon from '@assets/icons/check-mark-icon.svg';
 import errorToastIcon from '@assets/icons/cross-icon.svg';
+import { ToastKind, ToastType } from '@store/toast';
 
 interface ToastProps {
   message: string;
   isVisible?: boolean;
-  isSuccess?: boolean;
+  toastType: ToastKind;
 }
 export const Toast = memo(
-  ({ message, isSuccess = true, isVisible = false }: ToastProps) => {
-    const toastTypeClass = isSuccess ? 'success' : 'error';
-    const toastIcon = isSuccess ? successToastIcon : errorToastIcon;
+  ({
+    message,
+    toastType = ToastType.Success,
+    isVisible = false
+  }: ToastProps) => {
+    const toastTypeClass = toastType.toLowerCase();
+    let toastIcon = successToastIcon;
+    if (toastType === ToastType.Error) {
+      toastIcon = errorToastIcon;
+    }
     return (
       <div
         style={{
@@ -25,7 +33,7 @@ export const Toast = memo(
             src={toastIcon}
             alt="Check Mark Icon"
             className={`primary-icon ${
-              !isSuccess && toastStyles['error-icon']
+              toastType === ToastType.Error && toastStyles['error-icon']
             }`}
           />
           <p>{message}</p>

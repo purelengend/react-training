@@ -37,6 +37,7 @@ import {
 } from '@constants/toast';
 import LoadingModal from '@components/Modals/LoadingModal';
 import { validateForm } from '@helpers/form-validation';
+import { ToastType } from '@store/toast';
 
 const ConfirmModal = lazy(() => import('@components/Modals/ConfirmModal'));
 const MutationModal = lazy(() => import('@components/Modals/MutationModal'));
@@ -120,7 +121,7 @@ const MainPage = () => {
 
       onCancelClick();
       setLoadingShowUp(false);
-      showToast(toastMessage, true);
+      showToast(toastMessage, ToastType.Success);
       setTimeout(() => {
         hideToast();
       }, TOAST_TIME);
@@ -128,7 +129,7 @@ const MainPage = () => {
     onError: () => {
       onCancelClick();
       setLoadingShowUp(false);
-      showToast(TOAST_ERROR_MSG, false);
+      showToast(TOAST_ERROR_MSG, ToastType.Error);
       setTimeout(() => {
         hideToast();
       }, TOAST_TIME);
@@ -156,7 +157,7 @@ const MainPage = () => {
       queryClient.resetQueries({ queryKey: ['foods'] });
       setConfirmShowUp(false);
       setLoadingShowUp(false);
-      showToast(TOAST_DELETE_MSG, true);
+      showToast(TOAST_DELETE_MSG, ToastType.Success);
       setTimeout(() => {
         hideToast();
       }, TOAST_TIME);
@@ -164,7 +165,7 @@ const MainPage = () => {
     onError: () => {
       setConfirmShowUp(false);
       setLoadingShowUp(false);
-      showToast(TOAST_ERROR_MSG, false);
+      showToast(TOAST_ERROR_MSG, ToastType.Error);
       setTimeout(() => {
         hideToast();
       }, TOAST_TIME);

@@ -33,7 +33,7 @@ const Layout = memo(({ children }: Props) => {
       <Toast
         message={toast.message}
         isVisible={toast.isVisible}
-        isSuccess={toast.isSuccess}
+        toastType={toast.toastType}
       />
     </>
   );

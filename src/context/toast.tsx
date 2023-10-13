@@ -1,21 +1,22 @@
 import useToast from '@hooks/useToast';
+import { ToastKind, ToastType } from '@store/toast';
 import { ReactNode, createContext, memo, useMemo } from 'react';
 import isEqual from 'react-fast-compare';
 
 interface ToastContextProps {
   toast: {
     message: string;
-    isSuccess: boolean;
+    toastType: ToastKind;
     isVisible: boolean;
   };
-  showToast: (message: string, isSuccess: boolean) => void;
+  showToast: (message: string, toastType: ToastKind) => void;
   hideToast: () => void;
 }
 
 export const ToastContext = createContext<ToastContextProps>({
   toast: {
     message: '',
-    isSuccess: true,
+    toastType: ToastType.Success,
     isVisible: false
   },
   showToast: () => {},
