@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: Infinity, refetchOnMount: true } }
 });
+
 const meta: Meta<typeof MutationModal> = {
   title: 'Example/MutationModal',
   component: MutationModal,
