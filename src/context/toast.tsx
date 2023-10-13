@@ -18,8 +18,8 @@ export const ToastContext = createContext<ToastContextProps>({
     isSuccess: true,
     isVisible: false
   },
-  showToast() {},
-  hideToast() {}
+  showToast:() => {},
+  hideToast:() => {}
 });
 
 interface ToastContextProviderProps {

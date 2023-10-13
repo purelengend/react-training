@@ -3,7 +3,7 @@ import { AddCard } from '@components/common/Cards/AddCard';
 import { ProductCard } from '@components/common/Cards/ProductCard';
 import { Button } from '@components/common/Button';
 import { Spinner } from '@components/common/Spinner';
-import { Fragment, useContext, useEffect } from 'react';
+import { Fragment, useContext } from 'react';
 import { ModalContext } from '@context/modal';
 import {
   DEFAULT_ADD_MODAL_TITLE,
@@ -14,7 +14,7 @@ import { EMPTY_MSG, defaultData } from '@constants/food';
 import useFood from '@hooks/useFood';
 
 const MainPage = () => {
-  const { setMutationShowUp, setConfirmShowUp, setLoadingShowUp } =
+  const { setMutationShowUp, setConfirmShowUp } =
     useContext(ModalContext);
 
   const {
@@ -25,10 +25,10 @@ const MainPage = () => {
     isFetchingNextPage
   } = useFood();
 
-  useEffect(
-    () => setLoadingShowUp(isFetchingNextPage),
-    [isFetchingNextPage, setLoadingShowUp]
-  );
+  // useEffect(
+  //   () => setLoadingShowUp(isFetchingNextPage),
+  //   [isFetchingNextPage, setLoadingShowUp]
+  // );
 
   return (
     <main className={`d-flex-col ${mainStyles['main-container']}`}>
@@ -36,7 +36,7 @@ const MainPage = () => {
         id="food-list"
         className={`d-flex ${mainStyles['main-content-wrapper']}`}
       >
-        {isLoading && <Spinner />}
+        {isLoading && <Spinner customStyle={`${mainStyles['main-loading']}`} />}
         <AddCard
           onClick={() =>
             setMutationShowUp(true, DEFAULT_ADD_MODAL_TITLE, defaultData)
@@ -69,10 +69,15 @@ const MainPage = () => {
 
       <Button
         isVisible={hasNextPage}
+        isDisabled={isFetchingNextPage}
         onClick={() => fetchNextPage()}
         className={`d-flex-center ${mainStyles['expand-btn']}`}
       >
-        SHOW MORE
+        {isFetchingNextPage ? (
+          <Spinner customStyle={`${mainStyles['expand-loading']}`} />
+        ) : (
+          'SHOW MORE'
+        )}
       </Button>
     </main>
   );

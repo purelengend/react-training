@@ -40,10 +40,10 @@ const Layout = memo(({ children }: Props) => {
     mutationFn: (id: string) => {
       return deleteFoodById(id);
     },
-    onMutate() {
+    onMutate: () => {
       setLoadingShowUp(true);
     },
-    onSuccess() {
+    onSuccess: () => {
       queryClient.resetQueries({ queryKey: ['foods'] });
       setConfirmShowUp(false);
       setLoadingShowUp(false);

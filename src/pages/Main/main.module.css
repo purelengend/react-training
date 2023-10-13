@@ -33,6 +33,19 @@
   align-items: center;
 }
 
+.main-loading {
+  position: absolute;
+  top: 30%;
+  left: 49%;
+  width: 40px;
+  height: 40px;
+}
+
+.expand-loading {
+  width: 14px;
+  height: 14px;
+}
+
 .expand-btn:hover {
   box-shadow: 0px 8px 24px 0px var(--box-shadow-primary);
 }

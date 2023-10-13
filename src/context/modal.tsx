@@ -36,15 +36,15 @@ export const ModalContext = createContext<ModalContextProps>({
     title: DEFAULT_ADD_MODAL_TITLE,
     prodData: defaultData
   },
-  setMutationShowUp() {},
+  setMutationShowUp: () => {},
   isLoadingShowUp: false,
-  setLoadingShowUp() {},
+  setLoadingShowUp: () => {},
   confirmModal: {
     isShowUp: false,
     title: DEFAULT_CONFIRM_MODAL_TITLE,
     dataId: DEFAULT_FOOD_ID_VALUE
   },
-  setConfirmShowUp() {}
+  setConfirmShowUp: () => {}
 });
 
 interface ModalContextProviderProps {

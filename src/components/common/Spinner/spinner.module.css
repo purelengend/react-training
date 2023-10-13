@@ -4,11 +4,6 @@
   animation: spin 1s linear infinite;
   border-top: 4px solid var(--base-dark-line);
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  top: 30%;
-  left: 49%;
 }
 
 @keyframes spin {
