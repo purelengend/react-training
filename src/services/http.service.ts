@@ -1,8 +1,8 @@
-import { BASE_URL, RESOURCE } from '@constants/api';
+import { RESOURCE } from '@constants/api';
 import axios from 'axios';
 
 const http = axios.create({
-  baseURL: `${BASE_URL}${RESOURCE.food}`,
+  baseURL: `${import.meta.env.VITE_SERVER_DOMAIN}${RESOURCE.food}`,
   timeout: 0,
   headers: { Accept: 'application/json', 'Content-Type': 'application/json' }
 });

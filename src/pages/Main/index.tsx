@@ -14,8 +14,7 @@ import { EMPTY_MSG, defaultData } from '@constants/food';
 import useFood from '@hooks/useFood';
 
 const MainPage = () => {
-  const { setMutationShowUp, setConfirmShowUp } =
-    useContext(ModalContext);
+  const { setMutationShowUp, setConfirmShowUp } = useContext(ModalContext);
 
   const {
     foodData,
