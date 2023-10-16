@@ -1,13 +1,13 @@
 import headerStyles from '@components/Header/header.module.css';
 import searchIcon from '@assets/icons/search-icon.svg';
-import { Select } from '@components/common/Select';
+import { Select, SelectOptionProps } from '@components/common/Select';
 import { InputField } from '@components/common/InputField';
 import {
   ASCENDING_FILTER_ATTRIBUTE,
   DEFAULT_FILTER_ATTRIBUTE,
   DESCENDING_FILTER_ATTRIBUTE
 } from '@constants/filter';
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { UrlContext } from '@context/url';
 import useFood from '@hooks/useFood';
 import { ModalContext } from '@context/modal';
@@ -42,6 +42,43 @@ const Header = () => {
     window.location.reload();
   };
 
+  const selectOptions: SelectOptionProps[] = useMemo(
+    () => [
+      {
+        value: undefined,
+        disabled: true,
+        label: 'Sort by price'
+      },
+      {
+        value: DEFAULT_FILTER_ATTRIBUTE,
+        disabled: false,
+        label: 'Default'
+      },
+      {
+        value: ASCENDING_FILTER_ATTRIBUTE,
+        disabled: false,
+        label: 'Ascending'
+      },
+      {
+        value: DESCENDING_FILTER_ATTRIBUTE,
+        disabled: false,
+        label: 'Descending'
+      }
+    ],
+    []
+  );
+
+  const onChangeSearchInput = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => setSearchText(e.target.value),
+    []
+  );
+
+  const onChangeSelectOption = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setSortFilter(e.target.value);
+    },
+    [setSortFilter]
+  );
   return (
     <header className={headerStyles['header-container']}>
       <div className={`d-flex ${headerStyles['header-main-wrapper']}`}>
@@ -61,7 +98,7 @@ const Header = () => {
             inputClass={headerStyles['search-input']}
             placeholder="Search for food, coffee, etc.."
             value={searchText}
-            onChange={e => setSearchText(e.target.value)}
+            onChange={onChangeSearchInput}
             label={
               <img
                 width="16"
@@ -77,31 +114,8 @@ const Header = () => {
       <div className={`d-flex-center ${headerStyles['header-sub-wrapper']}`}>
         <Select
           value={sortFilter}
-          onChange={e => {
-            setSortFilter(e.target.value);
-          }}
-          selectOptions={[
-            {
-              value: undefined,
-              disabled: true,
-              label: 'Sort by price'
-            },
-            {
-              value: DEFAULT_FILTER_ATTRIBUTE,
-              disabled: false,
-              label: 'Default'
-            },
-            {
-              value: ASCENDING_FILTER_ATTRIBUTE,
-              disabled: false,
-              label: 'Ascending'
-            },
-            {
-              value: DESCENDING_FILTER_ATTRIBUTE,
-              disabled: false,
-              label: 'Descending'
-            }
-          ]}
+          onChange={onChangeSelectOption}
+          selectOptions={selectOptions}
         />
       </div>
     </header>

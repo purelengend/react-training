@@ -2,7 +2,7 @@ import { ReactNode, memo } from 'react';
 import selectStyles from '@components/common/Select/select.module.css';
 import { SelectOption } from './SelectOption';
 import isEqual from 'react-fast-compare';
-interface SelectOptionProps {
+export interface SelectOptionProps {
   disabled: boolean;
   value: string | undefined;
   label: ReactNode;
