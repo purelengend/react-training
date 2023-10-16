@@ -229,15 +229,18 @@ const MainPage = () => {
           )}
         </Button>
       </main>
-      <ConfirmModal
-        isVisible={confirmModal.isShowUp}
-        message={confirmModal.title}
-        dataId={confirmModal.dataId}
-        onSubmit={e => {
-          e.preventDefault();
-          deleteFood(confirmModal.dataId);
-        }}
-      />
+      {confirmModal.isShowUp && (
+        <Suspense fallback={<LoadingModal isVisible />}>
+          <ConfirmModal
+            message={confirmModal.title}
+            dataId={confirmModal.dataId}
+            onSubmit={e => {
+              e.preventDefault();
+              deleteFood(confirmModal.dataId);
+            }}
+          />
+        </Suspense>
+      )}
 
       {mutationModal.isShowUp && (
         <Suspense fallback={<LoadingModal isVisible />}>
