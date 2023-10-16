@@ -18,9 +18,6 @@ const meta: Meta<typeof ConfirmModal> = {
     )
   ],
   argTypes: {
-    isVisible: {
-      description: 'Indicates whether the modal is hidden or visible.'
-    },
     onSubmit: {
       description: 'The submit function to be called when submitting the modal',
       action: true
@@ -44,7 +41,6 @@ type Story = StoryObj<typeof ConfirmModal>;
 
 export const ConfirmModalExample: Story = {
   args: {
-    isVisible: true,
     message: 'Sample message of the modal',
     onSubmit: e => {
       e.preventDefault();
