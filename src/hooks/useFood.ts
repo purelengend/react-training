@@ -5,6 +5,7 @@ import { useContext } from 'react';
 import { UrlContext } from '@context/url';
 import { ToastContext } from '@context/toast';
 import { TOAST_ERROR_MSG, TOAST_TIME } from '@constants/toast';
+import { ToastType } from '@store/toast';
 export interface InfiniteQueryProps<T> {
   pages: {
     data: T[];
@@ -38,7 +39,7 @@ const useFood = () => {
     },
     refetchOnWindowFocus: false,
     onError: () => {
-      showToast(TOAST_ERROR_MSG, false);
+      showToast(TOAST_ERROR_MSG, ToastType.Error);
       setTimeout(() => {
         hideToast();
       }, TOAST_TIME);
