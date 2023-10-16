@@ -137,15 +137,18 @@ const MainPage = () => {
     networkMode: 'always'
   });
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const validateMessage = validateForm(mutationFoodData);
-    if (Object.values(validateMessage).join('')) {
-      setErrorMutationFoodMessage(validateMessage);
-    } else {
-      mutateFood(mutationFoodData);
-    }
-  };
+  const onSubmit = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const validateMessage = validateForm(mutationFoodData);
+      if (Object.values(validateMessage).join('')) {
+        setErrorMutationFoodMessage(validateMessage);
+      } else {
+        mutateFood(mutationFoodData);
+      }
+    },
+    [mutateFood, mutationFoodData]
+  );
   const { mutate: deleteFood } = useMutation({
     mutationFn: (id: string) => {
       return deleteFoodById(id);
@@ -172,6 +175,29 @@ const MainPage = () => {
     },
     networkMode: 'always'
   });
+
+  const onClickAddFood = useCallback(
+    () => setMutationShowUp(true, DEFAULT_ADD_MODAL_TITLE, defaultData),
+    [setMutationShowUp]
+  );
+  const onClickDeleteFood = useCallback(
+    (foodId: string) => {
+      setConfirmShowUp(true, DEFAULT_CONFIRM_MODAL_TITLE, foodId);
+    },
+    [setConfirmShowUp]
+  );
+  const onClickEditFood = useCallback(
+    (food: Food) => setMutationShowUp(true, DEFAULT_EDIT_MODAL_TITLE, food),
+    [setMutationShowUp]
+  );
+  const onConfirm = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      deleteFood(confirmModal.dataId);
+    },
+    [confirmModal.dataId, deleteFood]
+  );
+  const onClickExpandFood = useCallback(() => fetchNextPage(), [fetchNextPage]);
   return (
     <>
       <main className={`d-flex-col ${mainStyles['main-container']}`}>
@@ -182,26 +208,14 @@ const MainPage = () => {
           {isLoading && (
             <Spinner customStyle={`${mainStyles['main-loading']}`} />
           )}
-          <AddCard
-            onClick={() =>
-              setMutationShowUp(true, DEFAULT_ADD_MODAL_TITLE, defaultData)
-            }
-          />
+          <AddCard onClick={onClickAddFood} />
 
           {foodData?.pages?.map((page, index) => (
             <Fragment key={index}>
               {page.data.map(food => (
                 <ProductCard
-                  onDeleteClick={() => {
-                    setConfirmShowUp(
-                      true,
-                      DEFAULT_CONFIRM_MODAL_TITLE,
-                      food.id
-                    );
-                  }}
-                  onEditClick={() =>
-                    setMutationShowUp(true, DEFAULT_EDIT_MODAL_TITLE, food)
-                  }
+                  onDeleteClick={onClickDeleteFood}
+                  onEditClick={onClickEditFood}
                   product={food}
                   key={food.id}
                 />
@@ -219,7 +233,7 @@ const MainPage = () => {
         <Button
           isVisible={hasNextPage}
           isDisabled={isFetchingNextPage}
-          onClick={() => fetchNextPage()}
+          onClick={onClickExpandFood}
           className={`d-flex-center ${mainStyles['expand-btn']}`}
         >
           {isFetchingNextPage ? (
@@ -234,10 +248,7 @@ const MainPage = () => {
           <ConfirmModal
             message={confirmModal.title}
             dataId={confirmModal.dataId}
-            onSubmit={e => {
-              e.preventDefault();
-              deleteFood(confirmModal.dataId);
-            }}
+            onSubmit={onConfirm}
           />
         </Suspense>
       )}

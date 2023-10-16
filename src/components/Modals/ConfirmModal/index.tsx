@@ -1,4 +1,4 @@
-import { FormEvent, memo, useContext } from 'react';
+import { FormEvent, memo, useCallback, useContext } from 'react';
 import { Button } from '@components/common/Button';
 import confirmModalStyles from '@components/Modals/ConfirmModal/confirm-modal.module.css';
 import { ModalContext } from '@context/modal';
@@ -11,6 +11,10 @@ interface ConfirmModalProps {
 const ConfirmModal = memo(
   ({ message, dataId, onSubmit }: ConfirmModalProps) => {
     const { setConfirmShowUp } = useContext(ModalContext);
+    const onCancelClick = useCallback(
+      () => setConfirmShowUp(false),
+      [setConfirmShowUp]
+    );
     return (
       <div id="confirm-modal" className="d-flex-center modal-overlay">
         <form
@@ -31,10 +35,7 @@ const ConfirmModal = memo(
           <div
             className={`d-flex ${confirmModalStyles['confirm-modal-btn-wrapper']}`}
           >
-            <Button
-              onClick={() => setConfirmShowUp(false)}
-              className="modal-btn cancel"
-            >
+            <Button onClick={onCancelClick} className="modal-btn cancel">
               Cancel
             </Button>
             <Button type="submit" className="modal-btn confirm">

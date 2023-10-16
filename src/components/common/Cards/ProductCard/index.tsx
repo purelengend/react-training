@@ -3,7 +3,7 @@ import deleteIcon from '@assets/icons/cross-icon.svg';
 import editIcon from '@assets/icons/edit-icon.svg';
 import { Button } from '@components/common/Button';
 import isEqual from 'react-fast-compare';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 
 export interface Food {
   id: string;
@@ -15,17 +15,25 @@ export interface Food {
 }
 interface ProductCardProps {
   product: Food;
-  onDeleteClick: React.MouseEventHandler<HTMLButtonElement>;
-  onEditClick: React.MouseEventHandler<HTMLButtonElement>;
+  onDeleteClick: (foodId: string) => void;
+  onEditClick: (food: Food) => void;
 }
 export const ProductCard = memo(
   ({ product, onDeleteClick, onEditClick }: ProductCardProps) => {
+    const onDeleteFood = useCallback(
+      () => onDeleteClick(product.id),
+      [onDeleteClick, product.id]
+    );
+    const onEditFood = useCallback(
+      () => onEditClick(product),
+      [onEditClick, product]
+    );
     return (
       <div
         className={`d-flex-center d-flex-col ${productCardStyles['product-card']}`}
       >
         <Button
-          onClick={onDeleteClick}
+          onClick={onDeleteFood}
           className={`d-flex-center ${productCardStyles['secondary-icon']} ${productCardStyles['delete-btn']}`}
         >
           <img
@@ -61,7 +69,7 @@ export const ProductCard = memo(
 
         <Button
           className={`d-flex-center ${productCardStyles['product-mutation']} ${productCardStyles.mutation}`}
-          onClick={onEditClick}
+          onClick={onEditFood}
         >
           <img
             src={editIcon}
