@@ -3,7 +3,7 @@ import deleteIcon from '@assets/icons/cross-icon.svg';
 import editIcon from '@assets/icons/edit-icon.svg';
 import { Button } from '@components/common/Button';
 import isEqual from 'react-fast-compare';
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 
 export interface Food {
   id: string;
@@ -15,25 +15,17 @@ export interface Food {
 }
 interface ProductCardProps {
   product: Food;
-  onDeleteClick: (foodId: string) => void;
-  onEditClick: (food: Food) => void;
+  onDeleteClick: () => void;
+  onEditClick: () => void;
 }
 export const ProductCard = memo(
   ({ product, onDeleteClick, onEditClick }: ProductCardProps) => {
-    const onDeleteFood = useCallback(
-      () => onDeleteClick(product.id),
-      [onDeleteClick, product.id]
-    );
-    const onEditFood = useCallback(
-      () => onEditClick(product),
-      [onEditClick, product]
-    );
     return (
       <div
         className={`d-flex-center d-flex-col ${productCardStyles['product-card']}`}
       >
         <Button
-          onClick={onDeleteFood}
+          onClick={onDeleteClick}
           className={`d-flex-center ${productCardStyles['secondary-icon']} ${productCardStyles['delete-btn']}`}
         >
           <img
@@ -69,7 +61,7 @@ export const ProductCard = memo(
 
         <Button
           className={`d-flex-center ${productCardStyles['product-mutation']} ${productCardStyles.mutation}`}
-          onClick={onEditFood}
+          onClick={onEditClick}
         >
           <img
             src={editIcon}

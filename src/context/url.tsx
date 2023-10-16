@@ -68,4 +68,7 @@ export const UrlContextProvider = memo(
   isEqual
 );
 
-UrlContextProvider.whyDidYouRender = true;
+UrlContextProvider.whyDidYouRender = {
+  logOnDifferentValues: true,
+  customName: 'Menu'
+};

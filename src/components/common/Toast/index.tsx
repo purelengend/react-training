@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import toastStyles from '@components/common/Toast/toast.module.css';
 import successToastIcon from '@assets/icons/check-mark-icon.svg';
 import errorToastIcon from '@assets/icons/cross-icon.svg';
@@ -15,7 +15,7 @@ export const Toast = memo(
     toastType = ToastType.Success,
     isVisible = false
   }: ToastProps) => {
-    const toastTypeClass = toastType.toLowerCase();
+    const toastTypeClass = useMemo(() => toastType.toLowerCase(), [toastType]);
     let toastIcon = successToastIcon;
     if (toastType === ToastType.Error) {
       toastIcon = errorToastIcon;

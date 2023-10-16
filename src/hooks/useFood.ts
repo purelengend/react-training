@@ -6,6 +6,7 @@ import { UrlContext } from '@context/url';
 import { ToastContext } from '@context/toast';
 import { TOAST_ERROR_MSG, TOAST_TIME } from '@constants/toast';
 import { ToastType } from '@store/toast';
+
 export interface InfiniteQueryProps<T> {
   pages: {
     data: T[];
@@ -13,6 +14,7 @@ export interface InfiniteQueryProps<T> {
   }[];
   pageParams: number[];
 }
+
 const useFood = () => {
   const { path } = useContext(UrlContext);
   const { showToast, hideToast } = useContext(ToastContext);
@@ -32,12 +34,15 @@ const useFood = () => {
     isRefetching
   } = useInfiniteQuery({
     queryKey: ['foods'],
+
     queryFn: ({ pageParam = DEFAULT_PAGINATION }) => getMoreFoods(pageParam),
+
     getNextPageParam: lastPages => {
       if (lastPages.data.length < DEFAULT_LIMITATION) return undefined;
       return lastPages.pageParams;
     },
     refetchOnWindowFocus: false,
+
     onError: () => {
       showToast(TOAST_ERROR_MSG, ToastType.Error);
       setTimeout(() => {

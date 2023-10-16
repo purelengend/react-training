@@ -2,7 +2,7 @@ import mutationModalStyles from '@components/Modals/MutationModal/mutation-modal
 import { Button } from '@components/common/Button';
 import { Food } from '@components/common/Cards/ProductCard';
 import { InputField } from '@components/common/InputField';
-import { FormEvent, memo } from 'react';
+import { FormEvent, memo, useCallback } from 'react';
 import {
   FoodErrorMessage,
   defaultData,
@@ -28,16 +28,16 @@ const MutationModal = memo(
     onCancelClick,
     onSubmit
   }: MutationModalProps) => {
-    const onChangeMutationProductData = (
-      e: React.ChangeEvent<HTMLInputElement>
-    ) => {
-      const value = e.target.value;
-      setProductData({
-        ...productData,
-        [e.target.name]: value
-      });
-    };
-
+    const onChangeMutationProductData = useCallback(
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setProductData({
+          ...productData,
+          [e.target.name]: value
+        });
+      },
+      [productData, setProductData]
+    );
     return (
       <div id="mutation-modal" className={`d-flex-center modal-overlay`}>
         <div

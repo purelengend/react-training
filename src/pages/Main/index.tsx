@@ -182,12 +182,14 @@ const MainPage = () => {
   );
   const onClickDeleteFood = useCallback(
     (foodId: string) => {
-      setConfirmShowUp(true, DEFAULT_CONFIRM_MODAL_TITLE, foodId);
+      return () => setConfirmShowUp(true, DEFAULT_CONFIRM_MODAL_TITLE, foodId);
     },
     [setConfirmShowUp]
   );
   const onClickEditFood = useCallback(
-    (food: Food) => setMutationShowUp(true, DEFAULT_EDIT_MODAL_TITLE, food),
+    (food: Food) => {
+      return () => setMutationShowUp(true, DEFAULT_EDIT_MODAL_TITLE, food);
+    },
     [setMutationShowUp]
   );
   const onConfirm = useCallback(
@@ -214,8 +216,8 @@ const MainPage = () => {
             <Fragment key={index}>
               {page.data.map(food => (
                 <ProductCard
-                  onDeleteClick={onClickDeleteFood}
-                  onEditClick={onClickEditFood}
+                  onDeleteClick={onClickDeleteFood(food.id)}
+                  onEditClick={onClickEditFood(food)}
                   product={food}
                   key={food.id}
                 />
