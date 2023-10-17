@@ -39,7 +39,5 @@ const Layout = memo(({ children }: Props) => {
   );
 }, isEqual);
 
-Layout.whyDidYouRender = {
-  logOnDifferentValues: true
-};
+Layout.whyDidYouRender = true;
 export default Layout;

@@ -3,12 +3,14 @@ import toastStyles from '@components/common/Toast/toast.module.css';
 import successToastIcon from '@assets/icons/check-mark-icon.svg';
 import errorToastIcon from '@assets/icons/cross-icon.svg';
 import { ToastKind, ToastType } from '@store/toast';
+import isEqual from 'react-fast-compare';
 
 interface ToastProps {
   message: string;
   isVisible?: boolean;
   toastType: ToastKind;
 }
+
 export const Toast = memo(
   ({
     message,
@@ -16,10 +18,13 @@ export const Toast = memo(
     isVisible = false
   }: ToastProps) => {
     const toastTypeClass = useMemo(() => toastType.toLowerCase(), [toastType]);
-    let toastIcon = successToastIcon;
-    if (toastType === ToastType.Error) {
-      toastIcon = errorToastIcon;
-    }
+    const toastIcon = useMemo(() => {
+      if (toastType === ToastType.Error) {
+        return errorToastIcon;
+      } else {
+        return successToastIcon;
+      }
+    }, [toastType]);
     return (
       <div
         style={{
@@ -40,7 +45,8 @@ export const Toast = memo(
         </div>
       </div>
     );
-  }
+  },
+  isEqual
 );
 
 Toast.whyDidYouRender = true;

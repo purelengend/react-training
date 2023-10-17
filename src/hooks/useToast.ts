@@ -7,8 +7,10 @@ import {
 } from '@store/toast';
 
 const useToast = () => {
-  const [state, dispatch] = useReducer(toastReducer, initialToastState);
-  const { message, toastType, isVisible } = state;
+  const [{ message, toastType, isVisible }, dispatch] = useReducer(
+    toastReducer,
+    initialToastState
+  );
 
   const showToast = useCallback(
     (message: string, toastType: ToastKind) => {
