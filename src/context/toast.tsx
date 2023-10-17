@@ -30,6 +30,7 @@ interface ToastContextProviderProps {
 export const ToastContextProvider = memo(
   ({ children }: ToastContextProviderProps) => {
     const { toast, showToast, hideToast } = useToast();
+
     const toastContextValue = useMemo(
       () => ({
         toast,
@@ -38,6 +39,7 @@ export const ToastContextProvider = memo(
       }),
       [toast, showToast, hideToast]
     );
+
     return (
       <ToastContext.Provider value={toastContextValue}>
         {children}

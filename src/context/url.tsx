@@ -59,6 +59,7 @@ export const UrlContextProvider = memo(
         setSearchName
       ]
     );
+
     return (
       <UrlContext.Provider value={urlContextValue}>
         {children}

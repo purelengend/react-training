@@ -8,13 +8,16 @@ interface ConfirmModalProps {
   dataId: string;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
 }
+
 const ConfirmModal = memo(
   ({ message, dataId, onSubmit }: ConfirmModalProps) => {
     const { setConfirmShowUp } = useContext(ModalContext);
+
     const onCancelClick = useCallback(
       () => setConfirmShowUp(false),
       [setConfirmShowUp]
     );
+
     return (
       <div id="confirm-modal" className="d-flex-center modal-overlay">
         <form

@@ -80,7 +80,9 @@ const MainPage = () => {
     } else {
       setMutationFoodData(mutationFoodData);
     }
+
     setErrorMutationFoodMessage(defaultFoodErrorMessage);
+
     setMutationShowUp(false);
   }, [mutationFoodData, setMutationShowUp]);
 
@@ -120,16 +122,22 @@ const MainPage = () => {
       }
 
       onCancelClick();
+
       setLoadingShowUp(false);
+
       showToast(toastMessage, ToastType.Success);
+
       setTimeout(() => {
         hideToast();
       }, TOAST_TIME);
     },
     onError: () => {
       onCancelClick();
+
       setLoadingShowUp(false);
+
       showToast(TOAST_ERROR_MSG, ToastType.Error);
+
       setTimeout(() => {
         hideToast();
       }, TOAST_TIME);
@@ -140,7 +148,9 @@ const MainPage = () => {
   const onSubmit = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+
       const validateMessage = validateForm(mutationFoodData);
+
       if (Object.values(validateMessage).join('')) {
         setErrorMutationFoodMessage(validateMessage);
       } else {
@@ -158,17 +168,24 @@ const MainPage = () => {
     },
     onSuccess: () => {
       queryClient.resetQueries({ queryKey: ['foods'] });
+
       setConfirmShowUp(false);
+
       setLoadingShowUp(false);
+
       showToast(TOAST_DELETE_MSG, ToastType.Success);
+
       setTimeout(() => {
         hideToast();
       }, TOAST_TIME);
     },
     onError: () => {
       setConfirmShowUp(false);
+
       setLoadingShowUp(false);
+
       showToast(TOAST_ERROR_MSG, ToastType.Error);
+
       setTimeout(() => {
         hideToast();
       }, TOAST_TIME);
@@ -192,11 +209,14 @@ const MainPage = () => {
   const onConfirm = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+
       deleteFood(confirmModal.dataId);
     },
     [confirmModal.dataId, deleteFood]
   );
+
   const onClickExpandFood = useCallback(() => fetchNextPage(), [fetchNextPage]);
+
   return (
     <>
       <main className={`d-flex-col ${mainStyles['main-container']}`}>

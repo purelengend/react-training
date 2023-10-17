@@ -35,7 +35,7 @@ export const mutationFood = async (inputFood: Food) => {
       price: Number(inputFood.price),
       imageUrl: inputFood.imageUrl,
       quantity: Number(inputFood.quantity),
-      createdAt: new Date()
+      createdAt: inputFood.createdAt
     };
     result = (await http.put<Food>(`${inputFood.id}`, food)).data;
   }

@@ -4,7 +4,9 @@ import { Food } from '@components/common/Cards/ProductCard';
 
 const useModal = () => {
   const [state, dispatch] = useReducer(modalReducer, initialModalState);
+
   const { confirmModal, mutationModal, isLoadingShowUp } = state;
+
   const setConfirmShowUp = useCallback(
     (isShowUp: boolean, title?: string, dataId?: string) => {
       dispatch({
@@ -18,6 +20,7 @@ const useModal = () => {
     },
     [dispatch]
   );
+
   const setMutationShowUp = useCallback(
     (isShowUp: boolean, title?: string, productData?: Food) => {
       dispatch({
@@ -31,6 +34,7 @@ const useModal = () => {
     },
     [dispatch]
   );
+
   const setLoadingShowUp = useCallback(
     (isShowUp: boolean) => {
       dispatch({
@@ -40,6 +44,7 @@ const useModal = () => {
     },
     [dispatch]
   );
+
   return {
     confirmModal,
     mutationModal,

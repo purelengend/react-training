@@ -18,6 +18,7 @@ export const Toast = memo(
     isVisible = false
   }: ToastProps) => {
     const toastTypeClass = useMemo(() => toastType.toLowerCase(), [toastType]);
+
     const toastIcon = useMemo(() => {
       if (toastType === ToastType.Error) {
         return errorToastIcon;
@@ -25,6 +26,7 @@ export const Toast = memo(
         return successToastIcon;
       }
     }, [toastType]);
+
     return (
       <div
         style={{
