@@ -20,6 +20,7 @@
 - React
 - Storybook
 - Tanstack Query
+- [WDYR](https://github.com/welldone-software/why-did-you-render)
 
 # Development Tools
 
@@ -31,13 +32,16 @@
 
 # Timeline
 
-- Estimate time: 32 hours (from September 22th to September 28th).
+- Estimate time: 48 hours (from October 3th to October 10th).
+- Actual time: 80 hours (from October 3th to October 15th).
 
 # Requirements
 
 - Understand React fundamentals when building a website.
 - Get familiar with React TypeScript.
 - Know how to use Storybook for documenting components.
+- Know how to use Tanstack Query for managing states of API call data.
+- Know how to use WDYR library and React Dev Tool for checking re-renders. 
 
 # Getting Started
 
