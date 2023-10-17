@@ -3,9 +3,8 @@ import { ModalActionKind, initialModalState, modalReducer } from '@store/modal';
 import { Food } from '@components/common/Cards/ProductCard';
 
 const useModal = () => {
-  const [state, dispatch] = useReducer(modalReducer, initialModalState);
-
-  const { confirmModal, mutationModal, isLoadingShowUp } = state;
+  const [{ confirmModal, mutationModal, isLoadingShowUp }, dispatch] =
+    useReducer(modalReducer, initialModalState);
 
   const setConfirmShowUp = useCallback(
     (isShowUp: boolean, title?: string, dataId?: string) => {

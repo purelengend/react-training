@@ -197,15 +197,18 @@ const MainPage = () => {
     () => setMutationShowUp(true, DEFAULT_ADD_MODAL_TITLE, defaultData),
     [setMutationShowUp]
   );
+
   const onClickDeleteFood = useCallback(
     (foodId: string) =>
       setConfirmShowUp(true, DEFAULT_CONFIRM_MODAL_TITLE, foodId),
     [setConfirmShowUp]
   );
+
   const onClickEditFood = useCallback(
     (food: Food) => setMutationShowUp(true, DEFAULT_EDIT_MODAL_TITLE, food),
     [setMutationShowUp]
   );
+
   const onConfirm = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();

@@ -1,10 +1,13 @@
-import { useCallback, useReducer } from 'react';
+import { useCallback, useMemo, useReducer } from 'react';
 import { UrlActionKind, initialUrlState, urlReducer } from '@store/url';
 
 const useUrl = () => {
   const [state, dispatch] = useReducer(urlReducer, initialUrlState);
 
-  const path = `?name=${state.name}&${state.sort}&limit=${state.limit}&page=`;
+  const path = useMemo(
+    () => `?name=${state.name}&${state.sort}&limit=${state.limit}&page=`,
+    [state.limit, state.name, state.sort]
+  );
 
   const setSearchName = useCallback(
     (searchName: string) => {
