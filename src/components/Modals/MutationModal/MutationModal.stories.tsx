@@ -25,6 +25,30 @@ const meta: Meta<typeof MutationModal> = {
     },
     productData: {
       description: 'The default data for the modal'
+    },
+    onSubmit: {
+      action: 'submitted',
+      description: 'The submit method for the modal'
+    },
+    errorProductMessage: {
+      description:
+        'The custom error message object is used for displaying the error message'
+    },
+    setErrorProductMessage: {
+      description: 'The set method is used to set value of the error message'
+    },
+    onCancelClick: {
+      action: 'closed',
+      description: 'The cancel method is used to close the modal'
+    },
+    setProductData: {
+      description:
+        'the set method is used to set the value of product data to be filled in the modal form'
+    }
+  },
+  parameters: {
+    controls: {
+      expanded: true
     }
   }
 };

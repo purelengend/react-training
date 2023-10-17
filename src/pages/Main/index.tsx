@@ -74,7 +74,7 @@ const MainPage = () => {
       setMutationFoodData(mutationModal.productData);
   }, [mutationModal.productData]);
 
-  const onCancelClick = useCallback(() => {
+  const onCancelMutationClick = useCallback(() => {
     if (mutationFoodData.id === defaultData.id) {
       setMutationFoodData(defaultData);
     } else {
@@ -121,7 +121,7 @@ const MainPage = () => {
         queryClient.resetQueries({ queryKey: ['foods'] });
       }
 
-      onCancelClick();
+      onCancelMutationClick();
 
       setLoadingShowUp(false);
 
@@ -132,7 +132,7 @@ const MainPage = () => {
       }, TOAST_TIME);
     },
     onError: () => {
-      onCancelClick();
+      onCancelMutationClick();
 
       setLoadingShowUp(false);
 
@@ -159,6 +159,7 @@ const MainPage = () => {
     },
     [mutateFood, mutationFoodData]
   );
+
   const { mutate: deleteFood } = useMutation({
     mutationFn: (id: string) => {
       return deleteFoodById(id);
@@ -192,6 +193,11 @@ const MainPage = () => {
     },
     networkMode: 'always'
   });
+
+  const onCancelConfirmClick = useCallback(
+    () => setConfirmShowUp(false),
+    [setConfirmShowUp]
+  );
 
   const onClickAddFood = useCallback(
     () => setMutationShowUp(true, DEFAULT_ADD_MODAL_TITLE, defaultData),
@@ -271,6 +277,7 @@ const MainPage = () => {
             message={confirmModal.title}
             dataId={confirmModal.dataId}
             onSubmit={onConfirm}
+            onCancelClick={onCancelConfirmClick}
           />
         </Suspense>
       )}
@@ -283,7 +290,7 @@ const MainPage = () => {
             setProductData={setMutationFoodData}
             errorProductMessage={errorMutationFoodMessage}
             setErrorProductMessage={setErrorMutationFoodMessage}
-            onCancelClick={onCancelClick}
+            onCancelClick={onCancelMutationClick}
             onSubmit={onSubmit}
           />
         </Suspense>

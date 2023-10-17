@@ -20,7 +20,7 @@ const meta: Meta<typeof ConfirmModal> = {
   argTypes: {
     onSubmit: {
       description: 'The submit function to be called when submitting the modal',
-      action: true
+      action: 'submitted'
     },
     dataId: {
       description: 'The value of hidden id input field of the modal',
@@ -28,6 +28,10 @@ const meta: Meta<typeof ConfirmModal> = {
     },
     message: {
       description: 'The message of the modal'
+    },
+    onCancelClick: {
+      description: 'The cancel method is used to close the modal',
+      action: 'closed'
     }
   },
   parameters: {

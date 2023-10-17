@@ -8,6 +8,11 @@ const meta: Meta<typeof LoadingModal> = {
     isVisible: {
       description: 'Indicates whether the modal is hidden or visible.'
     }
+  },
+  parameters: {
+    controls: {
+      expanded: true
+    }
   }
 };
 

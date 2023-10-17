@@ -38,6 +38,7 @@ const MutationModal = memo(
       },
       [productData, setProductData]
     );
+
     return (
       <div id="mutation-modal" className={`d-flex-center modal-overlay`}>
         <div
