@@ -1,17 +1,18 @@
 import { ReactNode, memo } from 'react';
 import selectStyles from '@components/common/Select/select.module.css';
 import { SelectOption } from './SelectOption';
-import isEqual from 'react-fast-compare';
 export interface SelectOptionProps {
   disabled: boolean;
   value: string | undefined;
   label: ReactNode;
 }
+
 interface SelectProps {
   selectOptions: SelectOptionProps[];
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   value: string;
 }
+
 export const Select = memo(
   ({ selectOptions, onChange, value }: SelectProps) => {
     return (
@@ -33,8 +34,7 @@ export const Select = memo(
         ))}
       </select>
     );
-  },
-  isEqual
+  }
 );
 
 Select.whyDidYouRender = true;

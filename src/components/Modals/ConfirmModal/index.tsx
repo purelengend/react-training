@@ -1,7 +1,7 @@
 import { FormEvent, memo } from 'react';
 import { Button } from '@components/common/Button';
 import confirmModalStyles from '@components/Modals/ConfirmModal/confirm-modal.module.css';
-import isEqual from 'react-fast-compare';
+
 interface ConfirmModalProps {
   message: string;
   dataId: string;
@@ -41,8 +41,7 @@ const ConfirmModal = memo(
         </form>
       </div>
     );
-  },
-  isEqual
+  }
 );
 
 ConfirmModal.whyDidYouRender = true;

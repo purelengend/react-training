@@ -24,6 +24,7 @@ export interface UrlState {
   limit: number;
   page: number;
 }
+
 export const initialUrlState: UrlState = {
   name: SEARCH_KEYWORD,
   sort: DEFAULT_FILTER_ATTRIBUTE,
@@ -33,32 +34,38 @@ export const initialUrlState: UrlState = {
 
 export const urlReducer = (state: UrlState, action: UrlAction): UrlState => {
   const { type, payload } = action;
+
   switch (type) {
     case UrlActionKind.Name:
       return {
         ...state,
         name: payload as string
       };
+
     case UrlActionKind.Sort:
       return {
         ...state,
         sort: payload as string
       };
+
     case UrlActionKind.Limit:
       return {
         ...state,
         limit: payload as number
       };
+
     case UrlActionKind.Page:
       return {
         ...state,
         page: payload as number
       };
+
     case UrlActionKind.ResetPage:
       return {
         ...state,
         page: initialUrlState.page
       };
+
     default:
       return state;
   }

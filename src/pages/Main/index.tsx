@@ -40,6 +40,7 @@ import { validateForm } from '@helpers/form-validation';
 import { ToastType } from '@store/toast';
 
 const ConfirmModal = lazy(() => import('@components/Modals/ConfirmModal'));
+
 const MutationModal = lazy(() => import('@components/Modals/MutationModal'));
 
 const MainPage = () => {
@@ -69,30 +70,34 @@ const MainPage = () => {
     defaultFoodErrorMessage
   );
 
+  // Set data to the mutation form when editing a food
   useEffect(() => {
-    if (mutationModal.productData)
+    if (mutationModal.productData) {
       setMutationFoodData(mutationModal.productData);
+    }
   }, [mutationModal.productData]);
 
   const onCancelMutationClick = useCallback(() => {
     if (mutationFoodData.id === defaultData.id) {
       setMutationFoodData(defaultData);
     } else {
-      setMutationFoodData(mutationFoodData);
+      setMutationFoodData(mutationModal.productData!);
     }
 
     setErrorMutationFoodMessage(defaultFoodErrorMessage);
 
     setMutationShowUp(false);
-  }, [mutationFoodData, setMutationShowUp]);
+  }, [mutationFoodData.id, mutationModal.productData, setMutationShowUp]);
 
   const { mutate: mutateFood } = useMutation({
     mutationFn: (input: Food) => {
       return mutationFood(input);
     },
+
     onMutate: () => {
       setLoadingShowUp(true);
     },
+
     onSuccess: data => {
       const currentFoodData = queryClient.getQueryData<
         InfiniteQueryProps<Food>
@@ -131,6 +136,7 @@ const MainPage = () => {
         hideToast();
       }, TOAST_TIME);
     },
+
     onError: () => {
       onCancelMutationClick();
 
@@ -164,9 +170,11 @@ const MainPage = () => {
     mutationFn: (id: string) => {
       return deleteFoodById(id);
     },
+
     onMutate: () => {
       setLoadingShowUp(true);
     },
+
     onSuccess: () => {
       queryClient.resetQueries({ queryKey: ['foods'] });
 
@@ -180,6 +188,7 @@ const MainPage = () => {
         hideToast();
       }, TOAST_TIME);
     },
+
     onError: () => {
       setConfirmShowUp(false);
 
@@ -191,6 +200,7 @@ const MainPage = () => {
         hideToast();
       }, TOAST_TIME);
     },
+
     networkMode: 'always'
   });
 
@@ -272,7 +282,7 @@ const MainPage = () => {
         </Button>
       </main>
       {confirmModal.isShowUp && (
-        <Suspense fallback={<LoadingModal isVisible />}>
+        <Suspense fallback={<LoadingModal />}>
           <ConfirmModal
             message={confirmModal.title}
             dataId={confirmModal.dataId}
@@ -283,7 +293,7 @@ const MainPage = () => {
       )}
 
       {mutationModal.isShowUp && (
-        <Suspense fallback={<LoadingModal isVisible />}>
+        <Suspense fallback={<LoadingModal />}>
           <MutationModal
             title={mutationModal.title}
             productData={mutationFoodData}

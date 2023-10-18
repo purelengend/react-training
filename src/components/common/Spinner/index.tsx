@@ -1,4 +1,5 @@
 import spinnerStyles from '@components/common/Spinner/spinner.module.css';
+
 export interface SpinnerProps {
   customStyle?: string;
 }

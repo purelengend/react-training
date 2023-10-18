@@ -22,6 +22,7 @@ const useFood = () => {
 
   const getMoreFoods = async (pageParams: number) => {
     const result = await getFoods(path + `${pageParams ?? DEFAULT_PAGINATION}`);
+
     return { data: [...result], pageParams: pageParams + 1 };
   };
 
@@ -35,14 +36,20 @@ const useFood = () => {
     isRefetching
   } = useInfiniteQuery({
     queryKey: ['foods'],
+
     queryFn: ({ pageParam = DEFAULT_PAGINATION }) => getMoreFoods(pageParam),
+
     getNextPageParam: lastPages => {
       if (lastPages.data.length < DEFAULT_LIMITATION) return undefined;
+
       return lastPages.pageParams;
     },
+
     refetchOnWindowFocus: false,
+
     onError: () => {
       showToast(TOAST_ERROR_MSG, ToastType.Error);
+
       setTimeout(() => {
         hideToast();
       }, TOAST_TIME);

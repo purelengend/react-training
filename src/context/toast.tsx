@@ -1,15 +1,15 @@
 import useToast from '@hooks/useToast';
-import { ToastKind, ToastType } from '@store/toast';
+import { ToastType } from '@store/toast';
 import { ReactNode, createContext, memo, useMemo } from 'react';
 import isEqual from 'react-fast-compare';
 
 interface ToastContextProps {
   toast: {
     message: string;
-    toastType: ToastKind;
+    toastType: ToastType;
     isVisible: boolean;
   };
-  showToast: (message: string, toastType: ToastKind) => void;
+  showToast: (message: string, toastType: ToastType) => void;
   hideToast: () => void;
 }
 

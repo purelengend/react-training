@@ -2,7 +2,6 @@ import productCardStyles from '@components/common/Cards/ProductCard/product-card
 import deleteIcon from '@assets/icons/cross-icon.svg';
 import editIcon from '@assets/icons/edit-icon.svg';
 import { Button } from '@components/common/Button';
-import isEqual from 'react-fast-compare';
 import { memo, useCallback } from 'react';
 
 export interface Food {
@@ -13,11 +12,13 @@ export interface Food {
   imageUrl: string;
   createdAt: Date;
 }
+
 interface ProductCardProps {
   product: Food;
   onDeleteClick: (foodId: string) => void;
   onEditClick: (food: Food) => void;
 }
+
 export const ProductCard = memo(
   ({ product, onDeleteClick, onEditClick }: ProductCardProps) => {
     const onDeleteFood = useCallback(
@@ -86,8 +87,7 @@ export const ProductCard = memo(
         </Button>
       </div>
     );
-  },
-  isEqual
+  }
 );
 
 ProductCard.whyDidYouRender = true;

@@ -8,7 +8,7 @@ import {
   defaultData,
   defaultFoodErrorMessage
 } from '@constants/food';
-import isEqual from 'react-fast-compare';
+
 interface MutationModalProps {
   title: string;
   productData?: Food;
@@ -145,8 +145,7 @@ const MutationModal = memo(
         </div>
       </div>
     );
-  },
-  isEqual
+  }
 );
 
 MutationModal.whyDidYouRender = true;

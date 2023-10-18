@@ -1,11 +1,12 @@
 import { ReactNode, memo } from 'react';
 import selectOptionStyles from '@components/common/Select/SelectOption/select-option.module.css';
-import isEqual from 'react-fast-compare';
+
 interface SelectOptionProps {
   value?: string;
   disable?: boolean;
   children: ReactNode;
 }
+
 export const SelectOption = memo(
   ({ value, disable = false, children }: SelectOptionProps) => {
     return (
@@ -17,8 +18,7 @@ export const SelectOption = memo(
         {children}
       </option>
     );
-  },
-  isEqual
+  }
 );
 
 SelectOption.whyDidYouRender = true;

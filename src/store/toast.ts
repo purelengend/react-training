@@ -6,20 +6,19 @@ export enum ToastType {
   Success = 'SUCCESS',
   Error = 'ERROR'
 }
-export type ToastKind = 'SUCCESS' | 'ERROR';
 
 export interface ToastAction {
   type: ToastActionKind;
   payload: {
     message?: string;
-    toastType: ToastKind;
+    toastType: ToastType;
     isVisible: boolean;
   };
 }
 
 export interface ToastState {
   message: string;
-  toastType: ToastKind;
+  toastType: ToastType;
   isVisible: boolean;
 }
 
@@ -34,6 +33,7 @@ export const toastReducer = (
   action: ToastAction
 ): ToastState => {
   const { type, payload } = action;
+
   switch (type) {
     case ToastActionKind.Toast:
       return {
@@ -42,6 +42,7 @@ export const toastReducer = (
         toastType: payload.toastType ?? state.toastType,
         isVisible: payload.isVisible
       };
+
     default:
       return state;
   }

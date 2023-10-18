@@ -1,19 +1,18 @@
-import { useCallback, useReducer } from 'react';
+import { useCallback, useMemo, useReducer } from 'react';
 import {
   ToastActionKind,
-  ToastKind,
+  ToastType,
   initialToastState,
   toastReducer
 } from '@store/toast';
 
 const useToast = () => {
-  const [{ message, toastType, isVisible }, dispatch] = useReducer(
-    toastReducer,
-    initialToastState
-  );
+  const [toast, dispatch] = useReducer(toastReducer, initialToastState);
+
+  const { message, toastType, isVisible } = useMemo(() => toast, [toast]);
 
   const showToast = useCallback(
-    (message: string, toastType: ToastKind) => {
+    (message: string, toastType: ToastType) => {
       dispatch({
         type: ToastActionKind.Toast,
         payload: {

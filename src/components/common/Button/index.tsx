@@ -3,7 +3,7 @@ import isEqual from 'react-fast-compare';
 
 export interface ButtonProps {
   children: ReactNode;
-  className: string;
+  className?: string;
   type?: 'submit' | 'reset' | 'button';
   isVisible?: boolean;
   isDisabled?: boolean;

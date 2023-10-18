@@ -13,7 +13,9 @@ http.interceptors.response.use(
   },
   function (error) {
     const res = error.response;
+
     console.error('Looks like there was a problem. Status Code: ' + res.status);
+
     return Promise.reject(error);
   }
 );

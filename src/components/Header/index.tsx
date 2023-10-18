@@ -16,18 +16,18 @@ import { useDebounce } from '@hooks/useDebounce';
 const Header = () => {
   const { path, sortFilter, setSortFilter, searchName, setSearchName } =
     useContext(UrlContext);
+
   const { setLoadingShowUp } = useContext(ModalContext);
 
   const { refetch, isRefetching } = useFood();
 
   const [searchText, setSearchText] = useState('');
-  const debouncedText = useDebounce(searchText);
 
+  const debouncedText = useDebounce(searchText.replace(/\s+/g, ' ').trim()); // remove extra spaces of the search text
+
+  // This effect is to refetch the list food based on path and search name
   useEffect(() => {
-    async function getFoods() {
-      await refetch();
-    }
-    getFoods();
+    refetch();
   }, [refetch, path, searchName]);
 
   useEffect(
@@ -37,8 +37,10 @@ const Header = () => {
 
   useEffect(() => setSearchName(debouncedText), [debouncedText, setSearchName]);
 
+  // TODO: Memorize this function
   const onRefresh = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault();
+
     window.location.reload();
   };
 

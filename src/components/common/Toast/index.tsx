@@ -2,13 +2,12 @@ import { memo, useMemo } from 'react';
 import toastStyles from '@components/common/Toast/toast.module.css';
 import successToastIcon from '@assets/icons/check-mark-icon.svg';
 import errorToastIcon from '@assets/icons/cross-icon.svg';
-import { ToastKind, ToastType } from '@store/toast';
-import isEqual from 'react-fast-compare';
+import { ToastType } from '@store/toast';
 
 interface ToastProps {
   message: string;
   isVisible?: boolean;
-  toastType: ToastKind;
+  toastType: ToastType;
 }
 
 export const Toast = memo(
@@ -47,8 +46,7 @@ export const Toast = memo(
         </div>
       </div>
     );
-  },
-  isEqual
+  }
 );
 
 Toast.whyDidYouRender = true;

@@ -50,6 +50,7 @@ export const ModalContext = createContext<ModalContextProps>({
 interface ModalContextProviderProps {
   children: ReactNode;
 }
+
 export const ModalContextProvider = memo(
   ({ children }: ModalContextProviderProps) => {
     const {
@@ -79,6 +80,7 @@ export const ModalContextProvider = memo(
         setMutationShowUp
       ]
     );
+
     return (
       <ModalContext.Provider value={modalContextValue}>
         {children}
