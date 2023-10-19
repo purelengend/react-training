@@ -1,13 +1,14 @@
-import mutationModalStyles from '@components/Modals/MutationModal/mutation-modal.module.css';
 import { Button } from '@components/common/Button';
 import { Food } from '@components/common/Cards/ProductCard';
 import { InputField } from '@components/common/InputField';
-import { FormEvent, memo, useCallback } from 'react';
+import mutationModalStyles from '@components/Modals/MutationModal/mutation-modal.module.css';
 import {
-  FoodErrorMessage,
   defaultData,
-  defaultFoodErrorMessage
+  defaultFoodErrorMessage,
+  FoodErrorMessage
 } from '@constants/food';
+import { FormEvent, memo, useCallback } from 'react';
+import isEqual from 'react-fast-compare';
 
 interface MutationModalProps {
   title: string;
@@ -145,7 +146,8 @@ const MutationModal = memo(
         </div>
       </div>
     );
-  }
+  },
+  isEqual
 );
 
 MutationModal.whyDidYouRender = true;

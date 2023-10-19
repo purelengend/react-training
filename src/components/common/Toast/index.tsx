@@ -1,8 +1,8 @@
-import { memo, useMemo } from 'react';
-import toastStyles from '@components/common/Toast/toast.module.css';
 import successToastIcon from '@assets/icons/check-mark-icon.svg';
 import errorToastIcon from '@assets/icons/cross-icon.svg';
+import toastStyles from '@components/common/Toast/toast.module.css';
 import { ToastType } from '@store/toast';
+import { memo, useMemo } from 'react';
 
 interface ToastProps {
   message: string;

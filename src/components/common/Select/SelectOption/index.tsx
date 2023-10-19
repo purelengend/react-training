@@ -1,5 +1,5 @@
-import { ReactNode, memo } from 'react';
 import selectOptionStyles from '@components/common/Select/SelectOption/select-option.module.css';
+import { memo, ReactNode } from 'react';
 
 interface SelectOptionProps {
   value?: string;

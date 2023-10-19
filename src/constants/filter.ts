@@ -1,10 +1,10 @@
 export const SEARCH_KEYWORD = '';
 
-export const DEFAULT_FILTER_ATTRIBUTE = 'orderby=createdAt&order=desc';
-
-export const ASCENDING_FILTER_ATTRIBUTE = 'orderby=price';
-
-export const DESCENDING_FILTER_ATTRIBUTE = 'orderby=price&order=desc';
+export const FILTER_ATTRIBUTE = {
+  DEFAULT: 'orderby=createdAt&order=desc',
+  ASCENDING: 'orderby=price',
+  DESCENDING: 'orderby=price&order=desc'
+};
 
 export const DEFAULT_LIMITATION = 9;
 

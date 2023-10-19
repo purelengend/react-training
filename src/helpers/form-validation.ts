@@ -1,11 +1,5 @@
 import { Food } from '@components/common/Cards/ProductCard';
-import {
-  FOOD_IMG_WARNING_MSG,
-  FOOD_NAME_WARNING_MSG,
-  FOOD_PRICE_WARNING_MSG,
-  FOOD_QUANTITY_WARNING_MSG,
-  FoodErrorMessage
-} from '@constants/food';
+import { FOOD_MSG, FoodErrorMessage } from '@constants/food';
 
 /**
  * @function isValidName
@@ -65,12 +59,12 @@ function isValidImageUrl(url: string): boolean {
 
 export const validateForm = (inputData: Food): FoodErrorMessage => {
   const errorMessage: FoodErrorMessage = {
-    name: isValidName(inputData.name) ? '' : FOOD_NAME_WARNING_MSG,
-    price: isValidNumber(Number(inputData.price)) ? '' : FOOD_PRICE_WARNING_MSG,
-    imageUrl: isValidImageUrl(inputData.imageUrl) ? '' : FOOD_IMG_WARNING_MSG,
+    name: isValidName(inputData.name) ? '' : FOOD_MSG.NAME_WARNING,
+    price: isValidNumber(Number(inputData.price)) ? '' : FOOD_MSG.PRICE_WARNING,
+    imageUrl: isValidImageUrl(inputData.imageUrl) ? '' : FOOD_MSG.IMG_WARNING,
     quantity: isValidInteger(Number(inputData.quantity))
       ? ''
-      : FOOD_QUANTITY_WARNING_MSG
+      : FOOD_MSG.QUANTITY_WARNING
   };
   return errorMessage;
 };

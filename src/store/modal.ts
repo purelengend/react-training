@@ -1,9 +1,6 @@
 import { Food } from '@components/common/Cards/ProductCard';
 import { DEFAULT_FOOD_ID_VALUE, defaultData } from '@constants/food';
-import {
-  DEFAULT_ADD_MODAL_TITLE,
-  DEFAULT_CONFIRM_MODAL_TITLE
-} from '@constants/modal';
+import { MODAL_TITLE } from '@constants/modal';
 
 export enum ModalActionKind {
   Confirm = 'CONFIRM',
@@ -30,23 +27,27 @@ export interface ModalState {
   confirmModal: ModalProp & {
     dataId: string;
   };
+
   mutationModal: ModalProp & {
     productData?: Food;
   };
+
   isLoadingShowUp: boolean;
 }
 
 export const initialModalState: ModalState = {
   confirmModal: {
     isShowUp: false,
-    title: DEFAULT_CONFIRM_MODAL_TITLE,
+    title: MODAL_TITLE.CONFIRM,
     dataId: DEFAULT_FOOD_ID_VALUE
   },
+
   mutationModal: {
     isShowUp: false,
-    title: DEFAULT_ADD_MODAL_TITLE,
+    title: MODAL_TITLE.ADD,
     productData: defaultData
   },
+
   isLoadingShowUp: false
 };
 

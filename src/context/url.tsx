@@ -1,6 +1,6 @@
-import { DEFAULT_FILTER_ATTRIBUTE } from '@constants/filter';
+import { FILTER_ATTRIBUTE } from '@constants/filter';
 import useUrl from '@hooks/useUrl';
-import { ReactNode, createContext, memo, useMemo } from 'react';
+import { createContext, memo, ReactNode, useMemo } from 'react';
 import isEqual from 'react-fast-compare';
 
 interface UrlContextProps {
@@ -17,7 +17,7 @@ export const UrlContext = createContext<UrlContextProps>({
   path: '/',
   setPage() {},
   resetPage() {},
-  sortFilter: DEFAULT_FILTER_ATTRIBUTE,
+  sortFilter: FILTER_ATTRIBUTE.DEFAULT,
   setSortFilter() {},
   searchName: '',
   setSearchName() {}

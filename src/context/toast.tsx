@@ -1,6 +1,6 @@
 import useToast from '@hooks/useToast';
 import { ToastType } from '@store/toast';
-import { ReactNode, createContext, memo, useMemo } from 'react';
+import { createContext, memo, ReactNode, useMemo } from 'react';
 import isEqual from 'react-fast-compare';
 
 interface ToastContextProps {

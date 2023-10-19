@@ -1,6 +1,6 @@
-import { FormEvent, memo } from 'react';
 import { Button } from '@components/common/Button';
 import confirmModalStyles from '@components/Modals/ConfirmModal/confirm-modal.module.css';
+import { FormEvent, memo } from 'react';
 
 interface ConfirmModalProps {
   message: string;

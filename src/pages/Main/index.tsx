@@ -1,43 +1,34 @@
-import mainStyles from '@pages/Main/main.module.css';
+import { Button } from '@components/common/Button';
 import { AddCard } from '@components/common/Cards/AddCard';
 import { Food, ProductCard } from '@components/common/Cards/ProductCard';
-import { Button } from '@components/common/Button';
 import { Spinner } from '@components/common/Spinner';
+import LoadingModal from '@components/Modals/LoadingModal';
+import {
+  defaultData,
+  defaultFoodErrorMessage,
+  FOOD_MSG
+} from '@constants/food';
+import { MODAL_TITLE } from '@constants/modal';
+import { TOAST_MSG, TOAST_TIME } from '@constants/toast';
+import { ModalContext } from '@context/modal';
+import { ToastContext } from '@context/toast';
+import { validateForm } from '@helpers/form-validation';
+import useFood, { InfiniteQueryProps } from '@hooks/useFood';
+import mainStyles from '@pages/Main/main.module.css';
+import { deleteFoodById, mutationFood } from '@services/food.service';
+import { ToastType } from '@store/toast';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   FormEvent,
   Fragment,
-  Suspense,
   lazy,
+  Profiler,
+  Suspense,
   useCallback,
   useContext,
   useEffect,
   useState
 } from 'react';
-import { ModalContext } from '@context/modal';
-import {
-  DEFAULT_ADD_MODAL_TITLE,
-  DEFAULT_CONFIRM_MODAL_TITLE,
-  DEFAULT_EDIT_MODAL_TITLE
-} from '@constants/modal';
-import {
-  EMPTY_MSG,
-  defaultData,
-  defaultFoodErrorMessage
-} from '@constants/food';
-import useFood, { InfiniteQueryProps } from '@hooks/useFood';
-import { ToastContext } from '@context/toast';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteFoodById, mutationFood } from '@services/food.service';
-import {
-  TOAST_ADD_MSG,
-  TOAST_DELETE_MSG,
-  TOAST_EDIT_MSG,
-  TOAST_ERROR_MSG,
-  TOAST_TIME
-} from '@constants/toast';
-import LoadingModal from '@components/Modals/LoadingModal';
-import { validateForm } from '@helpers/form-validation';
-import { ToastType } from '@store/toast';
 
 const ConfirmModal = lazy(() => import('@components/Modals/ConfirmModal'));
 
@@ -119,11 +110,10 @@ const MainPage = () => {
         }
 
         if (existedFoodIndex < 0) {
-          toastMessage = TOAST_ADD_MSG;
+          toastMessage = TOAST_MSG.ADD;
         } else {
-          toastMessage = TOAST_EDIT_MSG;
+          toastMessage = TOAST_MSG.EDIT;
         }
-        queryClient.resetQueries({ queryKey: ['foods'] });
       }
 
       onCancelMutationClick();
@@ -142,12 +132,17 @@ const MainPage = () => {
 
       setLoadingShowUp(false);
 
-      showToast(TOAST_ERROR_MSG, ToastType.Error);
+      showToast(TOAST_MSG.ERROR, ToastType.Error);
 
       setTimeout(() => {
         hideToast();
       }, TOAST_TIME);
     },
+
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['foods'] });
+    },
+
     networkMode: 'always'
   });
 
@@ -176,13 +171,11 @@ const MainPage = () => {
     },
 
     onSuccess: () => {
-      queryClient.resetQueries({ queryKey: ['foods'] });
-
       setConfirmShowUp(false);
 
       setLoadingShowUp(false);
 
-      showToast(TOAST_DELETE_MSG, ToastType.Success);
+      showToast(TOAST_MSG.DELETE, ToastType.Success);
 
       setTimeout(() => {
         hideToast();
@@ -194,11 +187,15 @@ const MainPage = () => {
 
       setLoadingShowUp(false);
 
-      showToast(TOAST_ERROR_MSG, ToastType.Error);
+      showToast(TOAST_MSG.ERROR, ToastType.Error);
 
       setTimeout(() => {
         hideToast();
       }, TOAST_TIME);
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['foods'] });
     },
 
     networkMode: 'always'
@@ -210,18 +207,17 @@ const MainPage = () => {
   );
 
   const onClickAddFood = useCallback(
-    () => setMutationShowUp(true, DEFAULT_ADD_MODAL_TITLE, defaultData),
+    () => setMutationShowUp(true, MODAL_TITLE.ADD, defaultData),
     [setMutationShowUp]
   );
 
   const onClickDeleteFood = useCallback(
-    (foodId: string) =>
-      setConfirmShowUp(true, DEFAULT_CONFIRM_MODAL_TITLE, foodId),
+    (foodId: string) => setConfirmShowUp(true, MODAL_TITLE.DELETE, foodId),
     [setConfirmShowUp]
   );
 
   const onClickEditFood = useCallback(
-    (food: Food) => setMutationShowUp(true, DEFAULT_EDIT_MODAL_TITLE, food),
+    (food: Food) => setMutationShowUp(true, MODAL_TITLE.EDIT, food),
     [setMutationShowUp]
   );
 
@@ -236,6 +232,10 @@ const MainPage = () => {
 
   const onClickExpandFood = useCallback(() => fetchNextPage(), [fetchNextPage]);
 
+  const onRender = useCallback(
+    () => console.log('mutation modal re-rendered'),
+    []
+  );
   return (
     <>
       <main className={`d-flex-col ${mainStyles['main-container']}`}>
@@ -246,6 +246,7 @@ const MainPage = () => {
           {isLoading && (
             <Spinner customStyle={`${mainStyles['main-loading']}`} />
           )}
+
           <AddCard onClick={onClickAddFood} />
 
           {foodData?.pages?.map((page, index) => (
@@ -263,7 +264,7 @@ const MainPage = () => {
 
           {!isLoading && foodData?.pages[0].data.length === 0 && (
             <div className={`d-flex ${mainStyles['empty-message']}`}>
-              {EMPTY_MSG}
+              {FOOD_MSG.EMPTY}
             </div>
           )}
         </div>
@@ -281,6 +282,7 @@ const MainPage = () => {
           )}
         </Button>
       </main>
+
       {confirmModal.isShowUp && (
         <Suspense fallback={<LoadingModal />}>
           <ConfirmModal
@@ -294,15 +296,17 @@ const MainPage = () => {
 
       {mutationModal.isShowUp && (
         <Suspense fallback={<LoadingModal />}>
-          <MutationModal
-            title={mutationModal.title}
-            productData={mutationFoodData}
-            setProductData={setMutationFoodData}
-            errorProductMessage={errorMutationFoodMessage}
-            setErrorProductMessage={setErrorMutationFoodMessage}
-            onCancelClick={onCancelMutationClick}
-            onSubmit={onSubmit}
-          />
+          <Profiler id="mutationModal" onRender={onRender}>
+            <MutationModal
+              title={mutationModal.title}
+              productData={mutationFoodData}
+              setProductData={setMutationFoodData}
+              errorProductMessage={errorMutationFoodMessage}
+              setErrorProductMessage={setErrorMutationFoodMessage}
+              onCancelClick={onCancelMutationClick}
+              onSubmit={onSubmit}
+            />
+          </Profiler>
         </Suspense>
       )}
     </>

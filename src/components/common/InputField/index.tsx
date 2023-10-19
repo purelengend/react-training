@@ -1,4 +1,4 @@
-import { ReactNode, memo } from 'react';
+import { memo, ReactNode } from 'react';
 import isEqual from 'react-fast-compare';
 
 interface InputFieldProps {

@@ -1,17 +1,13 @@
-import headerStyles from '@components/Header/header.module.css';
 import searchIcon from '@assets/icons/search-icon.svg';
-import { Select, SelectOptionProps } from '@components/common/Select';
 import { InputField } from '@components/common/InputField';
-import {
-  ASCENDING_FILTER_ATTRIBUTE,
-  DEFAULT_FILTER_ATTRIBUTE,
-  DESCENDING_FILTER_ATTRIBUTE
-} from '@constants/filter';
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { UrlContext } from '@context/url';
-import useFood from '@hooks/useFood';
+import { Select, SelectOptionProps } from '@components/common/Select';
+import headerStyles from '@components/Header/header.module.css';
+import { FILTER_ATTRIBUTE } from '@constants/filter';
 import { ModalContext } from '@context/modal';
+import { UrlContext } from '@context/url';
 import { useDebounce } from '@hooks/useDebounce';
+import useFood from '@hooks/useFood';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 const Header = () => {
   const { path, sortFilter, setSortFilter, searchName, setSearchName } =
@@ -37,12 +33,14 @@ const Header = () => {
 
   useEffect(() => setSearchName(debouncedText), [debouncedText, setSearchName]);
 
-  // TODO: Memorize this function
-  const onRefresh = (e: React.MouseEvent<HTMLAnchorElement>): void => {
-    e.preventDefault();
+  const onRefresh = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>): void => {
+      e.preventDefault();
 
-    window.location.reload();
-  };
+      window.location.reload();
+    },
+    []
+  );
 
   const selectOptions: SelectOptionProps[] = useMemo(
     () => [
@@ -52,17 +50,17 @@ const Header = () => {
         label: 'Sort by price'
       },
       {
-        value: DEFAULT_FILTER_ATTRIBUTE,
+        value: FILTER_ATTRIBUTE.DEFAULT,
         disabled: false,
         label: 'Default'
       },
       {
-        value: ASCENDING_FILTER_ATTRIBUTE,
+        value: FILTER_ATTRIBUTE.ASCENDING,
         disabled: false,
         label: 'Ascending'
       },
       {
-        value: DESCENDING_FILTER_ATTRIBUTE,
+        value: FILTER_ATTRIBUTE.DESCENDING,
         disabled: false,
         label: 'Descending'
       }
@@ -118,7 +116,7 @@ const Header = () => {
           />
         </form>
       </div>
-      <div className={`d-flex-center ${headerStyles['header-sub-wrapper']}`}>
+      <div className={`d-flex ${headerStyles['header-sub-wrapper']}`}>
         <Select
           value={sortFilter}
           onChange={onChangeSelectOption}

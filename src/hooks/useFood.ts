@@ -1,11 +1,11 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { getFoods } from '@services/food.service';
 import { DEFAULT_LIMITATION, DEFAULT_PAGINATION } from '@constants/filter';
-import { useContext } from 'react';
-import { UrlContext } from '@context/url';
+import { TOAST_MSG, TOAST_TIME } from '@constants/toast';
 import { ToastContext } from '@context/toast';
-import { TOAST_ERROR_MSG, TOAST_TIME } from '@constants/toast';
+import { UrlContext } from '@context/url';
+import { getFoods } from '@services/food.service';
 import { ToastType } from '@store/toast';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { useContext } from 'react';
 
 export interface InfiniteQueryProps<T> {
   pages: {
@@ -48,7 +48,7 @@ const useFood = () => {
     refetchOnWindowFocus: false,
 
     onError: () => {
-      showToast(TOAST_ERROR_MSG, ToastType.Error);
+      showToast(TOAST_MSG.ERROR, ToastType.Error);
 
       setTimeout(() => {
         hideToast();

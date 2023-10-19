@@ -1,12 +1,9 @@
-import { ReactNode, createContext, memo, useMemo } from 'react';
-import { ModalProp } from '@store/modal';
-import {
-  DEFAULT_ADD_MODAL_TITLE,
-  DEFAULT_CONFIRM_MODAL_TITLE
-} from '@constants/modal';
 import { Food } from '@components/common/Cards/ProductCard';
 import { DEFAULT_FOOD_ID_VALUE, defaultData } from '@constants/food';
+import { MODAL_TITLE } from '@constants/modal';
 import useModal from '@hooks/useModal';
+import { ModalProp } from '@store/modal';
+import { createContext, memo, ReactNode, useMemo } from 'react';
 import isEqual from 'react-fast-compare';
 
 interface ModalContextProps {
@@ -33,7 +30,7 @@ interface ModalContextProps {
 export const ModalContext = createContext<ModalContextProps>({
   mutationModal: {
     isShowUp: false,
-    title: DEFAULT_ADD_MODAL_TITLE,
+    title: MODAL_TITLE.ADD,
     productData: defaultData
   },
   setMutationShowUp: () => {},
@@ -41,7 +38,7 @@ export const ModalContext = createContext<ModalContextProps>({
   setLoadingShowUp: () => {},
   confirmModal: {
     isShowUp: false,
-    title: DEFAULT_CONFIRM_MODAL_TITLE,
+    title: MODAL_TITLE.ADD,
     dataId: DEFAULT_FOOD_ID_VALUE
   },
   setConfirmShowUp: () => {}

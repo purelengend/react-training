@@ -1,7 +1,7 @@
-import productCardStyles from '@components/common/Cards/ProductCard/product-card.module.css';
 import deleteIcon from '@assets/icons/cross-icon.svg';
 import editIcon from '@assets/icons/edit-icon.svg';
 import { Button } from '@components/common/Button';
+import productCardStyles from '@components/common/Cards/ProductCard/product-card.module.css';
 import { memo, useCallback } from 'react';
 
 export interface Food {

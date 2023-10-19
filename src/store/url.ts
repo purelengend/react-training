@@ -1,7 +1,7 @@
 import {
   DEFAULT_LIMITATION,
   DEFAULT_PAGINATION,
-  DEFAULT_FILTER_ATTRIBUTE,
+  FILTER_ATTRIBUTE,
   SEARCH_KEYWORD
 } from '@constants/filter';
 
@@ -27,7 +27,7 @@ export interface UrlState {
 
 export const initialUrlState: UrlState = {
   name: SEARCH_KEYWORD,
-  sort: DEFAULT_FILTER_ATTRIBUTE,
+  sort: FILTER_ATTRIBUTE.DEFAULT,
   limit: DEFAULT_LIMITATION,
   page: DEFAULT_PAGINATION
 };

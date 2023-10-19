@@ -1,11 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Select } from '@components/common/Select';
 import '@components/common/Select/select.module.css';
-import {
-  DEFAULT_FILTER_ATTRIBUTE,
-  ASCENDING_FILTER_ATTRIBUTE,
-  DESCENDING_FILTER_ATTRIBUTE
-} from '@constants/filter';
+import { FILTER_ATTRIBUTE } from '@constants/filter';
 
 const meta: Meta<typeof Select> = {
   title: 'Example/Select',
@@ -57,17 +53,17 @@ export const SelectExample: Story = {
           label: 'Sort by price'
         },
         {
-          value: DEFAULT_FILTER_ATTRIBUTE,
+          value: FILTER_ATTRIBUTE.DEFAULT,
           disabled: false,
           label: 'Default'
         },
         {
-          value: ASCENDING_FILTER_ATTRIBUTE,
+          value: FILTER_ATTRIBUTE.ASCENDING,
           disabled: false,
           label: 'Ascending'
         },
         {
-          value: DESCENDING_FILTER_ATTRIBUTE,
+          value: FILTER_ATTRIBUTE.DESCENDING,
           disabled: false,
           label: 'Descending'
         }

@@ -1,9 +1,10 @@
-import Layout from '@src/layout';
-import '@src/App.css';
-import MainPage from '@src/pages/Main';
 import { ModalContextProvider } from '@context/modal';
 import { ToastContextProvider } from '@context/toast';
 import { UrlContextProvider } from '@context/url';
+import Layout from '@src/layout';
+import MainPage from '@src/pages/Main';
+
+import '@src/App.css';
 
 function App() {
   return (
