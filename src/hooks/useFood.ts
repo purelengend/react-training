@@ -8,11 +8,11 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { useContext } from 'react';
 
 export interface InfiniteQueryProps<T> {
-  pages: {
-    data: T[];
+  pages: Array<{
+    data: Array<T>;
     pageParams: number;
-  }[];
-  pageParams: number[];
+  }>;
+  pageParams: Array<number>;
 }
 
 const useFood = () => {

@@ -4,7 +4,7 @@ export const FILTER_ATTRIBUTE = {
   DEFAULT: 'orderby=createdAt&order=desc',
   ASCENDING: 'orderby=price',
   DESCENDING: 'orderby=price&order=desc'
-};
+} as const;
 
 export const DEFAULT_LIMITATION = 9;
 

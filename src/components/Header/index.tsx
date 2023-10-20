@@ -42,7 +42,7 @@ const Header = () => {
     []
   );
 
-  const selectOptions: SelectOptionProps[] = useMemo(
+  const selectOptions: Array<SelectOptionProps> = useMemo(
     () => [
       {
         value: undefined,

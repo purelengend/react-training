@@ -3,13 +3,13 @@ import { DEFAULT_FOOD_ID_VALUE } from '@constants/food';
 import http from '@services/http.service';
 
 export const getFoods = async (path: string) => {
-  const listFood = (await http.get<Food[]>(path)).data;
+  const listFood = (await http.get<Array<Food>>(path)).data;
 
   return listFood;
 };
 
 export const getFoodById = async (id: string) => {
-  const food = (await http.get<Food[]>(id)).data;
+  const food = (await http.get<Array<Food>>(id)).data;
 
   return food;
 };

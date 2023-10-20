@@ -3,4 +3,4 @@ export const MODAL_TITLE = {
   ADD: 'Create a new food',
   EDIT: 'Edit',
   DELETE: 'Are you sure you want to delete this food?'
-};
+} as const;

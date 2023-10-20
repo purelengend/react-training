@@ -5,4 +5,4 @@ export const TOAST_MSG = {
   DELETE: 'Delete successfully!',
   EDIT: 'Edit successfully!',
   ERROR: 'Request failed: Something went wrong.'
-};
+} as const;

@@ -10,7 +10,7 @@ export const FOOD_MSG = {
   QUANTITY_WARNING:
     'The food quantity cannot be empty and must be an integer that greater than 0',
   EMPTY: 'Oops! It looks like there are no food items available at the moment.'
-};
+} as const;
 
 export const DEFAULT_FOOD_ID_VALUE = '';
 

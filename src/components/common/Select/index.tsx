@@ -10,7 +10,7 @@ export interface SelectOptionProps {
 }
 
 interface SelectProps {
-  selectOptions: SelectOptionProps[];
+  selectOptions: Array<SelectOptionProps>;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   value: string;
 }
