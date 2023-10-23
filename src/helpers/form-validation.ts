@@ -46,7 +46,7 @@ function isValidInteger(input: number): boolean {
     'webp',
     'q=80'.
  *
- * @param input
+ * @param url
  */
 function isValidImageUrl(url: string): boolean {
   // Define a regular expression pattern to match valid URLs

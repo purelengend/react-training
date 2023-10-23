@@ -9,7 +9,7 @@ import {
   FOOD_MSG
 } from '@constants/food';
 import { MODAL_TITLE } from '@constants/modal';
-import { TOAST_MSG, TOAST_TIME } from '@constants/toast';
+import { TOAST_MSG } from '@constants/toast';
 import { ModalContext } from '@context/modal';
 import { ToastContext } from '@context/toast';
 import { validateForm } from '@helpers/form-validation';
@@ -122,9 +122,7 @@ const MainPage = () => {
 
       showToast(toastMessage, ToastType.Success);
 
-      setTimeout(() => {
-        hideToast();
-      }, TOAST_TIME);
+      hideToast();
     },
 
     onError: () => {
@@ -134,9 +132,7 @@ const MainPage = () => {
 
       showToast(TOAST_MSG.ERROR, ToastType.Error);
 
-      setTimeout(() => {
-        hideToast();
-      }, TOAST_TIME);
+      hideToast();
     },
 
     onSettled: () => {
@@ -177,9 +173,7 @@ const MainPage = () => {
 
       showToast(TOAST_MSG.DELETE, ToastType.Success);
 
-      setTimeout(() => {
-        hideToast();
-      }, TOAST_TIME);
+      hideToast();
     },
 
     onError: () => {
@@ -189,9 +183,7 @@ const MainPage = () => {
 
       showToast(TOAST_MSG.ERROR, ToastType.Error);
 
-      setTimeout(() => {
-        hideToast();
-      }, TOAST_TIME);
+      hideToast();
     },
 
     onSettled: () => {

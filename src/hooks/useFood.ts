@@ -1,5 +1,5 @@
 import { DEFAULT_LIMITATION, DEFAULT_PAGINATION } from '@constants/filter';
-import { TOAST_MSG, TOAST_TIME } from '@constants/toast';
+import { TOAST_MSG } from '@constants/toast';
 import { ToastContext } from '@context/toast';
 import { UrlContext } from '@context/url';
 import { getFoods } from '@services/food.service';
@@ -50,9 +50,7 @@ const useFood = () => {
     onError: () => {
       showToast(TOAST_MSG.ERROR, ToastType.Error);
 
-      setTimeout(() => {
-        hideToast();
-      }, TOAST_TIME);
+      hideToast();
     }
   });
 

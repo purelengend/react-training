@@ -1,3 +1,4 @@
+import { TOAST_TIME } from '@constants/toast';
 import {
   initialToastState,
   ToastActionKind,
@@ -26,13 +27,17 @@ const useToast = () => {
   );
 
   const hideToast = useCallback(() => {
-    dispatch({
-      type: ToastActionKind.Toast,
-      payload: {
-        isVisible: false,
-        toastType
-      }
-    });
+    setTimeout(
+      () =>
+        dispatch({
+          type: ToastActionKind.Toast,
+          payload: {
+            isVisible: false,
+            toastType
+          }
+        }),
+      TOAST_TIME
+    );
   }, [dispatch, toastType]);
 
   return {
