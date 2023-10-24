@@ -5,13 +5,13 @@ import LoadingModal from '@components/Modals/LoadingModal';
 import { ModalContext } from '@context/modal';
 import { ToastContext } from '@context/toast';
 import layoutStyles from '@layout/layout.module.css';
-import { memo, ReactNode, useContext } from 'react';
+import { ReactNode, useContext } from 'react';
 
 interface Props {
   children: ReactNode;
 }
 
-const Layout = memo(({ children }: Props) => {
+const Layout = ({ children }: Props) => {
   const { isLoadingShowUp } = useContext(ModalContext);
 
   const { toast } = useContext(ToastContext);
@@ -33,8 +33,6 @@ const Layout = memo(({ children }: Props) => {
       />
     </>
   );
-});
-
-Layout.whyDidYouRender = true;
+};
 
 export default Layout;

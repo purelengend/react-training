@@ -228,6 +228,7 @@ const MainPage = () => {
     () => console.log('mutation modal re-rendered'),
     []
   );
+
   return (
     <>
       <main className={`d-flex-col ${mainStyles['main-container']}`}>

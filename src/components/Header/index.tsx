@@ -24,7 +24,8 @@ const Header = () => {
   // This effect is to refetch the list food based on path and search name
   useEffect(() => {
     refetch();
-  }, [refetch, path, searchName]);
+    setSearchText(debouncedText);
+  }, [refetch, path, searchName, debouncedText]);
 
   useEffect(
     () => setLoadingShowUp(isRefetching),
@@ -95,6 +96,7 @@ const Header = () => {
         <form
           onSubmit={onSubmitSearchForm}
           className={`d-flex ${headerStyles['search-form']}`}
+          aria-label="search-form"
         >
           <InputField
             htmlFor="search"

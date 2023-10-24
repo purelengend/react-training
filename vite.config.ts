@@ -1,7 +1,9 @@
-import { defineConfig } from 'vite';
-import { compression } from 'vite-plugin-compression2';
+/// <reference types="vitest" />
+/// <reference types="vite/client" />
 import react from '@vitejs/plugin-react-swc';
 import * as path from 'path';
+import { defineConfig } from 'vite';
+import { compression } from 'vite-plugin-compression2';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -25,5 +27,11 @@ export default defineConfig({
       '@store': `${path.resolve(__dirname, './src/store')}`,
       '@src': `${path.resolve(__dirname, './src/')}`
     }
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    css: true,
+    setupFiles: './src/test/setup.ts'
   }
 });
