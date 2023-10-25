@@ -1,3 +1,4 @@
+import { Fallback } from '@components/common/FallBack';
 import { Toast } from '@components/common/Toast';
 import Footer from '@components/Footer';
 import Header from '@components/Header';
@@ -6,6 +7,7 @@ import { ModalContext } from '@context/modal';
 import { ToastContext } from '@context/toast';
 import layoutStyles from '@layout/layout.module.css';
 import { ReactNode, useContext } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 
 interface Props {
   children: ReactNode;
@@ -19,18 +21,28 @@ const Layout = ({ children }: Props) => {
   return (
     <>
       <div className={layoutStyles.container}>
-        <Header />
+        <ErrorBoundary fallback={<Fallback />}>
+          <Header />
+        </ErrorBoundary>
         {children}
-        <Footer />
+        <ErrorBoundary fallback={<Fallback />}>
+          <Footer />
+        </ErrorBoundary>
       </div>
 
-      {isLoadingShowUp && <LoadingModal />}
+      {isLoadingShowUp && (
+        <ErrorBoundary fallback={<Fallback />}>
+          <LoadingModal />
+        </ErrorBoundary>
+      )}
 
-      <Toast
-        message={toast.message}
-        isVisible={toast.isVisible}
-        toastType={toast.toastType}
-      />
+      <ErrorBoundary fallback={<Fallback />}>
+        <Toast
+          message={toast.message}
+          isVisible={toast.isVisible}
+          toastType={toast.toastType}
+        />
+      </ErrorBoundary>
     </>
   );
 };

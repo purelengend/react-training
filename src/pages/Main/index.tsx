@@ -1,6 +1,7 @@
 import { Button } from '@components/common/Button';
 import { AddCard } from '@components/common/Cards/AddCard';
 import { Food, ProductCard } from '@components/common/Cards/ProductCard';
+import { Fallback } from '@components/common/FallBack';
 import { Spinner } from '@components/common/Spinner';
 import LoadingModal from '@components/Modals/LoadingModal';
 import {
@@ -22,13 +23,13 @@ import {
   FormEvent,
   Fragment,
   lazy,
-  Profiler,
   Suspense,
   useCallback,
   useContext,
   useEffect,
   useState
 } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 
 const ConfirmModal = lazy(() => import('@components/Modals/ConfirmModal'));
 
@@ -224,11 +225,6 @@ const MainPage = () => {
 
   const onClickExpandFood = useCallback(() => fetchNextPage(), [fetchNextPage]);
 
-  const onRender = useCallback(
-    () => console.log('mutation modal re-rendered'),
-    []
-  );
-
   return (
     <>
       <main className={`d-flex-col ${mainStyles['main-container']}`}>
@@ -240,17 +236,21 @@ const MainPage = () => {
             <Spinner customStyle={`${mainStyles['main-loading']}`} />
           )}
 
-          <AddCard onClick={onClickAddFood} />
+          <ErrorBoundary fallback={<Fallback />}>
+            <AddCard onClick={onClickAddFood} />
+          </ErrorBoundary>
 
           {foodData?.pages?.map((page, index) => (
             <Fragment key={index}>
               {page.data.map(food => (
-                <ProductCard
-                  onDeleteClick={onClickDeleteFood}
-                  onEditClick={onClickEditFood}
-                  product={food}
-                  key={food.id}
-                />
+                <ErrorBoundary key={index + food.id} fallback={<Fallback />}>
+                  <ProductCard
+                    onDeleteClick={onClickDeleteFood}
+                    onEditClick={onClickEditFood}
+                    product={food}
+                    key={food.id}
+                  />
+                </ErrorBoundary>
               ))}
             </Fragment>
           ))}
@@ -262,34 +262,38 @@ const MainPage = () => {
           )}
         </div>
 
-        <Button
-          isVisible={hasNextPage}
-          isDisabled={isFetchingNextPage}
-          onClick={onClickExpandFood}
-          className={`d-flex-center ${mainStyles['expand-btn']}`}
-        >
-          {isFetchingNextPage ? (
-            <Spinner customStyle={`${mainStyles['expand-loading']}`} />
-          ) : (
-            'SHOW MORE'
-          )}
-        </Button>
+        <ErrorBoundary fallback={<Fallback />}>
+          <Button
+            isVisible={hasNextPage}
+            isDisabled={isFetchingNextPage}
+            onClick={onClickExpandFood}
+            className={`d-flex-center ${mainStyles['expand-btn']}`}
+          >
+            {isFetchingNextPage ? (
+              <Spinner customStyle={`${mainStyles['expand-loading']}`} />
+            ) : (
+              'SHOW MORE'
+            )}
+          </Button>
+        </ErrorBoundary>
       </main>
 
       {confirmModal.isShowUp && (
         <Suspense fallback={<LoadingModal />}>
-          <ConfirmModal
-            message={confirmModal.title}
-            dataId={confirmModal.dataId}
-            onSubmit={onConfirm}
-            onCancelClick={onCancelConfirmClick}
-          />
+          <ErrorBoundary fallback={<Fallback />}>
+            <ConfirmModal
+              message={confirmModal.title}
+              dataId={confirmModal.dataId}
+              onSubmit={onConfirm}
+              onCancelClick={onCancelConfirmClick}
+            />
+          </ErrorBoundary>
         </Suspense>
       )}
 
       {mutationModal.isShowUp && (
         <Suspense fallback={<LoadingModal />}>
-          <Profiler id="mutationModal" onRender={onRender}>
+          <ErrorBoundary fallback={<Fallback />}>
             <MutationModal
               title={mutationModal.title}
               productData={mutationFoodData}
@@ -299,7 +303,7 @@ const MainPage = () => {
               onCancelClick={onCancelMutationClick}
               onSubmit={onSubmit}
             />
-          </Profiler>
+          </ErrorBoundary>
         </Suspense>
       )}
     </>

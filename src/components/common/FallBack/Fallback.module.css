@@ -1,0 +1,4 @@
+.fallback-message {
+  font-size: 32px;
+  color: var(--text-primary);
+}

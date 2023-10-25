@@ -31,7 +31,13 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
+    setupFiles: './src/test/setup.ts',
     css: true,
-    setupFiles: './src/test/setup.ts'
+    coverage: {
+      provider: 'v8',
+      all: true,
+      include: ['src/components/**/*.tsx'],
+      exclude: ['src/components/**/*.stories.tsx']
+    }
   }
 });
