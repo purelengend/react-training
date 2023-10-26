@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Spinner test case > should accept custom class name 1`] = `
+<div
+  className="_loader_3c694b mock-class-name"
+  id="spin"
+/>
+`;
+
+exports[`Spinner test case > should render correctly without custom class name 1`] = `
+<div
+  className="_loader_3c694b undefined"
+  id="spin"
+/>
+`;
