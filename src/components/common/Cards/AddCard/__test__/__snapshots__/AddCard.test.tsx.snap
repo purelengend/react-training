@@ -1,0 +1,24 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AddCard test cases > should render correctly with onclick function 1`] = `
+<div
+  className="d-flex-center _addition-card_df6a58"
+  id="add-card"
+  onClick={[MockFunction spy]}
+>
+  <div
+    className="d-flex-col _addition-wrapper_df6a58"
+  >
+    <img
+      alt="Plus Icon"
+      className="primary-icon"
+      src="/src/assets/icons/plus-icon.svg"
+    />
+    <p
+      className="_addition-content_df6a58"
+    >
+      Add new dish
+    </p>
+  </div>
+</div>
+`;
