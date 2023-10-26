@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Footer test case > should render correctly 1`] = `
+<footer
+  className="_footer-container_1a5889"
+/>
+`;
