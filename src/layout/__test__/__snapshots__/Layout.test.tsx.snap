@@ -1,0 +1,116 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Layout test case > should render correctly 1`] = `
+[
+  <div
+    className="_container_5682be"
+  >
+    <header
+      className="_header-container_d33141"
+    >
+      <div
+        className="d-flex _header-main-wrapper_d33141"
+      >
+        <a
+          href="#"
+          onClick={[Function]}
+        >
+          <h1
+            className="_header-brand_d33141"
+            id="header"
+          >
+            Foods Management
+          </h1>
+        </a>
+        <div
+          className="d-flex _search-form_d33141"
+        >
+          <label
+            htmlFor="search"
+          >
+            <img
+              alt="Search Icon"
+              height="16"
+              src="/src/assets/icons/search-icon.svg"
+              width="16"
+            />
+          </label>
+          <input
+            className="_search-input_d33141"
+            id="search"
+            name="search"
+            onChange={[Function]}
+            placeholder="Search for food, coffee, etc.."
+            step="any"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        className="d-flex _header-sub-wrapper_d33141"
+      >
+        <select
+          aria-label="sort"
+          className="_sort-select_e72513"
+          id="sort"
+          onChange={[Function]}
+          value="orderby=createdAt&order=desc"
+        >
+          <option
+            className="_select-item_1f6fcf"
+            disabled={true}
+          >
+            Sort by price
+          </option>
+          <option
+            className="_select-item_1f6fcf"
+            disabled={false}
+            value="orderby=createdAt&order=desc"
+          >
+            Default
+          </option>
+          <option
+            className="_select-item_1f6fcf"
+            disabled={false}
+            value="orderby=price"
+          >
+            Ascending
+          </option>
+          <option
+            className="_select-item_1f6fcf"
+            disabled={false}
+            value="orderby=price&order=desc"
+          >
+            Descending
+          </option>
+        </select>
+      </div>
+    </header>
+    Mock Children
+    <footer
+      className="_footer-container_1a5889"
+    />
+  </div>,
+  <div
+    className="d-flex _toast-container_070444 _success_070444"
+    style={
+      {
+        "opacity": "0",
+        "visibility": "hidden",
+      }
+    }
+  >
+    <div
+      className="d-flex _toast-message-wrapper_070444"
+    >
+      <img
+        alt="Check Mark Icon"
+        className="primary-icon false"
+        src="/src/assets/icons/check-mark-icon.svg"
+      />
+      <p />
+    </div>
+  </div>,
+]
+`;
