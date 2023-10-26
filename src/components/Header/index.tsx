@@ -81,10 +81,6 @@ const Header = () => {
     [setSortFilter]
   );
 
-  const onSubmitSearchForm = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => e.preventDefault(),
-    []
-  );
   return (
     <header className={headerStyles['header-container']}>
       <div className={`d-flex ${headerStyles['header-main-wrapper']}`}>
@@ -93,11 +89,7 @@ const Header = () => {
             Foods Management
           </h1>
         </a>
-        <form
-          onSubmit={onSubmitSearchForm}
-          className={`d-flex ${headerStyles['search-form']}`}
-          aria-label="search-form"
-        >
+        <div className={`d-flex ${headerStyles['search-form']}`}>
           <InputField
             htmlFor="search"
             type="text"
@@ -116,7 +108,7 @@ const Header = () => {
               />
             }
           />
-        </form>
+        </div>
       </div>
       <div className={`d-flex ${headerStyles['header-sub-wrapper']}`}>
         <Select
