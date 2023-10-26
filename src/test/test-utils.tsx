@@ -32,4 +32,4 @@ const customRenderer = (ui: ReactElement) =>
   );
 
 export * from '@testing-library/react';
-export { customRender as render, customRenderer as renderer };
+export { customRender, customRenderer };

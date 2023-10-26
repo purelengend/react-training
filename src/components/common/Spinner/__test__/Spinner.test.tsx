@@ -1,17 +1,17 @@
-import { renderer } from '@src/test/test-utils';
+import { customRenderer } from '@src/test/test-utils';
 
 import { Spinner } from '..';
 
 describe('Spinner test case', () => {
   it('should render correctly without custom class name', () => {
-    const mockSpinner = renderer(<Spinner />);
+    const mockSpinner = customRenderer(<Spinner />);
 
     expect(mockSpinner.toJSON()).toMatchSnapshot();
   });
 
-  const mockClassName = 'mock-class-name';
   it('should accept custom class name', () => {
-    const mockSpinner = renderer(<Spinner customStyle={mockClassName} />);
+    const mockClassName = 'mock-class-name';
+    const mockSpinner = customRenderer(<Spinner customStyle={mockClassName} />);
 
     expect(mockSpinner.toJSON()).toMatchSnapshot();
   });

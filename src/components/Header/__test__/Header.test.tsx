@@ -1,4 +1,4 @@
-import { render, renderer, screen } from '@src/test/test-utils';
+import { customRender, customRenderer, screen } from '@src/test/test-utils';
 import userEvent from '@testing-library/user-event';
 
 import Header from '..';
@@ -24,15 +24,15 @@ window._virtualConsole.addListener('jsdomError', error => {
 
 describe('Header test case', () => {
   it('should render correctly', () => {
-    const mockHeader = renderer(<Header />);
+    const mockHeader = customRenderer(<Header />);
 
     expect(mockHeader.toJSON()).toMatchSnapshot();
   });
 
   it('should invoke refresh function when click the heading', async () => {
-    render(<Header />);
+    customRender(<Header />);
 
-    const mockOnRefresh = vi.fn(() => {});
+    const mockOnRefresh = vi.fn();
 
     const heading = screen.getByRole('link', {
       name: /foods management/i
@@ -46,7 +46,7 @@ describe('Header test case', () => {
   });
 
   it('should correctly set default option', async () => {
-    render(<Header />);
+    customRender(<Header />);
 
     const mockOnChangeSelection = vi.fn();
 

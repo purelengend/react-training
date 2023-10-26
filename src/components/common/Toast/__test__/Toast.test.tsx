@@ -1,12 +1,13 @@
-import { renderer } from '@src/test/test-utils';
-import { Toast } from '..';
+import { customRenderer } from '@src/test/test-utils';
 import { ToastType } from '@store/toast';
+
+import { Toast } from '..';
 
 describe('Toast test case', () => {
   const mockMessage = 'mocked message';
   let mockType = 'SUCCESS' as ToastType;
   it('should render correctly and be hidden by default', () => {
-    const mockToast = renderer(
+    const mockToast = customRenderer(
       <Toast message={mockMessage} toastType={mockType} />
     );
 
@@ -14,7 +15,7 @@ describe('Toast test case', () => {
   });
 
   it('should be visible', () => {
-    const mockToast = renderer(
+    const mockToast = customRenderer(
       <Toast message={mockMessage} toastType={mockType} isVisible={true} />
     );
 
@@ -23,7 +24,7 @@ describe('Toast test case', () => {
 
   mockType = 'ERROR' as ToastType;
   it('should render error toast when toast type is ERROR', () => {
-    const mockToast = renderer(
+    const mockToast = customRenderer(
       <Toast message={mockMessage} toastType={mockType} />
     );
 

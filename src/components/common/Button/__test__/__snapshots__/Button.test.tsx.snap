@@ -1,0 +1,70 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Button test case > should accept custom class name 1`] = `
+<button
+  className="mock-class-name"
+  data-id="0"
+  disabled={false}
+  onClick={[Function]}
+  type="button"
+>
+  Mock Children
+</button>
+`;
+
+exports[`Button test case > should accept different type 1`] = `
+<button
+  data-id="0"
+  disabled={false}
+  onClick={[Function]}
+  type="submit"
+>
+  Mock Children
+</button>
+`;
+
+exports[`Button test case > should accept different type 2`] = `
+<button
+  data-id="0"
+  disabled={false}
+  onClick={[Function]}
+  type="reset"
+>
+  Mock Children
+</button>
+`;
+
+exports[`Button test case > should accept different type 3`] = `
+<button
+  data-id="0"
+  disabled={false}
+  onClick={[Function]}
+  type="button"
+>
+  Mock Children
+</button>
+`;
+
+exports[`Button test case > should accept the custom dataId attribute 1`] = `
+<button
+  data-id="55"
+  disabled={false}
+  onClick={[Function]}
+  type="button"
+>
+  Mock Children
+</button>
+`;
+
+exports[`Button test case > should be hidden 1`] = `null`;
+
+exports[`Button test case > should render correctly with children and be visible by default 1`] = `
+<button
+  data-id="0"
+  disabled={false}
+  onClick={[Function]}
+  type="button"
+>
+  Mock Children
+</button>
+`;
