@@ -84,11 +84,13 @@ const Header = () => {
   return (
     <header className={headerStyles['header-container']}>
       <div className={`d-flex ${headerStyles['header-main-wrapper']}`}>
-        <a href="#" onClick={onRefresh}>
-          <h1 id="header" className={headerStyles['header-brand']}>
-            Foods Management
-          </h1>
-        </a>
+        <div>
+          <a href="#" onClick={onRefresh}>
+            <h1 id="header" className={headerStyles['header-brand']}>
+              Foods Management
+            </h1>
+          </a>
+        </div>
         <div className={`d-flex ${headerStyles['search-form']}`}>
           <InputField
             htmlFor="search"

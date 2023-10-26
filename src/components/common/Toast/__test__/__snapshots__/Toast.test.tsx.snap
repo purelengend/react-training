@@ -1,0 +1,76 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Toast test case > should be visible 1`] = `
+<div
+  className="d-flex _toast-container_070444 _error_070444"
+  style={
+    {
+      "opacity": "1",
+      "visibility": "visible",
+    }
+  }
+>
+  <div
+    className="d-flex _toast-message-wrapper_070444"
+  >
+    <img
+      alt="Check Mark Icon"
+      className="primary-icon _error-icon_070444"
+      src="/src/assets/icons/cross-icon.svg"
+    />
+    <p>
+      mocked message
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Toast test case > should render correctly and be hidden by default 1`] = `
+<div
+  className="d-flex _toast-container_070444 _error_070444"
+  style={
+    {
+      "opacity": "0",
+      "visibility": "hidden",
+    }
+  }
+>
+  <div
+    className="d-flex _toast-message-wrapper_070444"
+  >
+    <img
+      alt="Check Mark Icon"
+      className="primary-icon _error-icon_070444"
+      src="/src/assets/icons/cross-icon.svg"
+    />
+    <p>
+      mocked message
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Toast test case > should render error toast when toast type is ERROR 1`] = `
+<div
+  className="d-flex _toast-container_070444 _error_070444"
+  style={
+    {
+      "opacity": "0",
+      "visibility": "hidden",
+    }
+  }
+>
+  <div
+    className="d-flex _toast-message-wrapper_070444"
+  >
+    <img
+      alt="Check Mark Icon"
+      className="primary-icon _error-icon_070444"
+      src="/src/assets/icons/cross-icon.svg"
+    />
+    <p>
+      mocked message
+    </p>
+  </div>
+</div>
+`;

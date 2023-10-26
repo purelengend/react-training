@@ -7,17 +7,19 @@ exports[`Header test case > should render correctly 1`] = `
   <div
     className="d-flex _header-main-wrapper_d33141"
   >
-    <a
-      href="#"
-      onClick={[Function]}
-    >
-      <h1
-        className="_header-brand_d33141"
-        id="header"
+    <div>
+      <a
+        href="#"
+        onClick={[Function]}
       >
-        Foods Management
-      </h1>
-    </a>
+        <h1
+          className="_header-brand_d33141"
+          id="header"
+        >
+          Foods Management
+        </h1>
+      </a>
+    </div>
     <div
       className="d-flex _search-form_d33141"
     >

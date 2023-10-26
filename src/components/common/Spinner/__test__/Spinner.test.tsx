@@ -9,8 +9,9 @@ describe('Spinner test case', () => {
     expect(mockSpinner.toJSON()).toMatchSnapshot();
   });
 
+  const mockClassName = 'mock-class-name';
   it('should accept custom class name', () => {
-    const mockSpinner = renderer(<Spinner customStyle="mock-class-name" />);
+    const mockSpinner = renderer(<Spinner customStyle={mockClassName} />);
 
     expect(mockSpinner.toJSON()).toMatchSnapshot();
   });
