@@ -36,7 +36,11 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       all: true,
-      include: ['src/components/**/*.tsx', 'src/layout/*.tsx'],
+      include: [
+        'src/components/**/*.tsx',
+        'src/layout/*.tsx',
+        'src/helpers/*.ts'
+      ],
       exclude: ['src/components/**/*.stories.tsx']
     }
   }

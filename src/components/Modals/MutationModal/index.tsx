@@ -2,7 +2,11 @@ import { Button } from '@components/common/Button';
 import { Food } from '@components/common/Cards/ProductCard';
 import { InputField } from '@components/common/InputField';
 import mutationModalStyles from '@components/Modals/MutationModal/mutation-modal.module.css';
-import { defaultData, defaultFoodErrorMessage, FoodErrorMessage } from '@constants/food';
+import {
+  defaultData,
+  defaultFoodErrorMessage,
+  FoodErrorMessage
+} from '@constants/food';
 import { FormEvent, memo, useCallback } from 'react';
 import isEqual from 'react-fast-compare';
 

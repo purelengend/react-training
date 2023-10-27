@@ -1,6 +1,7 @@
 import { defaultData, defaultFoodErrorMessage } from '@constants/food';
 import { customRenderer, render, screen } from '@src/test/test-utils';
 import userEvent from '@testing-library/user-event';
+import { FormEvent } from 'react';
 
 import MutationModal, { MutationModalProps } from '..';
 
@@ -9,7 +10,11 @@ describe('MutationModal test case', () => {
     title: 'mock',
     productData: defaultData,
     errorProductMessage: defaultFoodErrorMessage,
-    onSubmit: vi.fn(),
+    onSubmit: vi
+      .fn()
+      .mockImplementation((e: FormEvent<HTMLFormElement>) =>
+        e.preventDefault()
+      ),
     onCancelClick: vi.fn(),
     setProductData: vi.fn()
   };

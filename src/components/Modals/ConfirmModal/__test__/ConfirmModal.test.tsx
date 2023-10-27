@@ -2,13 +2,16 @@ import { customRenderer, render, screen } from '@src/test/test-utils';
 import userEvent from '@testing-library/user-event';
 
 import ConfirmModal, { ConfirmModalProps } from '..';
+import { FormEvent } from 'react';
 
 describe('ConfirmModal test case', () => {
   const mockConfirmModalProps: ConfirmModalProps = {
     dataId: '0',
     message: 'mock',
     onCancelClick: vi.fn(),
-    onSubmit: vi.fn()
+    onSubmit: vi
+      .fn()
+      .mockImplementation((e: FormEvent<HTMLFormElement>) => e.preventDefault())
   };
 
   it('should render correctly', () => {
@@ -29,7 +32,7 @@ describe('ConfirmModal test case', () => {
     expect(mockConfirmModalProps.onSubmit).toBeCalled();
   });
 
-  it('should invoke onCancel function when closing the modal', async () => {
+  it('should invoke onCancel function when closing', async () => {
     render(<ConfirmModal {...mockConfirmModalProps} />);
 
     const mockButtonList = screen.getAllByRole('button');

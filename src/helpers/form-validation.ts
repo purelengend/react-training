@@ -8,7 +8,7 @@ import { FOOD_MSG, FoodErrorMessage } from '@constants/food';
  *
  * @param input
  */
-function isValidName(input: string): boolean {
+export function isValidName(input: string): boolean {
   return input.length !== 0 && !/^\s| {2,}|\s$/.test(input);
 }
 
@@ -19,7 +19,7 @@ function isValidName(input: string): boolean {
  *
  * @param input
  */
-function isValidNumber(input: number): boolean {
+export function isValidNumber(input: number): boolean {
   return input > 0;
 }
 
@@ -30,7 +30,7 @@ function isValidNumber(input: number): boolean {
  *
  * @param input
  */
-function isValidInteger(input: number): boolean {
+export function isValidInteger(input: number): boolean {
   return Number.isInteger(input) && input > 0;
 }
 
@@ -48,7 +48,7 @@ function isValidInteger(input: number): boolean {
  *
  * @param url
  */
-function isValidImageUrl(url: string): boolean {
+export function isValidImageUrl(url: string): boolean {
   // Define a regular expression pattern to match valid URLs
   const pattern =
     /^https:\/\/.+(\.(jpg|jpeg|png|gif|bmp|svg|webp|avif)|q=80)$/i;
