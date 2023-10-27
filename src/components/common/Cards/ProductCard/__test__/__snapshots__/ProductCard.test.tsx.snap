@@ -1,0 +1,70 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ProductCard test cases > should render correctly with required functions props 1`] = `
+<div
+  className="d-flex-center d-flex-col _product-card_6cffd1"
+>
+  <button
+    className="d-flex-center _secondary-icon_6cffd1 _delete-btn_6cffd1"
+    data-id="0"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    <img
+      alt="Cross Icon"
+      data-id=""
+      height="20"
+      src="/src/assets/icons/cross-icon.svg"
+      width="20"
+    />
+  </button>
+  <div
+    className="d-flex-col _product-wrapper_6cffd1"
+  >
+    <img
+      alt=""
+      className="_primary-product_6cffd1"
+      height="127"
+      src=""
+      width="127"
+    />
+    <div
+      className="d-flex-col _product-content-wrapper_6cffd1"
+    >
+      <p
+        className="_product-name_6cffd1"
+      />
+      <div
+        className="d-flex-center _product-detail_6cffd1"
+      >
+        $ 
+        0
+        <div
+          className="_separate_6cffd1"
+        />
+        0
+         Bowls
+      </div>
+    </div>
+  </div>
+  <button
+    className="d-flex-center _product-mutation_6cffd1 undefined"
+    data-id="0"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    <img
+      alt="Edit Icon"
+      className="primary-icon undefined"
+      src="/src/assets/icons/edit-icon.svg"
+    />
+    <p
+      className="_mutation-content_6cffd1 undefined"
+    >
+      Edit dish
+    </p>
+  </button>
+</div>
+`;
