@@ -1,0 +1,49 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ConfirmModal test case > should render correctly 1`] = `
+<div
+  className="d-flex-center modal-overlay"
+  id="confirm-modal"
+>
+  <form
+    className="d-flex-col _confirm-modal-body_1874c6"
+    id="confirm-form"
+    onSubmit={[MockFunction spy]}
+  >
+    <input
+      defaultValue="0"
+      hidden={true}
+      id="hidden-confirm-id"
+      name="id"
+      type="number"
+    />
+    <h2
+      className="_confirm-modal-content_1874c6"
+    >
+      mock
+    </h2>
+    <div
+      className="d-flex _confirm-modal-btn-wrapper_1874c6"
+    >
+      <button
+        className="modal-btn cancel"
+        data-id="0"
+        disabled={false}
+        onClick={[MockFunction spy]}
+        type="button"
+      >
+        Cancel
+      </button>
+      <button
+        className="modal-btn confirm"
+        data-id="0"
+        disabled={false}
+        onClick={[Function]}
+        type="submit"
+      >
+        Yes
+      </button>
+    </div>
+  </form>
+</div>
+`;
