@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom/client';
 import './wdyr';
 import '@src/main.css';
 import { ErrorBoundary } from 'react-error-boundary';
-import { Fallback } from '@components/common/FallBack';
+import { Fallback } from '@components/common/Fallback';
 
 const queryClient = new QueryClient({
   defaultOptions: {

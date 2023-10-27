@@ -1,7 +1,7 @@
 import { Button } from '@components/common/Button';
 import { AddCard } from '@components/common/Cards/AddCard';
 import { Food, ProductCard } from '@components/common/Cards/ProductCard';
-import { Fallback } from '@components/common/FallBack';
+import { Fallback } from '@components/common/Fallback';
 import { Spinner } from '@components/common/Spinner';
 import LoadingModal from '@components/Modals/LoadingModal';
 import {

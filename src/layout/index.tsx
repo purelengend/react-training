@@ -1,4 +1,4 @@
-import { Fallback } from '@components/common/FallBack';
+import { Fallback } from '@components/common/Fallback';
 import { Toast } from '@components/common/Toast';
 import Footer from '@components/Footer';
 import Header from '@components/Header';
