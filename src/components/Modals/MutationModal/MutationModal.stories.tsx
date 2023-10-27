@@ -34,9 +34,6 @@ const meta: Meta<typeof MutationModal> = {
       description:
         'The custom error message object is used for displaying the error message'
     },
-    setErrorProductMessage: {
-      description: 'The set method is used to set value of the error message'
-    },
     onCancelClick: {
       action: 'closed',
       description: 'The cancel method is used to close the modal'

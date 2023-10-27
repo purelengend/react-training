@@ -29,7 +29,7 @@ describe('ConfirmModal test case', () => {
     expect(mockConfirmModalProps.onSubmit).toBeCalled();
   });
 
-  it('should invoke onCancel function when closing', async () => {
+  it('should invoke onCancel function when closing the modal', async () => {
     render(<ConfirmModal {...mockConfirmModalProps} />);
 
     const mockButtonList = screen.getAllByRole('button');

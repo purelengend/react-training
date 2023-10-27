@@ -1,0 +1,123 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MutationModal test case > should render correctly 1`] = `
+<div
+  className="d-flex-center modal-overlay"
+  id="mutation-modal"
+>
+  <div
+    className="d-flex-col _mutation-modal-body_9aa3b9"
+  >
+    <h2
+      className="_mutation-modal-content_9aa3b9"
+      id="mutation-title"
+    >
+      mock
+    </h2>
+    <form
+      className="d-flex-col _mutation-form_9aa3b9"
+      id="mutation-form"
+      onSubmit={[MockFunction spy]}
+    >
+      <div
+        className="d-flex-col _mutation-form-field_9aa3b9"
+      >
+        <label
+          className="_mutation-label_9aa3b9"
+          htmlFor="name"
+        >
+          Name
+        </label>
+        <input
+          className="_mutation-input_9aa3b9"
+          id="name"
+          name="name"
+          onChange={[Function]}
+          step="any"
+          type="text"
+          value=""
+        />
+      </div>
+      <div
+        className="d-flex-col _mutation-form-field_9aa3b9"
+      >
+        <label
+          className="_mutation-label_9aa3b9"
+          htmlFor="price"
+        >
+          Price
+        </label>
+        <input
+          className="_mutation-input_9aa3b9"
+          id="price"
+          name="price"
+          onChange={[Function]}
+          step="any"
+          type="number"
+          value="0"
+        />
+      </div>
+      <div
+        className="d-flex-col _mutation-form-field_9aa3b9"
+      >
+        <label
+          className="_mutation-label_9aa3b9"
+          htmlFor="image"
+        >
+          Image URL
+        </label>
+        <input
+          className="_mutation-input_9aa3b9"
+          id="image"
+          name="imageUrl"
+          onChange={[Function]}
+          step="any"
+          type="text"
+          value=""
+        />
+      </div>
+      <div
+        className="d-flex-col _mutation-form-field_9aa3b9"
+      >
+        <label
+          className="_mutation-label_9aa3b9"
+          htmlFor="quantity"
+        >
+          Quantity
+        </label>
+        <input
+          className="_mutation-input_9aa3b9 _half_9aa3b9"
+          id="quantity"
+          name="quantity"
+          onChange={[Function]}
+          step="any"
+          type="number"
+          value="0"
+        />
+      </div>
+      <div
+        className="d-flex _mutation-modal-btn-wrapper_9aa3b9"
+      >
+        <button
+          className="modal-btn cancel"
+          data-id="0"
+          disabled={false}
+          onClick={[MockFunction spy]}
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          className="modal-btn confirm"
+          data-id="0"
+          disabled={false}
+          onClick={[Function]}
+          type="submit"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;

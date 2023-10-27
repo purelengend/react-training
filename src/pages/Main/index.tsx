@@ -4,11 +4,7 @@ import { Food, ProductCard } from '@components/common/Cards/ProductCard';
 import { Fallback } from '@components/common/Fallback';
 import { Spinner } from '@components/common/Spinner';
 import LoadingModal from '@components/Modals/LoadingModal';
-import {
-  defaultData,
-  defaultFoodErrorMessage,
-  FOOD_MSG
-} from '@constants/food';
+import { defaultData, defaultFoodErrorMessage, FOOD_MSG } from '@constants/food';
 import { MODAL_TITLE } from '@constants/modal';
 import { TOAST_MSG } from '@constants/toast';
 import { ModalContext } from '@context/modal';
@@ -19,16 +15,7 @@ import mainStyles from '@pages/Main/main.module.css';
 import { deleteFoodById, mutationFood } from '@services/food.service';
 import { ToastType } from '@store/toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import {
-  FormEvent,
-  Fragment,
-  lazy,
-  Suspense,
-  useCallback,
-  useContext,
-  useEffect,
-  useState
-} from 'react';
+import { FormEvent, Fragment, lazy, Suspense, useCallback, useContext, useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 const ConfirmModal = lazy(() => import('@components/Modals/ConfirmModal'));
@@ -299,7 +286,6 @@ const MainPage = () => {
               productData={mutationFoodData}
               setProductData={setMutationFoodData}
               errorProductMessage={errorMutationFoodMessage}
-              setErrorProductMessage={setErrorMutationFoodMessage}
               onCancelClick={onCancelMutationClick}
               onSubmit={onSubmit}
             />
