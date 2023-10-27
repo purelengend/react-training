@@ -1,0 +1,12 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`LoadingModal test case > should render correctly 1`] = `
+<div
+  className="d-flex-center modal-overlay"
+>
+  <div
+    className="_loader_3c694b _modal-loading_81953c"
+    id="spin"
+  />
+</div>
+`;
