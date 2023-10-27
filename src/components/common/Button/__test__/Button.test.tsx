@@ -55,7 +55,7 @@ describe('Button test case', () => {
     expect(mockButton.toJSON()).toMatchSnapshot();
   });
 
-  it('should accept custom onclick function and invoke it when being clicked', async () => {
+  it('should accept custom onClick function and invoke it when being clicked', async () => {
     customRender(<Button>Mock Children</Button>);
 
     const mockOnClick = vi.fn();

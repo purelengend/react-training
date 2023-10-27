@@ -12,7 +12,7 @@ describe('AddCard test cases', () => {
     expect(mockAddCard.toJSON()).toMatchSnapshot();
   });
 
-  it('should invoke onclick function when being clicked', async () => {
+  it('should invoke onClick function when being clicked', async () => {
     const mockOnClick = vi.fn();
 
     const { container } = render(<AddCard onClick={mockOnClick} />);

@@ -1,16 +1,16 @@
-import { memo, ReactNode } from 'react';
+import { HTMLInputTypeAttribute, memo, ReactNode } from 'react';
 import isEqual from 'react-fast-compare';
 
-interface InputFieldProps {
+export interface InputFieldProps {
   labelClass?: string;
   inputClass?: string;
   htmlFor?: string;
-  type?: string;
+  type?: HTMLInputTypeAttribute;
   name?: string;
   placeholder?: string;
   value?: string;
   label?: ReactNode;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const InputField = memo(

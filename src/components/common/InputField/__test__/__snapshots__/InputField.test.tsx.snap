@@ -1,0 +1,22 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`InputField test cases > should render correctly 1`] = `
+[
+  <label
+    className="mock-label"
+    htmlFor="mock"
+  >
+    mock
+  </label>,
+  <input
+    className="mock-input"
+    id="mock"
+    name="mock"
+    onChange={[MockFunction spy]}
+    placeholder="mock placeholder"
+    step="any"
+    type="text"
+    value="mock"
+  />,
+]
+`;
