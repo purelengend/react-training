@@ -2,7 +2,7 @@
 
 exports[`Fallback test case > should render correctly 1`] = `
 <div
-  className="d-flex-center _fallback-message_af4e75"
+  className="d-flex-center _fallback-message_c405b3"
 >
   Something went wrong
 </div>

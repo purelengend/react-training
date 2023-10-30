@@ -21,7 +21,7 @@ const useFood = () => {
   const { showToast, hideToast } = useContext(ToastContext);
 
   const getMoreFoods = async (pageParams: number) => {
-    const result = await getFoods(path + `${pageParams ?? DEFAULT_PAGINATION}`);
+    const result = await getFoods(path + `${pageParams}`);
 
     return { data: [...result], pageParams: pageParams + 1 };
   };

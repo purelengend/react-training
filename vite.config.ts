@@ -39,7 +39,8 @@ export default defineConfig({
       include: [
         'src/components/**/*.tsx',
         'src/layout/*.tsx',
-        'src/helpers/*.ts'
+        'src/helpers/*.ts',
+        'src/hooks/*.ts'
       ],
       exclude: ['src/components/**/*.stories.tsx']
     }
