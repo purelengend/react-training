@@ -3,7 +3,7 @@ import * as foodService from '@services/food.service';
 import { AllTheProviders } from '@src/test/test-utils';
 import { renderHook, waitFor } from '@testing-library/react';
 
-describe('useFood', () => {
+describe('useFood test cases', () => {
   it('should handle API request error', async () => {
     // Mock the getFoods function from the API service to throw an error
     const mockErrorGetFoods = vi.fn().mockRejectedValue('API error');

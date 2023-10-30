@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 
 import { Button } from '..';
 
-describe('Button test case', () => {
+describe('Button test cases', () => {
   it('should render correctly with children and be visible by default', () => {
     const mockButton = customRenderer(<Button>Mock Children</Button>);
 
