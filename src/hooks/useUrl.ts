@@ -62,6 +62,7 @@ const useUrl = () => {
     searchName: state.name,
     setSearchName,
     sortFilter: state.sort,
+    currentLimit: state.limit,
     setSortFilter,
     setPage,
     resetPage,

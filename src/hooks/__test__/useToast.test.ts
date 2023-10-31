@@ -4,7 +4,7 @@ import { initialToastState, ToastType } from '@store/toast';
 import { renderHook, waitFor } from '@testing-library/react';
 import { act } from 'react-test-renderer';
 
-describe('useModal', () => {
+describe('useToast test cases', () => {
   it('should initialize with default values', () => {
     const { result } = renderHook(() => useToast());
 
