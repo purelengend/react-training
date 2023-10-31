@@ -4,7 +4,7 @@ import { initialModalState } from '@store/modal';
 import { renderHook } from '@testing-library/react';
 import { act } from 'react-test-renderer';
 
-describe('useModal', () => {
+describe('useModal test cases', () => {
   it('should initialize with default values', () => {
     const { result } = renderHook(() => useModal());
 
@@ -13,7 +13,7 @@ describe('useModal', () => {
     expect(result.current.isLoadingShowUp).toBe(false);
   });
 
-  it('should set confirmModal', () => {
+  it('should set confirmModal with input data', () => {
     const { result } = renderHook(() => useModal());
     const { setConfirmShowUp } = result.current;
 
@@ -34,7 +34,7 @@ describe('useModal', () => {
     expect(result.current.confirmModal).toStrictEqual(mockConfirm);
   });
 
-  it('should set mutationModal', () => {
+  it('should set mutationModal with input data', () => {
     const { result } = renderHook(() => useModal());
     const { setMutationShowUp } = result.current;
 
@@ -55,7 +55,7 @@ describe('useModal', () => {
     expect(result.current.mutationModal).toStrictEqual(mockMutation);
   });
 
-  it('should set isLoadingShowUp', () => {
+  it('should set isLoadingShowUp to true', () => {
     const { result } = renderHook(() => useModal());
     const { setLoadingShowUp } = result.current;
 
