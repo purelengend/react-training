@@ -40,7 +40,8 @@ export default defineConfig({
         'src/components/**/*.tsx',
         'src/layout/*.tsx',
         'src/helpers/*.ts',
-        'src/hooks/*.ts'
+        'src/hooks/*.ts',
+        'src/services/*.ts'
       ],
       exclude: ['src/components/**/*.stories.tsx']
     }

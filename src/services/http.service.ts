@@ -1,5 +1,5 @@
 import { RESOURCE } from '@constants/api';
-import axios from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 
 const http = axios.create({
   baseURL: `${import.meta.env.VITE_SERVER_DOMAIN}${RESOURCE.food}`,
@@ -7,17 +7,19 @@ const http = axios.create({
   headers: { Accept: 'application/json', 'Content-Type': 'application/json' }
 });
 
-http.interceptors.response.use(
-  function (response) {
-    return response;
-  },
-  function (error) {
-    const res = error.response;
+export const onFulfilled = (response: AxiosResponse) => {
+  return response;
+};
+export const onRejected = (error: AxiosError) => {
+  const res = error.response;
 
+  if (res) {
     console.error('Looks like there was a problem. Status Code: ' + res.status);
-
-    return Promise.reject(error);
   }
-);
+
+  return Promise.reject(error);
+};
+
+http.interceptors.response.use(onFulfilled, onRejected);
 
 export default http;
