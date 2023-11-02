@@ -1,4 +1,4 @@
-import fallbackStyles from '@components/common/FallBack/Fallback.module.css';
+import fallbackStyles from '@components/common/Fallback/Fallback.module.css';
 
 export const Fallback = () => {
   return (
