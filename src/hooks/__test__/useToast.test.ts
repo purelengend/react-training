@@ -15,6 +15,7 @@ describe('useToast test cases', () => {
     vi.useFakeTimers({ shouldAdvanceTime: true });
 
     const { result } = renderHook(() => useToast());
+
     const { showToast, hideToast } = result.current;
 
     const mockToast = {
@@ -29,12 +30,15 @@ describe('useToast test cases', () => {
 
     await waitFor(() => {
       expect(result.current.toast.isVisible).toBe(mockToast.isVisible);
+
       expect(result.current.toast.message).toBe(mockToast.message);
+
       expect(result.current.toast.toastType).toBe(mockToast.toastType);
     });
 
     act(() => {
       hideToast();
+
       vi.advanceTimersByTime(TOAST_TIME);
     });
 

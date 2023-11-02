@@ -25,11 +25,12 @@ describe('useFood test cases', () => {
 
     // Initial state
     expect(result.current.foodData).toBeUndefined();
+
     expect(result.current.isLoading).toBe(true);
 
     // Wait for the API request to complete
-    // Data should be loaded
     await waitFor(() => {
+      // Data should be loaded
       expect(result.current.foodData).toEqual({
         pages: [{ data: Array(9).fill('mocked food'), pageParams: 2 }],
         pageParams: [undefined]
@@ -65,11 +66,12 @@ describe('useFood test cases', () => {
 
     // Initial state
     expect(result.current.foodData).toBeUndefined();
+
     expect(result.current.isLoading).toBe(true);
 
     // Wait for the API request to complete
-    // Data should be loaded
     await waitFor(() => {
+      // Data should be loaded
       expect(result.current.hasNextPage).toBe(false);
     });
 
@@ -94,10 +96,9 @@ describe('useFood test cases', () => {
       wrapper: AllTheProviders
     });
 
-    // Simulate an API request error by providing a mock function that rejects the promise
-
     // Initial state
     expect(result.current.foodData).toBeUndefined();
+
     expect(result.current.isLoading).toBe(true);
 
     // Wait for the API request to complete
@@ -105,8 +106,11 @@ describe('useFood test cases', () => {
     // Error handling
     await waitFor(() => {
       expect(foodService.getFoods).rejects.toMatch('error');
+
       expect(result.current.foodData).toBeUndefined();
+
       expect(result.current.isLoading).toBe(false);
+
       expect(result.current.isRefetching).toBe(false);
     });
 

@@ -9,12 +9,15 @@ describe('useModal test cases', () => {
     const { result } = renderHook(() => useModal());
 
     expect(result.current.confirmModal).toBe(initialModalState.confirmModal);
+
     expect(result.current.mutationModal).toBe(initialModalState.mutationModal);
+
     expect(result.current.isLoadingShowUp).toBe(false);
   });
 
   it('should set confirmModal with input data', () => {
     const { result } = renderHook(() => useModal());
+
     const { setConfirmShowUp } = result.current;
 
     const mockConfirm: typeof result.current.confirmModal = {
@@ -36,6 +39,7 @@ describe('useModal test cases', () => {
 
   it('should set mutationModal with input data', () => {
     const { result } = renderHook(() => useModal());
+
     const { setMutationShowUp } = result.current;
 
     const mockMutation: typeof result.current.mutationModal = {
@@ -57,6 +61,7 @@ describe('useModal test cases', () => {
 
   it('should set isLoadingShowUp to true', () => {
     const { result } = renderHook(() => useModal());
+
     const { setLoadingShowUp } = result.current;
 
     act(() => {

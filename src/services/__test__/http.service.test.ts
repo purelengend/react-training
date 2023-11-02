@@ -10,6 +10,7 @@ describe('HTTP Response Interceptors', () => {
         name: 'John Doe'
       }
     };
+
     // Call the onFulfilled function
     const result = onFulfilled(mockResponse as AxiosResponse);
 
@@ -34,6 +35,7 @@ describe('HTTP Response Interceptors', () => {
     // Assert that the function returns a rejected promise
     promise.catch(error => {
       expect(error).toBe(errorResponse);
+
       // Verify that console.error was called with the expected message
       expect(consoleError).toHaveBeenCalledWith(
         'Looks like there was a problem. Status Code: 404'
@@ -56,6 +58,7 @@ describe('HTTP Response Interceptors', () => {
     // Assert that the function returns a rejected promise
     promise.catch(error => {
       expect(error).toBe(errorResponse);
+
       // Verify that console.error was not called
       expect(consoleError).not.toHaveBeenCalled();
     });

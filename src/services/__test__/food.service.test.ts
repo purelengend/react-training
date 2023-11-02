@@ -1,11 +1,11 @@
+import { Food } from '@components/common/Cards/ProductCard';
 import {
-  getFoods,
-  getFoodById,
   deleteFoodById,
+  getFoodById,
+  getFoods,
   mutationFood
 } from '@services/food.service';
 import http from '@services/http.service';
-import { Food } from '@components/common/Cards/ProductCard';
 import { Mocked } from 'vitest';
 
 // Mock the http service
@@ -14,10 +14,6 @@ vi.mock('@services/http.service');
 const mockedHttp = http as Mocked<typeof http>;
 
 describe('Food Service', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
   it('should get a list of foods', async () => {
     const mockData: Food[] = [
       {

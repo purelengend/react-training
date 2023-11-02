@@ -9,8 +9,11 @@ describe('useUrl test cases', () => {
     const { result } = renderHook(() => useUrl());
 
     expect(result.current.currentPage).toBe(initialUrlState.page);
+
     expect(result.current.searchName).toBe(initialUrlState.name);
+
     expect(result.current.sortFilter).toBe(initialUrlState.sort);
+
     expect(result.current.currentLimit).toBe(initialUrlState.limit);
   });
 
