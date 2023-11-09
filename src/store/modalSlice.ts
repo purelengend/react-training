@@ -27,6 +27,8 @@ export type ModalSlice = {
     title?: string,
     productData?: Food
   ) => void;
+
+  setLoadingShowUp: (isShowUp: boolean) => void;
 };
 
 export const initialModalSlice: ModalSlice = {
@@ -46,7 +48,9 @@ export const initialModalSlice: ModalSlice = {
 
   setConfirmShowUp: () => {},
 
-  setMutationShowUp: () => {}
+  setMutationShowUp: () => {},
+
+  setLoadingShowUp: () => {}
 };
 
 export const createModalSlice: ImmerStateCreator<ModalSlice> = set => ({
@@ -66,6 +70,12 @@ export const createModalSlice: ImmerStateCreator<ModalSlice> = set => ({
       state.mutationModal.title = title ?? state.mutationModal.title;
       state.mutationModal.productData =
         productData ?? state.mutationModal.productData;
+    });
+  },
+
+  setLoadingShowUp: isShowUp => {
+    set(state => {
+      state.isLoadingShowUp = isShowUp;
     });
   }
 });

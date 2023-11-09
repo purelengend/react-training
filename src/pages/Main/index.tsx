@@ -11,7 +11,6 @@ import {
 } from '@constants/food';
 import { MODAL_TITLE } from '@constants/modal';
 import { TOAST_MSG } from '@constants/toast';
-import { ModalContext } from '@context/modal';
 import { ToastContext } from '@context/toast';
 import { validateForm } from '@helpers/form-validation';
 import useFood, { InfiniteQueryProps } from '@hooks/useFood';
@@ -46,8 +45,6 @@ const MainPage = () => {
     isFetchingNextPage
   } = useFood();
 
-  const { setLoadingShowUp } = useContext(ModalContext);
-
   const { showToast, hideToast } = useContext(ToastContext);
 
   const queryClient = useQueryClient();
@@ -62,13 +59,15 @@ const MainPage = () => {
     mutationModalZustand,
     setMutationShowUpZustand,
     confirmModalZustand,
-    setConfirmShowUpZustand
+    setConfirmShowUpZustand,
+    setLoadingShowUpZustand
   } = useBoundStore(
     useShallow(state => ({
       mutationModalZustand: state.mutationModal,
       setMutationShowUpZustand: state.setMutationShowUp,
       setConfirmShowUpZustand: state.setConfirmShowUp,
-      confirmModalZustand: state.confirmModal
+      confirmModalZustand: state.confirmModal,
+      setLoadingShowUpZustand: state.setLoadingShowUp
     }))
   );
 
@@ -101,7 +100,7 @@ const MainPage = () => {
     },
 
     onMutate: () => {
-      setLoadingShowUp(true);
+      setLoadingShowUpZustand(true);
     },
 
     onSuccess: data => {
@@ -133,7 +132,7 @@ const MainPage = () => {
 
       onCancelMutationClick();
 
-      setLoadingShowUp(false);
+      setLoadingShowUpZustand(false);
 
       showToast(toastMessage, ToastType.Success);
 
@@ -143,7 +142,7 @@ const MainPage = () => {
     onError: () => {
       onCancelMutationClick();
 
-      setLoadingShowUp(false);
+      setLoadingShowUpZustand(false);
 
       showToast(TOAST_MSG.ERROR, ToastType.Error);
 
@@ -178,7 +177,7 @@ const MainPage = () => {
     },
 
     onMutate: () => {
-      setLoadingShowUp(true);
+      setLoadingShowUpZustand(true);
     },
 
     onSuccess: () => {
@@ -186,7 +185,7 @@ const MainPage = () => {
 
       setConfirmShowUpZustand(false);
 
-      setLoadingShowUp(false);
+      setLoadingShowUpZustand(false);
 
       showToast(TOAST_MSG.DELETE, ToastType.Success);
 
@@ -196,7 +195,7 @@ const MainPage = () => {
     onError: () => {
       // setConfirmShowUp(false);
 
-      setLoadingShowUp(false);
+      setLoadingShowUpZustand(false);
 
       showToast(TOAST_MSG.ERROR, ToastType.Error);
 

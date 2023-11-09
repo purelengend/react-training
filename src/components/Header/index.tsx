@@ -3,17 +3,22 @@ import { InputField } from '@components/common/InputField';
 import { Select, SelectOptionProps } from '@components/common/Select';
 import headerStyles from '@components/Header/header.module.css';
 import { FILTER_ATTRIBUTE } from '@constants/filter';
-import { ModalContext } from '@context/modal';
 import { UrlContext } from '@context/url';
 import { useDebounce } from '@hooks/useDebounce';
 import useFood from '@hooks/useFood';
+import { useBoundStore } from '@store/index';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 const Header = () => {
   const { path, sortFilter, setSortFilter, searchName, setSearchName } =
     useContext(UrlContext);
 
-  const { setLoadingShowUp } = useContext(ModalContext);
+  const { setLoadingShowUpZustand } = useBoundStore(
+    useShallow(state => ({
+      setLoadingShowUpZustand: state.setLoadingShowUp
+    }))
+  );
 
   const { refetch, isRefetching } = useFood();
 
@@ -28,8 +33,8 @@ const Header = () => {
   }, [refetch, path, searchName, debouncedText]);
 
   useEffect(
-    () => setLoadingShowUp(isRefetching),
-    [isRefetching, setLoadingShowUp]
+    () => setLoadingShowUpZustand(isRefetching),
+    [isRefetching, setLoadingShowUpZustand]
   );
 
   useEffect(() => setSearchName(debouncedText), [debouncedText, setSearchName]);

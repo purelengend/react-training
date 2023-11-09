@@ -3,18 +3,23 @@ import { Toast } from '@components/common/Toast';
 import Footer from '@components/Footer';
 import Header from '@components/Header';
 import LoadingModal from '@components/Modals/LoadingModal';
-import { ModalContext } from '@context/modal';
 import { ToastContext } from '@context/toast';
 import layoutStyles from '@layout/layout.module.css';
+import { useBoundStore } from '@store/index';
 import { ReactNode, useContext } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { useShallow } from 'zustand/react/shallow';
 
 interface Props {
   children: ReactNode;
 }
 
 const Layout = ({ children }: Props) => {
-  const { isLoadingShowUp } = useContext(ModalContext);
+  const { isLoadingShowUpZustand } = useBoundStore(
+    useShallow(state => ({
+      isLoadingShowUpZustand: state.isLoadingShowUp
+    }))
+  );
 
   const { toast } = useContext(ToastContext);
 
@@ -30,7 +35,7 @@ const Layout = ({ children }: Props) => {
         </ErrorBoundary>
       </div>
 
-      {isLoadingShowUp && (
+      {isLoadingShowUpZustand && (
         <ErrorBoundary fallback={<Fallback />}>
           <LoadingModal />
         </ErrorBoundary>
