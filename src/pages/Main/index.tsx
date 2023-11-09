@@ -17,6 +17,7 @@ import { validateForm } from '@helpers/form-validation';
 import useFood, { InfiniteQueryProps } from '@hooks/useFood';
 import mainStyles from '@pages/Main/main.module.css';
 import { deleteFoodById, mutationFood } from '@services/food.service';
+import { useBoundStore } from '@store/index';
 import { ToastType } from '@store/toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
@@ -30,6 +31,7 @@ import {
   useState
 } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { useShallow } from 'zustand/react/shallow';
 
 const ConfirmModal = lazy(() => import('@components/Modals/ConfirmModal'));
 
@@ -47,9 +49,9 @@ const MainPage = () => {
   const {
     mutationModal,
     setMutationShowUp,
-    setLoadingShowUp,
-    confirmModal,
-    setConfirmShowUp
+    setLoadingShowUp
+    // confirmModal,
+    // setConfirmShowUp
   } = useContext(ModalContext);
 
   const { showToast, hideToast } = useContext(ToastContext);
@@ -60,6 +62,13 @@ const MainPage = () => {
 
   const [errorMutationFoodMessage, setErrorMutationFoodMessage] = useState(
     defaultFoodErrorMessage
+  );
+
+  const { confirmModalZustand, setConfirmShowUpZustand } = useBoundStore(
+    useShallow(state => ({
+      setConfirmShowUpZustand: state.setConfirmShowUp,
+      confirmModalZustand: state.confirmModal
+    }))
   );
 
   // Set data to the mutation form when editing a food
@@ -168,7 +177,9 @@ const MainPage = () => {
     },
 
     onSuccess: () => {
-      setConfirmShowUp(false);
+      // setConfirmShowUp(false);
+
+      setConfirmShowUpZustand(false);
 
       setLoadingShowUp(false);
 
@@ -178,7 +189,7 @@ const MainPage = () => {
     },
 
     onError: () => {
-      setConfirmShowUp(false);
+      // setConfirmShowUp(false);
 
       setLoadingShowUp(false);
 
@@ -194,10 +205,13 @@ const MainPage = () => {
     networkMode: 'always'
   });
 
-  const onCancelConfirmClick = useCallback(
-    () => setConfirmShowUp(false),
-    [setConfirmShowUp]
-  );
+  const onCancelConfirmClick = useCallback(() => {
+    // setConfirmShowUp(false);
+    setConfirmShowUpZustand(false);
+  }, [
+    // setConfirmShowUp,
+    setConfirmShowUpZustand
+  ]);
 
   const onClickAddFood = useCallback(
     () => setMutationShowUp(true, MODAL_TITLE.ADD, defaultData),
@@ -205,8 +219,14 @@ const MainPage = () => {
   );
 
   const onClickDeleteFood = useCallback(
-    (foodId: string) => setConfirmShowUp(true, MODAL_TITLE.DELETE, foodId),
-    [setConfirmShowUp]
+    (foodId: string) => {
+      // setConfirmShowUp(true, MODAL_TITLE.DELETE, foodId);
+      setConfirmShowUpZustand(true, MODAL_TITLE.DELETE, foodId);
+    },
+    [
+      // setConfirmShowUp,
+      setConfirmShowUpZustand
+    ]
   );
 
   const onClickEditFood = useCallback(
@@ -218,9 +238,9 @@ const MainPage = () => {
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      deleteFood(confirmModal.dataId);
+      deleteFood(confirmModalZustand.dataId);
     },
-    [confirmModal.dataId, deleteFood]
+    [confirmModalZustand.dataId, deleteFood]
   );
 
   const onClickExpandFood = useCallback(() => fetchNextPage(), [fetchNextPage]);
@@ -278,12 +298,12 @@ const MainPage = () => {
         </ErrorBoundary>
       </main>
 
-      {confirmModal.isShowUp && (
+      {confirmModalZustand.isShowUp && (
         <Suspense fallback={<LoadingModal />}>
           <ErrorBoundary fallback={<Fallback />}>
             <ConfirmModal
-              message={confirmModal.title}
-              dataId={confirmModal.dataId}
+              message={confirmModalZustand.title}
+              dataId={confirmModalZustand.dataId}
               onSubmit={onConfirm}
               onCancelClick={onCancelConfirmClick}
             />
