@@ -34,6 +34,7 @@ export const initialUrlSlice: UrlSlice = {
 
 export const createUrlSlice: MiddlewareStateCreator<UrlSlice> = (set, get) => ({
   ...initialUrlSlice,
+
   setPage: page => {
     set(state => {
       state.page = page;

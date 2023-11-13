@@ -1,11 +1,9 @@
 import { DEFAULT_LIMITATION, DEFAULT_PAGINATION } from '@constants/filter';
 import { TOAST_MSG } from '@constants/toast';
-import { ToastContext } from '@context/toast';
 import { getFoods } from '@services/food.service';
 import { useBoundStore } from '@store/index';
 import { ToastType } from '@store/toast';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useContext } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 
 export interface InfiniteQueryProps<T> {
@@ -23,7 +21,12 @@ const useFood = () => {
     }))
   );
 
-  const { showToast, hideToast } = useContext(ToastContext);
+  const { showToastZustand, hideToastZustand } = useBoundStore(
+    useShallow(state => ({
+      showToastZustand: state.showToast,
+      hideToastZustand: state.hideToast
+    }))
+  );
 
   const getMoreFoods = async (pageParams: number) => {
     const result = await getFoods(pathZustand + `${pageParams}`);
@@ -53,9 +56,9 @@ const useFood = () => {
     refetchOnWindowFocus: false,
 
     onError: () => {
-      showToast(TOAST_MSG.ERROR, ToastType.Error);
+      showToastZustand(TOAST_MSG.ERROR, ToastType.Error);
 
-      hideToast();
+      hideToastZustand();
     }
   });
 

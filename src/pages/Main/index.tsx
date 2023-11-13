@@ -11,7 +11,6 @@ import {
 } from '@constants/food';
 import { MODAL_TITLE } from '@constants/modal';
 import { TOAST_MSG } from '@constants/toast';
-import { ToastContext } from '@context/toast';
 import { validateForm } from '@helpers/form-validation';
 import useFood, { InfiniteQueryProps } from '@hooks/useFood';
 import mainStyles from '@pages/Main/main.module.css';
@@ -25,7 +24,6 @@ import {
   lazy,
   Suspense,
   useCallback,
-  useContext,
   useEffect,
   useState
 } from 'react';
@@ -45,7 +43,12 @@ const MainPage = () => {
     isFetchingNextPage
   } = useFood();
 
-  const { showToast, hideToast } = useContext(ToastContext);
+  const { showToastZustand, hideToastZustand } = useBoundStore(
+    useShallow(state => ({
+      showToastZustand: state.showToast,
+      hideToastZustand: state.hideToast
+    }))
+  );
 
   const queryClient = useQueryClient();
 
@@ -134,9 +137,9 @@ const MainPage = () => {
 
       setLoadingShowUpZustand(false);
 
-      showToast(toastMessage, ToastType.Success);
+      showToastZustand(toastMessage, ToastType.Success);
 
-      hideToast();
+      hideToastZustand();
     },
 
     onError: () => {
@@ -144,9 +147,9 @@ const MainPage = () => {
 
       setLoadingShowUpZustand(false);
 
-      showToast(TOAST_MSG.ERROR, ToastType.Error);
+      showToastZustand(TOAST_MSG.ERROR, ToastType.Error);
 
-      hideToast();
+      hideToastZustand();
     },
 
     onSettled: () => {
@@ -187,9 +190,9 @@ const MainPage = () => {
 
       setLoadingShowUpZustand(false);
 
-      showToast(TOAST_MSG.DELETE, ToastType.Success);
+      showToastZustand(TOAST_MSG.DELETE, ToastType.Success);
 
-      hideToast();
+      hideToastZustand();
     },
 
     onError: () => {
@@ -197,9 +200,9 @@ const MainPage = () => {
 
       setLoadingShowUpZustand(false);
 
-      showToast(TOAST_MSG.ERROR, ToastType.Error);
+      showToastZustand(TOAST_MSG.ERROR, ToastType.Error);
 
-      hideToast();
+      hideToastZustand();
     },
 
     onSettled: () => {

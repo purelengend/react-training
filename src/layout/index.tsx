@@ -3,10 +3,9 @@ import { Toast } from '@components/common/Toast';
 import Footer from '@components/Footer';
 import Header from '@components/Header';
 import LoadingModal from '@components/Modals/LoadingModal';
-import { ToastContext } from '@context/toast';
 import layoutStyles from '@layout/layout.module.css';
 import { useBoundStore } from '@store/index';
-import { ReactNode, useContext } from 'react';
+import { ReactNode } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useShallow } from 'zustand/react/shallow';
 
@@ -21,7 +20,13 @@ const Layout = ({ children }: Props) => {
     }))
   );
 
-  const { toast } = useContext(ToastContext);
+  const { toastZustand } = useBoundStore(
+    useShallow(state => ({
+      toastZustand: state.toast
+    }))
+  );
+
+  console.log(toastZustand);
 
   return (
     <>
@@ -43,9 +48,9 @@ const Layout = ({ children }: Props) => {
 
       <ErrorBoundary fallback={<Fallback />}>
         <Toast
-          message={toast.message}
-          isVisible={toast.isVisible}
-          toastType={toast.toastType}
+          message={toastZustand.message}
+          isVisible={toastZustand.isVisible}
+          toastType={toastZustand.toastType}
         />
       </ErrorBoundary>
     </>
