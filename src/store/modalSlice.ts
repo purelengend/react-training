@@ -3,7 +3,7 @@ import { Food } from '@components/common/Cards/ProductCard';
 import { ModalProp } from './modal';
 import { MODAL_TITLE } from '@constants/modal';
 import { DEFAULT_FOOD_ID_VALUE, defaultData } from '@constants/food';
-import { ImmerStateCreator } from '@store/type';
+import { MiddlewareStateCreator } from '@store/type';
 
 export type ModalSlice = {
   confirmModal: ModalProp & {
@@ -53,7 +53,7 @@ export const initialModalSlice: ModalSlice = {
   setLoadingShowUp: () => {}
 };
 
-export const createModalSlice: ImmerStateCreator<ModalSlice> = set => ({
+export const createModalSlice: MiddlewareStateCreator<ModalSlice> = set => ({
   ...initialModalSlice,
 
   setConfirmShowUp: (isShowUp, title, dataId) => {

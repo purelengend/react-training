@@ -1,11 +1,12 @@
 import { DEFAULT_LIMITATION, DEFAULT_PAGINATION } from '@constants/filter';
 import { TOAST_MSG } from '@constants/toast';
 import { ToastContext } from '@context/toast';
-import { UrlContext } from '@context/url';
 import { getFoods } from '@services/food.service';
+import { useBoundStore } from '@store/index';
 import { ToastType } from '@store/toast';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useContext } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 export interface InfiniteQueryProps<T> {
   pages: Array<{
@@ -16,12 +17,16 @@ export interface InfiniteQueryProps<T> {
 }
 
 const useFood = () => {
-  const { path } = useContext(UrlContext);
+  const { pathZustand } = useBoundStore(
+    useShallow(state => ({
+      pathZustand: state.getPath()
+    }))
+  );
 
   const { showToast, hideToast } = useContext(ToastContext);
 
   const getMoreFoods = async (pageParams: number) => {
-    const result = await getFoods(path + `${pageParams}`);
+    const result = await getFoods(pathZustand + `${pageParams}`);
 
     return { data: [...result], pageParams: pageParams + 1 };
   };

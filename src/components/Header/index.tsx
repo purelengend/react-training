@@ -3,16 +3,28 @@ import { InputField } from '@components/common/InputField';
 import { Select, SelectOptionProps } from '@components/common/Select';
 import headerStyles from '@components/Header/header.module.css';
 import { FILTER_ATTRIBUTE } from '@constants/filter';
-import { UrlContext } from '@context/url';
 import { useDebounce } from '@hooks/useDebounce';
 import useFood from '@hooks/useFood';
 import { useBoundStore } from '@store/index';
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 
 const Header = () => {
-  const { path, sortFilter, setSortFilter, searchName, setSearchName } =
-    useContext(UrlContext);
+  const {
+    pathZustand,
+    sortFilterZustand,
+    setSortFilterZustand,
+    searchNameZustand,
+    setSearchNameZustand
+  } = useBoundStore(
+    useShallow(state => ({
+      pathZustand: state.getPath(),
+      sortFilterZustand: state.sort,
+      setSortFilterZustand: state.setSortFilter,
+      searchNameZustand: state.name,
+      setSearchNameZustand: state.setSearchName
+    }))
+  );
 
   const { setLoadingShowUpZustand } = useBoundStore(
     useShallow(state => ({
@@ -30,14 +42,16 @@ const Header = () => {
   useEffect(() => {
     refetch();
     setSearchText(debouncedText);
-  }, [refetch, path, searchName, debouncedText]);
+  }, [refetch, pathZustand, searchNameZustand, debouncedText]);
 
   useEffect(
     () => setLoadingShowUpZustand(isRefetching),
     [isRefetching, setLoadingShowUpZustand]
   );
 
-  useEffect(() => setSearchName(debouncedText), [debouncedText, setSearchName]);
+  useEffect(() => {
+    setSearchNameZustand(debouncedText);
+  }, [debouncedText, setSearchNameZustand]);
 
   const onRefresh = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>): void => {
@@ -81,9 +95,9 @@ const Header = () => {
 
   const onChangeSelectOption = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setSortFilter(e.target.value);
+      setSortFilterZustand(e.target.value);
     },
-    [setSortFilter]
+    [setSortFilterZustand]
   );
 
   return (
@@ -119,7 +133,7 @@ const Header = () => {
       </div>
       <div className={`d-flex ${headerStyles['header-sub-wrapper']}`}>
         <Select
-          value={sortFilter}
+          value={sortFilterZustand}
           onChange={onChangeSelectOption}
           selectOptions={selectOptions}
         />
