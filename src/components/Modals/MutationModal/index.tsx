@@ -2,43 +2,27 @@ import { Button } from '@components/common/Button';
 import { Food } from '@components/common/Cards/ProductCard';
 import { InputField } from '@components/common/InputField';
 import mutationModalStyles from '@components/Modals/MutationModal/mutation-modal.module.css';
-import {
-  defaultData,
-  defaultFoodErrorMessage,
-  FoodErrorMessage
-} from '@constants/food';
-import { FormEvent, memo, useCallback } from 'react';
+import { defaultFoodErrorMessage, FoodErrorMessage } from '@constants/food';
+import { memo } from 'react';
 import isEqual from 'react-fast-compare';
+import { Control } from 'react-hook-form';
 
 export interface MutationModalProps {
   title: string;
-  productData?: Food;
-  setProductData: (food: Food) => void;
   errorProductMessage?: FoodErrorMessage;
   onCancelClick: () => void;
-  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  onSubmit: React.FormEventHandler<HTMLFormElement>;
+  control: Control<Food>;
 }
 
 const MutationModal = memo(
   ({
     title,
-    productData = defaultData,
-    setProductData,
     errorProductMessage = defaultFoodErrorMessage,
     onCancelClick,
-    onSubmit
+    onSubmit,
+    control
   }: MutationModalProps) => {
-    const onChangeMutationProductData = useCallback(
-      (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setProductData({
-          ...productData,
-          [e.target.name]: value
-        });
-      },
-      [productData, setProductData]
-    );
-
     return (
       <div id="mutation-modal" className={`d-flex-center modal-overlay`}>
         <div
@@ -65,8 +49,7 @@ const MutationModal = memo(
                 type="text"
                 inputClass={mutationModalStyles['mutation-input']}
                 name="name"
-                value={productData.name}
-                onChange={onChangeMutationProductData}
+                control={control}
               />
               {errorProductMessage.name && (
                 <p className={mutationModalStyles['mutation-warning']}>
@@ -84,8 +67,7 @@ const MutationModal = memo(
                 type="number"
                 inputClass={mutationModalStyles['mutation-input']}
                 name="price"
-                value={`${productData.price}`}
-                onChange={onChangeMutationProductData}
+                control={control}
               />
               {errorProductMessage.price && (
                 <p className={mutationModalStyles['mutation-warning']}>
@@ -103,8 +85,7 @@ const MutationModal = memo(
                 type="text"
                 inputClass={mutationModalStyles['mutation-input']}
                 name="imageUrl"
-                value={productData.imageUrl}
-                onChange={onChangeMutationProductData}
+                control={control}
               />
               {errorProductMessage.imageUrl && (
                 <p className={mutationModalStyles['mutation-warning']}>
@@ -122,8 +103,7 @@ const MutationModal = memo(
                 type="number"
                 inputClass={`${mutationModalStyles['mutation-input']} ${mutationModalStyles.half}`}
                 name="quantity"
-                value={`${productData.quantity}`}
-                onChange={onChangeMutationProductData}
+                control={control}
               />
               {errorProductMessage.quantity && (
                 <p className={mutationModalStyles['mutation-warning']}>

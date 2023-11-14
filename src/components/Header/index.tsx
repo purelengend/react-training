@@ -1,5 +1,5 @@
-import searchIcon from '@assets/icons/search-icon.svg';
-import { InputField } from '@components/common/InputField';
+// import searchIcon from '@assets/icons/search-icon.svg';
+// import { Select, SelectOptionProps } from '@components/common/InputField';
 import { Select, SelectOptionProps } from '@components/common/Select';
 import headerStyles from '@components/Header/header.module.css';
 import { FILTER_ATTRIBUTE } from '@constants/filter';
@@ -88,10 +88,10 @@ const Header = () => {
     []
   );
 
-  const onChangeSearchInput = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => setSearchText(e.target.value),
-    []
-  );
+  // const onChangeSearchInput = useCallback(
+  //   (e: React.ChangeEvent<HTMLInputElement>) => setSearchText(e.target.value),
+  //   []
+  // );
 
   const onChangeSelectOption = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -111,7 +111,7 @@ const Header = () => {
           </a>
         </div>
         <div className={`d-flex ${headerStyles['search-form']}`}>
-          <InputField
+          {/* <InputField
             htmlFor="search"
             type="text"
             name="search"
@@ -128,7 +128,7 @@ const Header = () => {
                 className={headerStyles['primary-icon']}
               />
             }
-          />
+          /> */}
         </div>
       </div>
       <div className={`d-flex ${headerStyles['header-sub-wrapper']}`}>

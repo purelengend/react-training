@@ -1,16 +1,16 @@
 import { HTMLInputTypeAttribute, memo, ReactNode } from 'react';
 import isEqual from 'react-fast-compare';
+import { useController, UseControllerProps } from 'react-hook-form';
+
+import { Food } from '../Cards/ProductCard';
 
 export interface InputFieldProps {
   labelClass?: string;
   inputClass?: string;
   htmlFor?: string;
   type?: HTMLInputTypeAttribute;
-  name?: string;
   placeholder?: string;
-  value?: string;
   label?: ReactNode;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const InputField = memo(
@@ -19,26 +19,24 @@ export const InputField = memo(
     inputClass,
     htmlFor,
     type,
-    name,
     placeholder,
-    value,
-    onChange,
-    label
-  }: InputFieldProps) => {
+    label,
+    ...props
+  }: InputFieldProps & UseControllerProps<Food>) => {
+    const { field } = useController(props);
+
     return (
       <>
         <label htmlFor={htmlFor} className={labelClass}>
           {label}
         </label>
         <input
-          onChange={onChange}
           type={type}
           className={inputClass}
           id={htmlFor}
-          name={name}
-          value={value}
           placeholder={placeholder}
           step="any"
+          {...field}
         />
       </>
     );

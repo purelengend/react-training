@@ -45,7 +45,7 @@ describe('Header test case', () => {
     expect(mockOnRefresh).toHaveBeenCalled();
   });
 
-  it('should correctly set default option', async () => {
+  it('should invoke onChange function when select options', async () => {
     customRender(<Header />);
 
     const mockOnChangeSelection = vi.fn();

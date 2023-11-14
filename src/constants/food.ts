@@ -19,8 +19,7 @@ export const defaultData: Food = {
   name: '',
   price: 0,
   imageUrl: '',
-  quantity: 0,
-  createdAt: new Date()
+  quantity: 0
 };
 
 export interface FoodErrorMessage {

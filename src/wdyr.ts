@@ -3,7 +3,7 @@ import React from 'react';
 
 if (process.env.NODE_ENV === 'development') {
   whyDidYouRender(React, {
-    trackAllPureComponents: false,
+    trackAllPureComponents: true,
     trackHooks: false
   });
 }

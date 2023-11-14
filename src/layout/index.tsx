@@ -26,8 +26,6 @@ const Layout = ({ children }: Props) => {
     }))
   );
 
-  console.log(toastZustand);
-
   return (
     <>
       <div className={layoutStyles.container}>

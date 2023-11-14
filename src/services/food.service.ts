@@ -24,7 +24,9 @@ export const mutationFood = async (inputFood: Food) => {
   let result: Food;
 
   if (inputFood.id === DEFAULT_FOOD_ID_VALUE) {
-    const food: Omit<Food, 'id'> = {
+    const food: Omit<Food, 'id'> & {
+      createdAt: Date;
+    } = {
       name: inputFood.name,
       price: Number(inputFood.price),
       imageUrl: inputFood.imageUrl,
@@ -39,8 +41,7 @@ export const mutationFood = async (inputFood: Food) => {
       name: inputFood.name,
       price: Number(inputFood.price),
       imageUrl: inputFood.imageUrl,
-      quantity: Number(inputFood.quantity),
-      createdAt: inputFood.createdAt
+      quantity: Number(inputFood.quantity)
     };
 
     result = (await http.put<Food>(`${inputFood.id}`, food)).data;

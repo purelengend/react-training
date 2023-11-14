@@ -4,14 +4,9 @@ import { Food, ProductCard } from '@components/common/Cards/ProductCard';
 import { Fallback } from '@components/common/Fallback';
 import { Spinner } from '@components/common/Spinner';
 import LoadingModal from '@components/Modals/LoadingModal';
-import {
-  defaultData,
-  defaultFoodErrorMessage,
-  FOOD_MSG
-} from '@constants/food';
+import { defaultData, FOOD_MSG } from '@constants/food';
 import { MODAL_TITLE } from '@constants/modal';
 import { TOAST_MSG } from '@constants/toast';
-import { validateForm } from '@helpers/form-validation';
 import useFood, { InfiniteQueryProps } from '@hooks/useFood';
 import mainStyles from '@pages/Main/main.module.css';
 import { deleteFoodById, mutationFood } from '@services/food.service';
@@ -24,10 +19,10 @@ import {
   lazy,
   Suspense,
   useCallback,
-  useEffect,
-  useState
+  useEffect
 } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useShallow } from 'zustand/react/shallow';
 
 const ConfirmModal = lazy(() => import('@components/Modals/ConfirmModal'));
@@ -52,12 +47,6 @@ const MainPage = () => {
 
   const queryClient = useQueryClient();
 
-  const [mutationFoodData, setMutationFoodData] = useState(defaultData);
-
-  const [errorMutationFoodMessage, setErrorMutationFoodMessage] = useState(
-    defaultFoodErrorMessage
-  );
-
   const {
     mutationModalZustand,
     setMutationShowUpZustand,
@@ -74,28 +63,22 @@ const MainPage = () => {
     }))
   );
 
+  // react-hook-form
+  const { handleSubmit, control, reset } = useForm<Food>({
+    defaultValues: mutationModalZustand.productData
+  });
+
   // Set data to the mutation form when editing a food
   useEffect(() => {
     if (mutationModalZustand.productData) {
-      setMutationFoodData(mutationModalZustand.productData);
+      reset(mutationModalZustand.productData);
     }
-  }, [mutationModalZustand.productData]);
+  }, [mutationModalZustand.productData, reset]);
 
   const onCancelMutationClick = useCallback(() => {
-    if (mutationFoodData.id === defaultData.id) {
-      setMutationFoodData(defaultData);
-    } else {
-      setMutationFoodData(mutationModalZustand.productData!);
-    }
-
-    setErrorMutationFoodMessage(defaultFoodErrorMessage);
-
     setMutationShowUpZustand(false);
-  }, [
-    mutationFoodData.id,
-    mutationModalZustand.productData,
-    setMutationShowUpZustand
-  ]);
+    reset();
+  }, [reset, setMutationShowUpZustand]);
 
   const { mutate: mutateFood } = useMutation({
     mutationFn: (input: Food) => {
@@ -159,20 +142,9 @@ const MainPage = () => {
     networkMode: 'always'
   });
 
-  const onSubmit = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-
-      const validateMessage = validateForm(mutationFoodData);
-
-      if (Object.values(validateMessage).join('')) {
-        setErrorMutationFoodMessage(validateMessage);
-      } else {
-        mutateFood(mutationFoodData);
-      }
-    },
-    [mutateFood, mutationFoodData]
-  );
+  const onSubmit: SubmitHandler<Food> = data => {
+    mutateFood(data);
+  };
 
   const { mutate: deleteFood } = useMutation({
     mutationFn: (id: string) => {
@@ -184,8 +156,6 @@ const MainPage = () => {
     },
 
     onSuccess: () => {
-      // setConfirmShowUp(false);
-
       setConfirmShowUpZustand(false);
 
       setLoadingShowUpZustand(false);
@@ -196,8 +166,6 @@ const MainPage = () => {
     },
 
     onError: () => {
-      // setConfirmShowUp(false);
-
       setLoadingShowUpZustand(false);
 
       showToastZustand(TOAST_MSG.ERROR, ToastType.Error);
@@ -213,12 +181,8 @@ const MainPage = () => {
   });
 
   const onCancelConfirmClick = useCallback(() => {
-    // setConfirmShowUp(false);
     setConfirmShowUpZustand(false);
-  }, [
-    // setConfirmShowUp,
-    setConfirmShowUpZustand
-  ]);
+  }, [setConfirmShowUpZustand]);
 
   const onClickAddFood = useCallback(
     () => setMutationShowUpZustand(true, MODAL_TITLE.ADD, defaultData),
@@ -227,13 +191,9 @@ const MainPage = () => {
 
   const onClickDeleteFood = useCallback(
     (foodId: string) => {
-      // setConfirmShowUp(true, MODAL_TITLE.DELETE, foodId);
       setConfirmShowUpZustand(true, MODAL_TITLE.DELETE, foodId);
     },
-    [
-      // setConfirmShowUp,
-      setConfirmShowUpZustand
-    ]
+    [setConfirmShowUpZustand]
   );
 
   const onClickEditFood = useCallback(
@@ -323,11 +283,9 @@ const MainPage = () => {
           <ErrorBoundary fallback={<Fallback />}>
             <MutationModal
               title={mutationModalZustand.title}
-              productData={mutationFoodData}
-              setProductData={setMutationFoodData}
-              errorProductMessage={errorMutationFoodMessage}
               onCancelClick={onCancelMutationClick}
-              onSubmit={onSubmit}
+              onSubmit={handleSubmit(onSubmit)}
+              control={control}
             />
           </ErrorBoundary>
         </Suspense>
