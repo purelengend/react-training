@@ -11,12 +11,9 @@ exports[`InputField test cases > should render correctly 1`] = `
   <input
     className="mock-input"
     id="mock"
-    name="mock"
-    onChange={[MockFunction spy]}
     placeholder="mock placeholder"
     step="any"
     type="text"
-    value="mock"
   />,
 ]
 `;

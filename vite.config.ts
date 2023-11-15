@@ -41,7 +41,8 @@ export default defineConfig({
         'src/layout/*.tsx',
         'src/helpers/*.ts',
         'src/hooks/*.ts',
-        'src/services/*.ts'
+        'src/services/*.ts',
+        'src/store/*Slice.ts'
       ],
       exclude: ['src/components/**/*.stories.tsx']
     }

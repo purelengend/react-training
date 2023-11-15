@@ -1,4 +1,4 @@
-// import searchIcon from '@assets/icons/search-icon.svg';
+import searchIcon from '@assets/icons/search-icon.svg';
 // import { Select, SelectOptionProps } from '@components/common/InputField';
 import { Select, SelectOptionProps } from '@components/common/Select';
 import headerStyles from '@components/Header/header.module.css';
@@ -88,10 +88,10 @@ const Header = () => {
     []
   );
 
-  // const onChangeSearchInput = useCallback(
-  //   (e: React.ChangeEvent<HTMLInputElement>) => setSearchText(e.target.value),
-  //   []
-  // );
+  const onChangeSearchInput = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => setSearchText(e.target.value),
+    []
+  );
 
   const onChangeSelectOption = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -129,6 +129,24 @@ const Header = () => {
               />
             }
           /> */}
+          <label htmlFor="search">
+            <img
+              width="16"
+              height="16"
+              src={searchIcon}
+              alt="Search Icon"
+              className={headerStyles['primary-icon']}
+            />
+          </label>
+          <input
+            type="text"
+            className={headerStyles['search-input']}
+            id="search"
+            placeholder="Search for food, coffee, etc.."
+            step="any"
+            value={searchText}
+            onChange={onChangeSearchInput}
+          />
         </div>
       </div>
       <div className={`d-flex ${headerStyles['header-sub-wrapper']}`}>

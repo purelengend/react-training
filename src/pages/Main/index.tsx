@@ -7,27 +7,43 @@ import LoadingModal from '@components/Modals/LoadingModal';
 import { defaultData, FOOD_MSG } from '@constants/food';
 import { MODAL_TITLE } from '@constants/modal';
 import { TOAST_MSG } from '@constants/toast';
+import {
+  isValidImageUrl,
+  isValidInteger,
+  isValidName
+} from '@helpers/form-validation';
+import { zodResolver } from '@hookform/resolvers/zod';
 import useFood, { InfiniteQueryProps } from '@hooks/useFood';
 import mainStyles from '@pages/Main/main.module.css';
 import { deleteFoodById, mutationFood } from '@services/food.service';
 import { useBoundStore } from '@store/index';
 import { ToastType } from '@store/toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import {
-  FormEvent,
-  Fragment,
-  lazy,
-  Suspense,
-  useCallback,
-  useEffect
-} from 'react';
+import { FormEvent, Fragment, lazy, Suspense, useCallback } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { z } from 'zod';
 import { useShallow } from 'zustand/react/shallow';
 
 const ConfirmModal = lazy(() => import('@components/Modals/ConfirmModal'));
 
 const MutationModal = lazy(() => import('@components/Modals/MutationModal'));
+
+const mutationSchema = z.object({
+  id: z.string().nullable(),
+  name: z.string().refine(isValidName, () => ({
+    message: FOOD_MSG.NAME_WARNING
+  })),
+  price: z
+    .number({ invalid_type_error: FOOD_MSG.PRICE_WARNING })
+    .min(1, { message: FOOD_MSG.PRICE_WARNING }),
+  quantity: z
+    .number({ invalid_type_error: FOOD_MSG.QUANTITY_WARNING })
+    .refine(isValidInteger, () => ({ message: FOOD_MSG.QUANTITY_WARNING })),
+  imageUrl: z
+    .string()
+    .refine(isValidImageUrl, () => ({ message: FOOD_MSG.IMG_WARNING }))
+});
 
 const MainPage = () => {
   const {
@@ -64,20 +80,14 @@ const MainPage = () => {
   );
 
   // react-hook-form
-  const { handleSubmit, control, reset } = useForm<Food>({
-    defaultValues: mutationModalZustand.productData
+  const { handleSubmit, reset, control, register } = useForm<Food>({
+    defaultValues: mutationModalZustand.productData,
+    resolver: zodResolver(mutationSchema)
   });
-
-  // Set data to the mutation form when editing a food
-  useEffect(() => {
-    if (mutationModalZustand.productData) {
-      reset(mutationModalZustand.productData);
-    }
-  }, [mutationModalZustand.productData, reset]);
 
   const onCancelMutationClick = useCallback(() => {
     setMutationShowUpZustand(false);
-    reset();
+    reset(defaultData);
   }, [reset, setMutationShowUpZustand]);
 
   const { mutate: mutateFood } = useMutation({
@@ -142,10 +152,6 @@ const MainPage = () => {
     networkMode: 'always'
   });
 
-  const onSubmit: SubmitHandler<Food> = data => {
-    mutateFood(data);
-  };
-
   const { mutate: deleteFood } = useMutation({
     mutationFn: (id: string) => {
       return deleteFoodById(id);
@@ -180,6 +186,10 @@ const MainPage = () => {
     networkMode: 'always'
   });
 
+  const onSubmit: SubmitHandler<Food> = data => {
+    mutateFood(data);
+  };
+
   const onCancelConfirmClick = useCallback(() => {
     setConfirmShowUpZustand(false);
   }, [setConfirmShowUpZustand]);
@@ -197,8 +207,12 @@ const MainPage = () => {
   );
 
   const onClickEditFood = useCallback(
-    (food: Food) => setMutationShowUpZustand(true, MODAL_TITLE.EDIT, food),
-    [setMutationShowUpZustand]
+    (food: Food) => {
+      setMutationShowUpZustand(true, MODAL_TITLE.EDIT, food);
+      reset(food);
+    },
+
+    [reset, setMutationShowUpZustand]
   );
 
   const onConfirm = useCallback(
@@ -286,6 +300,7 @@ const MainPage = () => {
               onCancelClick={onCancelMutationClick}
               onSubmit={handleSubmit(onSubmit)}
               control={control}
+              register={register}
             />
           </ErrorBoundary>
         </Suspense>

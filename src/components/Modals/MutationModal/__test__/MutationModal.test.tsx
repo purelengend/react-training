@@ -1,22 +1,33 @@
-import { defaultData, defaultFoodErrorMessage } from '@constants/food';
-import { customRenderer, render, screen } from '@src/test/test-utils';
+import { Food } from '@components/common/Cards/ProductCard';
+import {
+  customRenderer,
+  render,
+  renderHook,
+  screen
+} from '@src/test/test-utils';
 import userEvent from '@testing-library/user-event';
 import { FormEvent } from 'react';
+import { useForm } from 'react-hook-form';
 
 import MutationModal, { MutationModalProps } from '..';
 
 describe('MutationModal test case', () => {
+  const {
+    result: {
+      current: { register, control }
+    }
+  } = renderHook(() => useForm<Food>());
+
   const mockMutationModalProps: MutationModalProps = {
     title: 'mock',
-    productData: defaultData,
-    errorProductMessage: defaultFoodErrorMessage,
     onSubmit: vi
       .fn()
       .mockImplementation((e: FormEvent<HTMLFormElement>) =>
         e.preventDefault()
       ),
     onCancelClick: vi.fn(),
-    setProductData: vi.fn()
+    control,
+    register
   };
 
   it('should render correctly', () => {
@@ -47,13 +58,13 @@ describe('MutationModal test case', () => {
     expect(mockMutationModalProps.onCancelClick).toBeCalled();
   });
 
-  it('should invoke setProductData function when filling the modal', async () => {
-    render(<MutationModal {...mockMutationModalProps} />);
+  // it('should invoke setProductData function when filling the modal', async () => {
+  //   render(<MutationModal {...mockMutationModalProps} />);
 
-    const mockInputList = screen.getAllByRole('textbox');
+  //   const mockInputList = screen.getAllByRole('textbox');
 
-    await userEvent.type(mockInputList[0], 'mock');
+  //   await userEvent.type(mockInputList[0], 'mock');
 
-    expect(mockMutationModalProps.setProductData).toBeCalled();
-  });
+  //   expect(mockMutationModalProps.setProductData).toBeCalled();
+  // });
 });

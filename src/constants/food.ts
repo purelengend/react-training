@@ -3,8 +3,7 @@ import { Food } from '@components/common/Cards/ProductCard';
 export const FOOD_MSG = {
   NAME_WARNING:
     'The food name cannot be empty or have two trailing spaces consecutive',
-  PRICE_WARNING:
-    'The price cannot be empty or have two trailing spaces consecutive',
+  PRICE_WARNING: 'The price cannot be empty and must be greater than 0',
   IMG_WARNING:
     'The food image URL cannot be empty and must be in the right format',
   QUANTITY_WARNING:

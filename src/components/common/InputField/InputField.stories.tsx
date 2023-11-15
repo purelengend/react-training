@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { InputField } from '@components/common/InputField';
-import searchIcon from '@assets/icons/search-icon.svg';
-import headerStyles from '@components/Header/header.module.css';
 import mutationModalStyles from '@components/Modals/MutationModal/mutation-modal.module.css';
 const meta: Meta<typeof InputField> = {
   title: 'Example/InputField',
@@ -54,30 +52,6 @@ export default meta;
 
 type Story = StoryObj<typeof InputField>;
 
-export const SearchInputFieldExample: Story = {
-  args: {
-    label: (
-      <img
-        src={searchIcon}
-        alt="Search Icon"
-        className={headerStyles['primary-icon']}
-      />
-    ),
-    htmlFor: 'search',
-    inputClass: headerStyles['search-input'],
-    name: 'search',
-    type: 'text',
-    placeholder: 'Search for food, coffee, etc..'
-  },
-  decorators: [
-    Story => (
-      <div className={`d-flex ${headerStyles['search-form']}`}>
-        <Story />
-      </div>
-    )
-  ]
-};
-
 export const PriceInputFieldExample: Story = {
   args: {
     label: 'Price',
@@ -85,8 +59,7 @@ export const PriceInputFieldExample: Story = {
     labelClass: mutationModalStyles['mutation-label'],
     inputClass: mutationModalStyles['mutation-input'],
     name: 'price',
-    type: 'number',
-    value: `234`
+    type: 'number'
   },
   decorators: [
     Story => (
@@ -105,9 +78,8 @@ export const NameInputFieldExample: Story = {
     htmlFor: 'food',
     labelClass: mutationModalStyles['mutation-label'],
     inputClass: mutationModalStyles['mutation-input'],
-    name: 'food',
-    type: 'text',
-    value: `Example`
+    name: 'name',
+    type: 'text'
   },
   decorators: [
     Story => (

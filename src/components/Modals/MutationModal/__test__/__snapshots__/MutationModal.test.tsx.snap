@@ -22,6 +22,12 @@ exports[`MutationModal test case > should render correctly 1`] = `
       <div
         className="d-flex-col _mutation-form-field_9aa3b9"
       >
+        <input
+          hidden={true}
+          name="id"
+          onBlur={[Function]}
+          onChange={[Function]}
+        />
         <label
           className="_mutation-label_9aa3b9"
           htmlFor="name"
@@ -32,10 +38,10 @@ exports[`MutationModal test case > should render correctly 1`] = `
           className="_mutation-input_9aa3b9"
           id="name"
           name="name"
+          onBlur={[Function]}
           onChange={[Function]}
           step="any"
           type="text"
-          value=""
         />
       </div>
       <div
@@ -51,10 +57,10 @@ exports[`MutationModal test case > should render correctly 1`] = `
           className="_mutation-input_9aa3b9"
           id="price"
           name="price"
+          onBlur={[Function]}
           onChange={[Function]}
           step="any"
           type="number"
-          value="0"
         />
       </div>
       <div
@@ -70,10 +76,10 @@ exports[`MutationModal test case > should render correctly 1`] = `
           className="_mutation-input_9aa3b9"
           id="image"
           name="imageUrl"
+          onBlur={[Function]}
           onChange={[Function]}
           step="any"
           type="text"
-          value=""
         />
       </div>
       <div
@@ -89,10 +95,10 @@ exports[`MutationModal test case > should render correctly 1`] = `
           className="_mutation-input_9aa3b9 _half_9aa3b9"
           id="quantity"
           name="quantity"
+          onBlur={[Function]}
           onChange={[Function]}
           step="any"
           type="number"
-          value="0"
         />
       </div>
       <div

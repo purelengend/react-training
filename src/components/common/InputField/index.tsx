@@ -1,6 +1,6 @@
 import { HTMLInputTypeAttribute, memo, ReactNode } from 'react';
 import isEqual from 'react-fast-compare';
-import { useController, UseControllerProps } from 'react-hook-form';
+import { UseFormRegister } from 'react-hook-form';
 
 import { Food } from '../Cards/ProductCard';
 
@@ -11,6 +11,9 @@ export interface InputFieldProps {
   type?: HTMLInputTypeAttribute;
   placeholder?: string;
   label?: ReactNode;
+  name: keyof Food;
+  register?: UseFormRegister<Food>;
+  isNumber?: boolean;
 }
 
 export const InputField = memo(
@@ -21,10 +24,10 @@ export const InputField = memo(
     type,
     placeholder,
     label,
-    ...props
-  }: InputFieldProps & UseControllerProps<Food>) => {
-    const { field } = useController(props);
-
+    name,
+    register = undefined,
+    isNumber = false
+  }: InputFieldProps) => {
     return (
       <>
         <label htmlFor={htmlFor} className={labelClass}>
@@ -36,7 +39,9 @@ export const InputField = memo(
           id={htmlFor}
           placeholder={placeholder}
           step="any"
-          {...field}
+          {...(register
+            ? { ...register(name, { valueAsNumber: isNumber }) }
+            : {})}
         />
       </>
     );

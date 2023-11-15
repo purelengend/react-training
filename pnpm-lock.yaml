@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@hookform/resolvers':
+    specifier: ^3.3.2
+    version: 3.3.2(react-hook-form@7.48.2)
   '@tanstack/react-query':
     specifier: ^4.35.7
     version: 4.35.7(react-dom@18.2.0)(react@18.2.0)
@@ -35,6 +38,9 @@ dependencies:
   ts-jest:
     specifier: ^29.1.1
     version: 29.1.1(@babel/core@7.23.0)(esbuild@0.18.20)(jest@29.7.0)(typescript@5.2.2)
+  zod:
+    specifier: ^3.22.4
+    version: 3.22.4
   zustand:
     specifier: ^4.4.6
     version: 4.4.6(@types/react@18.2.22)(immer@10.0.3)(react@18.2.0)
@@ -139,9 +145,6 @@ devDependencies:
   react-test-renderer:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
-  react-testing-library:
-    specifier: ^8.0.1
-    version: 8.0.1
   storybook:
     specifier: 7.4.5
     version: 7.4.5
@@ -1905,6 +1908,14 @@ packages:
   /@floating-ui/utils@0.1.4:
     resolution: {integrity: sha512-qprfWkn82Iw821mcKofJ5Pk9wgioHicxcQMxx+5zt5GSKoqdWvgG5AxVmpmUUjzTLPVSH5auBrhI93Deayn/DA==}
     dev: true
+
+  /@hookform/resolvers@3.3.2(react-hook-form@7.48.2):
+    resolution: {integrity: sha512-Tw+GGPnBp+5DOsSg4ek3LCPgkBOuOgS5DsDV7qsWNH9LZc433kgsWICjlsh2J9p04H2K66hsXPPb9qn9ILdUtA==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
+    dependencies:
+      react-hook-form: 7.48.2(react@18.2.0)
+    dev: false
 
   /@humanwhocodes/config-array@0.11.11:
     resolution: {integrity: sha512-N2brEuAadi0CcdeMXUkhbZB84eskAc8MEX1By6qEchoVywSgXPIjou4rYsl0V3Hj0ZnuGycGCjdNgockbzeWNA==}
@@ -9027,11 +9038,6 @@ packages:
       scheduler: 0.23.0
     dev: true
 
-  /react-testing-library@8.0.1:
-    resolution: {integrity: sha512-Gq4JC9r3prA4hYwo7afcbHHMFckO29+5Nrh2KblAEPuK/DWaU0bJE1vtpAgLhzhY9bBirmcgjjIHljHEwGAXKw==}
-    deprecated: '🚨  react-testing-library has moved to @testing-library/react. Please uninstall react-testing-library and install @testing-library/react instead, or use an older version of react-testing-library. Learn more about this change here: https://github.com/testing-library/dom-testing-library/issues/260 Thanks! :)'
-    dev: true
-
   /react@18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
     engines: {node: '>=0.10.0'}
@@ -10610,6 +10616,10 @@ packages:
     resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
     engines: {node: '>=12.20'}
     dev: true
+
+  /zod@3.22.4:
+    resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
+    dev: false
 
   /zustand@4.4.6(@types/react@18.2.22)(immer@10.0.3)(react@18.2.0):
     resolution: {integrity: sha512-Rb16eW55gqL4W2XZpJh0fnrATxYEG3Apl2gfHTyDSE965x/zxslTikpNch0JgNjJA9zK6gEFW8Fl6d1rTZaqgg==}

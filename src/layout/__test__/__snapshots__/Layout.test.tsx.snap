@@ -40,7 +40,6 @@ exports[`Layout test case > should render correctly 1`] = `
           <input
             className="_search-input_d33141"
             id="search"
-            name="search"
             onChange={[Function]}
             placeholder="Search for food, coffee, etc.."
             step="any"
