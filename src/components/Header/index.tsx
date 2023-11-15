@@ -111,24 +111,6 @@ const Header = () => {
           </a>
         </div>
         <div className={`d-flex ${headerStyles['search-form']}`}>
-          {/* <InputField
-            htmlFor="search"
-            type="text"
-            name="search"
-            inputClass={headerStyles['search-input']}
-            placeholder="Search for food, coffee, etc.."
-            value={searchText}
-            onChange={onChangeSearchInput}
-            label={
-              <img
-                width="16"
-                height="16"
-                src={searchIcon}
-                alt="Search Icon"
-                className={headerStyles['primary-icon']}
-              />
-            }
-          /> */}
           <label htmlFor="search">
             <img
               width="16"
