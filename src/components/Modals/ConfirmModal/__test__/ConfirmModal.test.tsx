@@ -1,12 +1,11 @@
 import { customRenderer, render, screen } from '@src/test/test-utils';
 import userEvent from '@testing-library/user-event';
+import { FormEvent } from 'react';
 
 import ConfirmModal, { ConfirmModalProps } from '..';
-import { FormEvent } from 'react';
 
 describe('ConfirmModal test case', () => {
   const mockConfirmModalProps: ConfirmModalProps = {
-    dataId: '0',
     message: 'mock',
     onCancelClick: vi.fn(),
     onSubmit: vi

@@ -10,13 +10,6 @@ exports[`ConfirmModal test case > should render correctly 1`] = `
     id="confirm-form"
     onSubmit={[MockFunction spy]}
   >
-    <input
-      defaultValue="0"
-      hidden={true}
-      id="hidden-confirm-id"
-      name="id"
-      type="number"
-    />
     <h2
       className="_confirm-modal-content_1874c6"
     >

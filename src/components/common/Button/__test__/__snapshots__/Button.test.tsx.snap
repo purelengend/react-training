@@ -56,8 +56,6 @@ exports[`Button test cases > should accept the custom dataId attribute 1`] = `
 </button>
 `;
 
-exports[`Button test cases > should be hidden 1`] = `null`;
-
 exports[`Button test cases > should render correctly with children and be visible by default 1`] = `
 <button
   data-id="0"

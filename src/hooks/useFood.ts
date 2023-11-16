@@ -2,7 +2,7 @@ import { DEFAULT_LIMITATION, DEFAULT_PAGINATION } from '@constants/filter';
 import { TOAST_MSG } from '@constants/toast';
 import { getFoods } from '@services/food.service';
 import { useBoundStore } from '@store/index';
-import { ToastType } from '@store/toast';
+import { ToastType } from '@store/toastSlice';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useShallow } from 'zustand/react/shallow';
 

@@ -1,6 +1,17 @@
 import { TOAST_TIME } from '@constants/toast';
-import { ToastState, ToastType } from './toast';
+
 import { MiddlewareStateCreator } from './type';
+
+export enum ToastType {
+  Success = 'SUCCESS',
+  Error = 'ERROR'
+}
+
+export interface ToastState {
+  message: string;
+  toastType: ToastType;
+  isVisible: boolean;
+}
 
 export type ToastSlice = {
   toast: ToastState;

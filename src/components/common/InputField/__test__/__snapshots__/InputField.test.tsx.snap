@@ -11,6 +11,9 @@ exports[`InputField test cases > should render correctly 1`] = `
   <input
     className="mock-input"
     id="mock"
+    name="name"
+    onBlur={[Function]}
+    onChange={[Function]}
     placeholder="mock placeholder"
     step="any"
     type="text"

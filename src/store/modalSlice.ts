@@ -1,12 +1,15 @@
 import { Food } from '@components/common/Cards/ProductCard';
-
-import { ModalProp } from './modal';
-import { MODAL_TITLE } from '@constants/modal';
 import { DEFAULT_FOOD_ID_VALUE, defaultData } from '@constants/food';
+import { MODAL_TITLE } from '@constants/modal';
 import { MiddlewareStateCreator } from '@store/type';
 
+export interface ModalProp {
+  isShowUp: boolean;
+  title: string;
+}
+
 export type ModalSlice = {
-  confirmModal: ModalProp & {
+  confirmModal: Omit<ModalProp, 'title'> & {
     dataId: string;
   };
 
@@ -34,7 +37,6 @@ export type ModalSlice = {
 export const initialModalSlice: ModalSlice = {
   confirmModal: {
     isShowUp: false,
-    title: MODAL_TITLE.CONFIRM,
     dataId: DEFAULT_FOOD_ID_VALUE
   },
 
@@ -56,20 +58,18 @@ export const initialModalSlice: ModalSlice = {
 export const createModalSlice: MiddlewareStateCreator<ModalSlice> = set => ({
   ...initialModalSlice,
 
-  setConfirmShowUp: (isShowUp, title, dataId) => {
-    set(state => {
-      state.confirmModal.isShowUp = isShowUp;
-      state.confirmModal.title = title ?? state.confirmModal.title;
-      state.confirmModal.dataId = dataId ?? state.confirmModal.dataId;
+  setConfirmShowUp: (isShowUp, dataId) => {
+    set(({ confirmModal }) => {
+      confirmModal.isShowUp = isShowUp;
+      confirmModal.dataId = dataId ?? confirmModal.dataId;
     });
   },
 
   setMutationShowUp: (isShowUp, title, productData) => {
-    set(state => {
-      state.mutationModal.isShowUp = isShowUp;
-      state.mutationModal.title = title ?? state.mutationModal.title;
-      state.mutationModal.productData =
-        productData ?? state.mutationModal.productData;
+    set(({ mutationModal }) => {
+      mutationModal.isShowUp = isShowUp;
+      mutationModal.title = title ?? mutationModal.title;
+      mutationModal.productData = productData ?? mutationModal.productData;
     });
   },
 

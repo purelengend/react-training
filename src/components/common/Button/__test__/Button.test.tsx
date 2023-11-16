@@ -42,7 +42,7 @@ describe('Button test cases', () => {
       <Button isVisible={false}>Mock Children</Button>
     );
 
-    expect(mockButton.toJSON()).toMatchSnapshot();
+    expect(mockButton.getInstance()).toBeNull();
   });
 
   it('should accept the custom dataId attribute', () => {

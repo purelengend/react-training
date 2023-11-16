@@ -12,7 +12,7 @@ export interface InputFieldProps {
   placeholder?: string;
   label?: ReactNode;
   name: keyof Food;
-  register?: UseFormRegister<Food>;
+  register: UseFormRegister<Food>;
   isNumber?: boolean;
 }
 
@@ -25,7 +25,7 @@ export const InputField = memo(
     placeholder,
     label,
     name,
-    register = undefined,
+    register,
     isNumber = false
   }: InputFieldProps) => {
     return (
@@ -39,9 +39,7 @@ export const InputField = memo(
           id={htmlFor}
           placeholder={placeholder}
           step="any"
-          {...(register
-            ? { ...register(name, { valueAsNumber: isNumber }) }
-            : {})}
+          {...register(name, { valueAsNumber: isNumber })}
         />
       </>
     );

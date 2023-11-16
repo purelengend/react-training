@@ -1,5 +1,5 @@
 import { customRenderer } from '@src/test/test-utils';
-import { ToastType } from '@store/toast';
+import { ToastType } from '@store/toastSlice';
 
 import { Toast } from '..';
 

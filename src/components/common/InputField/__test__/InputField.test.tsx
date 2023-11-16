@@ -1,8 +1,15 @@
-import { customRenderer } from '@src/test/test-utils';
+import { Food } from '@components/common/Cards/ProductCard';
+import { customRenderer, renderHook } from '@src/test/test-utils';
+import { useForm } from 'react-hook-form';
 
 import { InputField, InputFieldProps } from '..';
 
 describe('InputField test cases', () => {
+  const {
+    result: {
+      current: { register }
+    }
+  } = renderHook(() => useForm<Food>());
   const mockInputProps: InputFieldProps = {
     label: 'mock',
     labelClass: 'mock-label',
@@ -10,7 +17,8 @@ describe('InputField test cases', () => {
     inputClass: 'mock-input',
     placeholder: 'mock placeholder',
     type: 'text',
-    name: 'name'
+    name: 'name',
+    register: register
   };
 
   it('should render correctly', () => {

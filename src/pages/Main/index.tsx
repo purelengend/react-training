@@ -17,7 +17,7 @@ import useFood, { InfiniteQueryProps } from '@hooks/useFood';
 import mainStyles from '@pages/Main/main.module.css';
 import { deleteFoodById, mutationFood } from '@services/food.service';
 import { useBoundStore } from '@store/index';
-import { ToastType } from '@store/toast';
+import { ToastType } from '@store/toastSlice';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FormEvent, Fragment, lazy, Suspense, useCallback } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -283,8 +283,7 @@ const MainPage = () => {
         <Suspense fallback={<LoadingModal />}>
           <ErrorBoundary fallback={<Fallback />}>
             <ConfirmModal
-              message={confirmModalZustand.title}
-              dataId={confirmModalZustand.dataId}
+              message={MODAL_TITLE.ADD}
               onSubmit={onConfirm}
               onCancelClick={onCancelConfirmClick}
             />

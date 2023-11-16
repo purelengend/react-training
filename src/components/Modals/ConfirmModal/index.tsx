@@ -4,13 +4,12 @@ import { FormEvent, memo } from 'react';
 
 export interface ConfirmModalProps {
   message: string;
-  dataId: string;
   onCancelClick: () => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
 }
 
 const ConfirmModal = memo(
-  ({ message, dataId, onCancelClick, onSubmit }: ConfirmModalProps) => {
+  ({ message, onCancelClick, onSubmit }: ConfirmModalProps) => {
     return (
       <div id="confirm-modal" className="d-flex-center modal-overlay">
         <form
@@ -18,13 +17,6 @@ const ConfirmModal = memo(
           className={`d-flex-col ${confirmModalStyles['confirm-modal-body']}`}
           onSubmit={onSubmit}
         >
-          <input
-            id="hidden-confirm-id"
-            type="number"
-            defaultValue={dataId}
-            name="id"
-            hidden
-          />
           <h2 className={confirmModalStyles['confirm-modal-content']}>
             {message}
           </h2>

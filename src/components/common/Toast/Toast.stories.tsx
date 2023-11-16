@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Toast } from '@components/common/Toast';
 import '@components/common/Toast/toast.module.css';
-import { ToastType } from '@store/toast';
+import { ToastType } from '@store/toastSlice';
 
 const meta: Meta<typeof Toast> = {
   title: 'Example/Toast',
