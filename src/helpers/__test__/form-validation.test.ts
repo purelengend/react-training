@@ -1,8 +1,8 @@
 import { Food } from '@components/common/Cards/ProductCard';
 import {
+  defaultFoodErrorMessage,
   FOOD_MSG,
-  FoodErrorMessage,
-  defaultFoodErrorMessage
+  FoodErrorMessage
 } from '@constants/food';
 import {
   isValidImageUrl,
@@ -59,8 +59,7 @@ describe('validateForm Function', () => {
       name: 'Burger',
       price: 10,
       imageUrl: 'https://example.com/burger.jpg',
-      quantity: 3,
-      createdAt: new Date()
+      quantity: 3
     };
 
     const result = validateForm(validInputData);
@@ -74,8 +73,7 @@ describe('validateForm Function', () => {
       name: '  Invalid Name  ',
       price: 0,
       imageUrl: 'https://example.com/document.pdf',
-      quantity: 2.5,
-      createdAt: new Date()
+      quantity: 2.5
     };
 
     const result = validateForm(invalidInputData);

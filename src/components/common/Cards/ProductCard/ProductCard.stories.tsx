@@ -49,8 +49,7 @@ export const ProductCardExample: Story = {
       price: 123,
       imageUrl:
         'https://images.unsplash.com/photo-1614777986387-015c2a89b696?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3774&q=80',
-      quantity: 4,
-      createdAt: new Date()
+      quantity: 4
     }
   }
 };

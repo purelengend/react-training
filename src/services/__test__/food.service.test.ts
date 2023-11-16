@@ -21,16 +21,14 @@ describe('Food Service', () => {
         name: 'Food 1',
         imageUrl: 'mocked',
         price: 123,
-        quantity: 321,
-        createdAt: new Date(1)
+        quantity: 321
       },
       {
         id: '2',
         name: 'Food 2',
         imageUrl: 'mocked',
         price: 123,
-        quantity: 321,
-        createdAt: new Date(1)
+        quantity: 321
       }
     ];
 
@@ -47,8 +45,7 @@ describe('Food Service', () => {
       name: 'Food 1',
       imageUrl: 'mocked',
       price: 123,
-      quantity: 321,
-      createdAt: new Date(1)
+      quantity: 321
     };
 
     mockedHttp.get.mockResolvedValue({ data: mockFood });
@@ -64,8 +61,7 @@ describe('Food Service', () => {
       name: 'Food 2',
       imageUrl: 'mocked',
       price: 123,
-      quantity: 321,
-      createdAt: new Date(1)
+      quantity: 321
     };
 
     mockedHttp.delete.mockResolvedValue({ data: mockFood });
@@ -81,8 +77,7 @@ describe('Food Service', () => {
       name: 'Added Food 3',
       imageUrl: 'mocked',
       price: 123,
-      quantity: 321,
-      createdAt: new Date(1)
+      quantity: 321
     };
 
     mockedHttp.post.mockResolvedValue({ data: mockInputFood });
@@ -98,8 +93,7 @@ describe('Food Service', () => {
       name: 'Updated Food 1',
       imageUrl: 'mocked',
       price: 123,
-      quantity: 321,
-      createdAt: new Date(1)
+      quantity: 321
     };
 
     mockedHttp.put.mockResolvedValue({ data: mockInputFood });
