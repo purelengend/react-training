@@ -19,11 +19,7 @@ export type ModalSlice = {
 
   isLoadingShowUp: boolean;
 
-  setConfirmShowUp: (
-    isShowUp: boolean,
-    title?: string,
-    dataId?: string
-  ) => void;
+  setConfirmShowUp: (isShowUp: boolean, dataId?: string) => void;
 
   setMutationShowUp: (
     isShowUp: boolean,

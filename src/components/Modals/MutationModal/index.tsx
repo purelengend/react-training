@@ -70,7 +70,7 @@ const MutationModal = memo(
                 inputClass={mutationModalStyles['mutation-input']}
                 name="price"
                 register={register}
-                isNumber={true}
+                typeValue="valueAsNumber"
               />
               {errors.price && (
                 <p className={mutationModalStyles['mutation-warning']}>
@@ -107,7 +107,7 @@ const MutationModal = memo(
                 inputClass={`${mutationModalStyles['mutation-input']} ${mutationModalStyles.half}`}
                 name="quantity"
                 register={register}
-                isNumber={true}
+                typeValue="valueAsNumber"
               />
               {errors.quantity && (
                 <p className={mutationModalStyles['mutation-warning']}>

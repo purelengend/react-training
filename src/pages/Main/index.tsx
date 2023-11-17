@@ -201,7 +201,7 @@ const MainPage = () => {
 
   const onClickDeleteFood = useCallback(
     (foodId: string) => {
-      setConfirmShowUpZustand(true, MODAL_TITLE.DELETE, foodId);
+      setConfirmShowUpZustand(true, foodId);
     },
     [setConfirmShowUpZustand]
   );
@@ -283,7 +283,7 @@ const MainPage = () => {
         <Suspense fallback={<LoadingModal />}>
           <ErrorBoundary fallback={<Fallback />}>
             <ConfirmModal
-              message={MODAL_TITLE.ADD}
+              message={MODAL_TITLE.DELETE}
               onSubmit={onConfirm}
               onCancelClick={onCancelConfirmClick}
             />

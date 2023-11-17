@@ -13,7 +13,7 @@ export interface InputFieldProps {
   label?: ReactNode;
   name: keyof Food;
   register: UseFormRegister<Food>;
-  isNumber?: boolean;
+  typeValue?: 'valueAsNumber' | 'valueAsDate' | undefined;
 }
 
 export const InputField = memo(
@@ -26,7 +26,7 @@ export const InputField = memo(
     label,
     name,
     register,
-    isNumber = false
+    typeValue = undefined
   }: InputFieldProps) => {
     return (
       <>
@@ -39,7 +39,14 @@ export const InputField = memo(
           id={htmlFor}
           placeholder={placeholder}
           step="any"
-          {...register(name, { valueAsNumber: isNumber })}
+          {...register(
+            name,
+            typeValue
+              ? {
+                  [`${typeValue}`]: true
+                }
+              : {}
+          )}
         />
       </>
     );
