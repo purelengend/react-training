@@ -18,7 +18,8 @@ describe('InputField test cases', () => {
     placeholder: 'mock placeholder',
     type: 'text',
     name: 'name',
-    register: register
+    register: register,
+    typeValue: 'valueAsNumber'
   };
 
   it('should render correctly', () => {
